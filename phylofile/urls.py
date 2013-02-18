@@ -9,8 +9,11 @@ urlpatterns = patterns('',
     url(r'^$', 'phylofile.views.home', name='home'),
     url(r'^about/$', 'phylofile.views.about', name='about'),
     
-    # trees application (add, get, query, etc.)
-    url(r'^trees/', include('phylofile.trees.urls')),
+    # trees application (add, get, etc.)
+    url(r'^trees/', include('trees.urls')),
+
+    # treequery application
+    url(r'^trees/', include('treequery.urls')),
     
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

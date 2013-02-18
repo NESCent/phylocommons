@@ -2,7 +2,9 @@
 
 import os
 
-ABS_PATH = '/path/to/django/app/'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'phylofile.settings'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DOMAIN = 'http://www.phylofile.org/'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -15,12 +17,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'phylofile.db'),
     }
 }
 
@@ -123,6 +121,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'trees',
+    'treequery',
+    'phylofile',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -153,3 +154,9 @@ LOGGING = {
         },
     }
 }
+
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_URL = '/logout/'
+LOGOUT_REDIRECT_URL = '/'
