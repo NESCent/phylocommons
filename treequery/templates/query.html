@@ -22,10 +22,17 @@
         </td></tr>
         
         <tr><td>
-            <label for='format'>From tree</label>
+            <label for='tree'>From tree</label>
         </td><td>
             {{ form.tree }}
             {{ form.tree.errors }}
+        </td></tr>
+        
+        <tr><td>
+            <label for='filter'>Tree filter</label>
+        </td><td>
+            {{ form.filter }}
+            {{ form.filter.errors }}
         </td></tr>
         
         <tr><td>
@@ -65,6 +72,16 @@
     </p>
     <br/>
     <p>
+        <strong>Tree filter:</strong>
+        If "select automatically" is selected, this field can be used to filter
+        which trees will be considered. You can enter a CQL query here.
+        [TODO: document this feature]
+    </p><p>
+        If a single tree is selected that does not match these requirements,
+        no result will be returned.
+    </p>
+    <br/>
+    <p>
         <strong>Prune result:</strong>
         If checked, the resulting tree will contain only the taxa you entered,
         and any others will be pruned away (preserving branch lengths where
@@ -79,7 +96,7 @@
     <br/><br/>
     <p>
         You can also query PhyloFile using a URL string:<br/><br/>
-        {{ domain }}{% url query %}?q=Taxon 1,Taxon 2,Taxon 3&prune=y&tree=tree_uri&format=newick
+        {{ domain }}{% url query %}?taxa=Taxon 1,Taxon 2,Taxon 3&tree=tree_uri&filter=cql_filter&prune=y&format=newick
     </p>
 </em>
 

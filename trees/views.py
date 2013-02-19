@@ -5,6 +5,7 @@ from phylofile.get_treestore import get_treestore, tree_id_from_uri, uri_from_tr
 from trees.forms import AddTreeForm
 import Bio.Phylo as bp
 from cStringIO import StringIO
+from phylofile import settings
 
 
 
@@ -21,11 +22,16 @@ def list(request):
 
 def add(request):
     if request.method == 'POST':
-        form = QueryForm(request.POST)
+        form = AddTreeForm(request.POST)
         if form.is_valid():
             pass
+    else:
+        form = AddTreeForm()
     
-    params = {'form': form}
+    params = {
+              'form': form,
+              'domain': settings.DOMAIN.rstrip('/'),
+              }
     params.update(csrf(request))
     
     return render_to_response(

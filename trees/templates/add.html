@@ -1,9 +1,67 @@
 {% extends "master.html" %}
 
-{% block title %}Add Trees{% endblock %}
+{% block title %}Add Trees - PhyloFile{% endblock %}
+
+{% block leftmenu %}
+{% include "tree_menu.html" %}
+{% endblock %}
 
 {% block content %}
 
-<p>Add a tree</p>
+<form action="{% url add %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    {{ form.non_field_errors }}
+    
+    <table width=100%>
+        <tr><td>
+            <label for='q'>Tree ID</label>
+        </td><td>
+            {{ form.tree_id }}
+            {{ form.tree_id.errors }}
+        </td></tr>
+        
+        <tr><td>
+            <label for='format'>Tree format</label>
+        </td><td>
+            {{ form.format }}
+            {{ form.format.errors }}
+        </td></tr>
+        
+        <tr><td>
+            <label for='format'>Tree file</label>
+        </td><td>
+            {{ form.tree_file }}
+            {{ form.tree_file.errors }}
+            
+            <input type="submit" value="Submit" />
+        </td></tr>
+    </table>
+    
+</form>
+
+<br/><br/>
+
+<em>
+    <p>
+        <strong>Tree ID:</strong>
+        Give your tree a short but descriptive ID. You can use letters, numbers,
+        dashes, and underscores. This will be used to generate the tree's URI:
+        <br/><br/>
+        {{ domain }}/trees/(tree_id)
+    </p>
+    <br/>
+    <p>
+        <strong>Tree format:</strong>
+        The format of the tree being added. If the tree file is unable to be
+        parsed, it will not be added and will instead return an error.
+    </p>
+    <br/>
+    <p>
+        <strong>Tree file:</strong>
+        A text file containing the tree(s).
+    </p>
+    <br/>
+</em>
 
 {% endblock%}

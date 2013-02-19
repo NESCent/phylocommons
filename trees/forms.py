@@ -4,7 +4,8 @@ from phylofile.get_treestore import get_treestore, tree_id_from_uri, uri_from_tr
 
 
 class AddTreeForm(forms.Form):
-    taxa = forms.CharField(required=True)
+    tree_id = forms.RegexField(regex=r'^[a-zA-Z][a-zA-Z0-9\_\-]*$', min_length=10, required=True,
+                               error_message='Tree ID must be at least 10 characters, start with a letter, and contain only letters, numbers, dashes and underscores.')
     
     format_choices = sorted(bp._io.supported_formats.keys())
     format_choices = [(x,x) for x in format_choices]

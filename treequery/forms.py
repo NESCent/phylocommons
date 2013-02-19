@@ -23,3 +23,5 @@ class QueryForm(forms.Form):
     tree = forms.ChoiceField(choices=tree_choices,
                              initial=tree_choices[0],
                              required=False)
+                             
+    filter = forms.CharField(required=False)

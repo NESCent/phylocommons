@@ -13,37 +13,43 @@ from phylofile import settings
 def query(request):
     treestore = get_treestore()
     
-    query = None
     format = 'newick'
     prune = True
     tree_uri = None
+    filter = None
     
     if request.method == 'POST':
         form = QueryForm(request.POST)
         if form.is_valid():
-            query = form.cleaned_data['taxa']
+            submitted_query = True
+            taxa = form.cleaned_data['taxa']
             prune = form.cleaned_data['prune']
             format = form.cleaned_data['format']
             tree_uri = form.cleaned_data['tree']
+            filter = form.cleaned_data['filter']
+        else:
+            submitted_query = False
         
-    elif request.method == 'GET' and 'q' in request.GET:
-            query = request.GET.get('q')
-            if 'format' in request.GET: format = request.GET.get('format')
-            if 'prune' in request.GET: prune = request.GET.get('prune')[0].lower() == 'y'
-            if 'tree' in request.GET: tree_uri = request.GET.get('tree')
+    elif request.method == 'GET' and 'taxa' in request.GET:
+        submitted_query = True
+        taxa = request.GET.get('taxa')
+        if 'format' in request.GET: format = request.GET.get('format')
+        if 'prune' in request.GET: prune = request.GET.get('prune')[0].lower() == 'y'
+        if 'tree' in request.GET: tree_uri = request.GET.get('tree')
+        if 'filter' in request.GET: filter = request.GET.get('filter')
             
     else:
+        submitted_query = False
         form = QueryForm()
             
 
-    if not query is None:
+    if submitted_query:
         # execute the query and return the result as a plaintext tree
-        taxa = query
         contains = taxa.split(',')
         
         try:
             trees = treestore.get_subtree(contains=contains, tree_uri=tree_uri,
-                                          format=format, prune=prune)
+                                          format=format, prune=prune, filter=filter)
         except:
             trees = None
                                       
