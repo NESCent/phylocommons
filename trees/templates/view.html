@@ -1,0 +1,56 @@
+{% extends "master.html" %}
+
+{% block title %}{{tree_uri}} - PhyloFile{% endblock %}
+
+{% block leftmenu %}
+{% include "tree_menu.html" %}
+{% endblock %}
+
+{% block content %}
+
+<p>
+    <a href='/trees/'>&lt;&lt; Back to list of trees</a>
+</p>
+
+<br/><br/>
+
+<table style='width:100%'>
+
+    <tr><td><strong>URI</strong></td><td>
+    {{tree_uri}}
+    </td></tr>
+    
+    <tr><td><strong>Download</strong></td><td>
+    <ul>
+    {% for format in download_formats %}
+    <li><a href='/trees/{{tree_uri}}/download?format={{format}}'>{{format}}</a></li>
+    {% endfor %}
+    </ul>
+    </td></tr>
+    
+    <tr><td><strong>Trees</strong></td><td>
+    {% if tree_info %}
+    <table style='width:100%'>
+    <thead><td>Tree URI</td><td>Taxa</td></thead>
+        {% for uri, taxa in tree_info %}
+        <tr><td>{{uri}}</td><td>{{taxa}}</td></tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    </td></tr>
+    
+    
+    <tr><td><strong>Taxa</strong></td><td>
+    {% if names %}
+    <select name='taxa' multiple='multiple' style='width:100%;'>
+        {% for name in names %}
+        <option>{{name}}</option>
+        {% endfor %}
+    </select>
+    {% else %}
+    <a href='/trees/{{tree_uri}}/?names=yes'>(show all taxa)</a>
+    {% endif %}
+    </td></tr>
+    
+</table>
+{% endblock %}

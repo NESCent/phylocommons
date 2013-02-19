@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block title %}{% endblock %}</title>
+    <link href="/static/master.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div id="page">
+        <div id="header">
+            <a href='/'><h1>Phylo<span class="blue">File</span></h1></a>
+            <a href='/'><img src='/static/nescent_logo.png' alt='NESCent'/></a>
+        </div>
+
+        <div id="menu">
+            <ul>
+                <li class="menuitem"><a href="/">Home</a></li>
+                <li class="menuitem"><a href="/about/">About</a></li>
+                <li class="menuitem"><a href="/trees/">Trees</a></li>
+                <li class="menuitem"><a href="/trees/query/">Query</a></li>
+                <li class="menuitem"><a href="/contact/">Contact</a></li>
+                <li class="menuitem floatright" ><a href="/login/">Sign In</a></li>
+            </ul>
+        </div>
+
+        <div id="leftmenu">
+            <ul>
+                {% block leftmenu %}
+                {% endblock %}
+            </ul>
+        </div>
+
+
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        
+        <div id="footer">
+            (C) 2013 <a href='http://www.nescent.org'>National Evolutionary Synthesis Center</a>
+        </div>
+       
+    </div>
+</body>
+</html>

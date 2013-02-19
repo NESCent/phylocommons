@@ -1,0 +1,166 @@
+body {
+text-align:left;
+font:12px Arial, Helvetica, sans-serif;
+color:#061C37;
+font-size:100%;
+background:url(/static/bg.jpg) repeat-x #bdbdef;
+margin:0;
+padding:0;
+}
+
+a {
+text-decoration:none;
+}
+
+* {
+text-align:left;
+margin:0 auto;
+font-size:0.95em;
+}
+
+#page {
+display:block;
+height:auto;
+position:relative;
+width:960px;
+margin-top:10px;
+}
+
+#header {
+height:85px;
+width:960px;
+}
+
+#header h1 {
+position:absolute;
+color:#fff;
+font-size:43px;
+left:14px;
+top:30px;
+}
+
+#header img {
+float:right;
+}
+
+.blue {
+color:#00f;
+}
+
+#menu {
+display:block;
+width:100%;
+height:54px;
+float:left;
+clear:both;
+background:#30309d;
+}
+
+#menu ul {
+list-style:none;
+margin-left:auto;
+width:960px;
+padding:0;
+}
+
+#menu li {
+list-style:none;
+display:inline;
+padding:0;
+}
+
+#menu a {
+float:left;
+height:36px;
+display:block;
+text-align:center;
+text-decoration:none;
+color:#fff;
+font-weight:700;
+padding-top:18px;
+font-size:1.1em;
+padding-left:20px;
+padding-right:20px;
+}
+
+#menu a:hover {
+background-color:#00f;
+background-repeat:repeat-x;
+}
+
+.floatright {
+float:right;
+}
+
+#leftmenu {
+margin-top:15px;
+width:204px;
+float:left;
+height:auto;
+background:#30309d;
+padding-top:20px;
+padding-bottom:20px;
+}
+
+#leftmenu ul {
+list-style:none;
+width:204px;
+padding:0;
+}
+
+#leftmenu ul li a,#leftmenu ul li a:visited {
+display:block;
+list-style:none;
+width:184px;
+padding-left:20px;
+padding-top:5px;
+padding-bottom:5px;
+height:30px;
+text-align:left;
+color:#FFF;
+text-decoration:none;
+font-size:1.1em;
+font-weight:700;
+}
+
+#leftmenu ul li a:hover {
+color:#EED7D7;
+background-color:#00f;
+}
+
+#content {
+display:block;
+float:left;
+width:689px;
+height:auto;
+padding-left:20px;
+padding-top:30px;
+padding-bottom:5px;
+}
+
+#footer {
+width:960px;
+margin-top:50px;
+float:left;
+text-align:center;
+border-top:1px dashed #30309d;
+}
+
+table
+{
+  border-top: solid 1px #000;
+  border-bottom: solid 1px #000;
+  border-collapse: collapse;
+}
+
+table td
+{
+  padding: 5px;
+  border-top: solid 1px #000;
+  border-bottom: solid 1px #000;
+}
+
+table thead
+{
+  font-weight: bold;
+}

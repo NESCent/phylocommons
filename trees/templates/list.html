@@ -1,0 +1,21 @@
+{% extends "master.html" %}
+
+{% block title %}List of Trees - PhyloFile{% endblock %}
+
+{% block leftmenu %}
+{% include "tree_menu.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% if tree_list %}
+<ul>
+    {% for tree_uri in tree_list %}
+    <li>
+        <a href='/trees/{{tree_uri}}'>{{tree_uri}}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}

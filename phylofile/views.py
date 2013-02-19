@@ -9,3 +9,13 @@ def about(request):
     return render_to_response(
         'about.html',
     )
+
+def contributors(request):
+    return render_to_response(
+        'contributors.html',
+    )
+
+def contact(request):
+    return render_to_response(
+        'contact.html',
+    )
