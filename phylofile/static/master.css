@@ -146,21 +146,26 @@ text-align:center;
 border-top:1px dashed #30309d;
 }
 
-table
-{
-  border-top: solid 1px #000;
-  border-bottom: solid 1px #000;
-  border-collapse: collapse;
+table {
+border-top: solid 1px #000;
+border-bottom: solid 1px #000;
+border-collapse: collapse;
 }
 
-table td
-{
-  padding: 5px;
-  border-top: solid 1px #000;
-  border-bottom: solid 1px #000;
+table td {
+padding: 5px;
+border-top: solid 1px #000;
+border-bottom: solid 1px #000;
 }
 
-table thead
-{
-  font-weight: bold;
+table thead {
+font-weight: bold;
+}
+
+textarea {
+width: 100%;
+}
+
+p.errors {
+color:#f00;
 }

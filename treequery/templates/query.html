@@ -9,24 +9,37 @@
 {% block content %}
 
 <form action="{% url query %}" method="post" enctype="multipart/form-data">
-
     {% csrf_token %}
+    
+    <p class='errors'>{{ form.non_field_errors }}</p>
     
     <table width=100%>
         <tr><td>
-            <label for='q'>Taxa:</label>
+            <label for='q'>Taxa</label>
         </td><td>
-            <textarea name='q' id='q' style='width:500px;height:200px'>Homo sapiens,Pan troglodytes,Gorilla gorilla</textarea>
+            <p class='errors'>{{ form.taxa.errors }}</p>
+            {{ form.taxa }}
         </td></tr>
         
         <tr><td>
-            <label for='format'>Result format:</label>
+            <label for='format'>From tree</label>
         </td><td>
-            <select name='format' id='format'>
-            {% for format in formats %}
-                <option{% if format == "newick" %} selected='selected'{% endif %}>{{format}}</option>
-            {% endfor %}
-            </select>
+            <p class='errors'>{{ form.tree.errors }}</p>
+            {{ form.tree }}
+        </td></tr>
+        
+        <tr><td>
+            <label for='prune'>Prune result?</label>
+        </td><td>
+            <p class='errors'>{{ form.prune.errors }}</p>
+            {{ form.prune }}
+        </td></tr>
+        
+        <tr><td>
+            <label for='format'>Result format</label>
+        </td><td>
+            <p class='errors'>{{ form.format.errors }}</p>
+            {{ form.format }}
             
             <input type="submit" value="Query" />
         </td></tr>
