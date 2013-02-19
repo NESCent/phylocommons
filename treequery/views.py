@@ -1,10 +1,13 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.core.context_processors import csrf
+from django.forms.util import ErrorList
+from django.forms.forms import NON_FIELD_ERRORS
 from phylofile.get_treestore import get_treestore, tree_id_from_uri, uri_from_tree_id
 from treequery.forms import QueryForm
 import Bio.Phylo as bp
 from cStringIO import StringIO
+from phylofile import settings
 
 
 def query(request):
@@ -38,16 +41,28 @@ def query(request):
         taxa = query
         contains = taxa.split(',')
         
-        trees = treestore.get_subtree(contains=contains, tree_uri=tree_uri,
-                                      format=format, prune=prune)
+        try:
+            trees = treestore.get_subtree(contains=contains, tree_uri=tree_uri,
+                                          format=format, prune=prune)
+        except:
+            trees = None
+                                      
+        if trees:
+            return download_plaintext(request, trees)
+        else:
             
-        return download_plaintext(request, trees)
+            errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+            err_msg = "Your query didn't return a result. Try entering a new list of taxa"
+            if tree_uri: err_msg += ' or selecting a different tree'
+            err_msg += '.'
+            errors.append(err_msg)
         
         
     # show the query builder page
             
     params = {
               'form': form,
+              'domain': settings.DOMAIN.rstrip('/'),
               }
     params.update(csrf(request))
             

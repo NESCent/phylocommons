@@ -11,40 +11,76 @@
 <form action="{% url query %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     
-    <p class='errors'>{{ form.non_field_errors }}</p>
+    {{ form.non_field_errors }}
     
     <table width=100%>
         <tr><td>
             <label for='q'>Taxa</label>
         </td><td>
-            <p class='errors'>{{ form.taxa.errors }}</p>
             {{ form.taxa }}
+            {{ form.taxa.errors }}
         </td></tr>
         
         <tr><td>
             <label for='format'>From tree</label>
         </td><td>
-            <p class='errors'>{{ form.tree.errors }}</p>
             {{ form.tree }}
+            {{ form.tree.errors }}
         </td></tr>
         
         <tr><td>
             <label for='prune'>Prune result?</label>
         </td><td>
-            <p class='errors'>{{ form.prune.errors }}</p>
             {{ form.prune }}
+            {{ form.prune.errors }}
         </td></tr>
         
         <tr><td>
             <label for='format'>Result format</label>
         </td><td>
-            <p class='errors'>{{ form.format.errors }}</p>
             {{ form.format }}
+            {{ form.format.errors }}
             
             <input type="submit" value="Query" />
         </td></tr>
     </table>
     
 </form>
+
+<br/><br/>
+
+<em>
+    <p>
+        <strong>Taxa:</strong>
+        Enter a comma-separated list of taxa from which to generate a tree.
+        (If you only enter a single taxon and choose not to prune, you can
+        get a tree containing that taxon and all of its descendents.)
+    </p>
+    <br/>
+    <p>
+        <strong>Tree:</strong>
+        Select a tree to query. By default, the tree (or one of the trees)
+        containing the greatest number of the entered taxa will be chosen
+        automatically.
+    </p>
+    <br/>
+    <p>
+        <strong>Prune result:</strong>
+        If checked, the resulting tree will contain only the taxa you entered,
+        and any others will be pruned away (preserving branch lengths where
+        necessary.) Otherwise, the entire subtree from the MRCA of the entered 
+        taxa will be returned.
+    </p>
+    <br/>
+    <p>
+        <strong>Result format:</strong>
+        The output format of the result tree.
+    </p>
+    <br/><br/>
+    <p>
+        You can also query PhyloFile using a URL string:<br/><br/>
+        {{ domain }}{% url query %}?q=Taxon 1,Taxon 2,Taxon 3&prune=y&tree=tree_uri&format=newick
+    </p>
+</em>
 
 {% endblock %}
