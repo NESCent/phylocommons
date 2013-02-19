@@ -1,0 +1,37 @@
+{% extends "master.html" %}
+
+{% block title %}Query - PhyloFile{% endblock %}
+
+{% block leftmenu %}
+{% include "tree_menu.html" %}
+{% endblock %}
+
+{% block content %}
+
+<form action="{% url query %}" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    
+    <table width=100%>
+        <tr><td>
+            <label for='q'>Taxa:</label>
+        </td><td>
+            <textarea name='q' id='q' style='width:500px;height:200px'>Homo sapiens,Pan troglodytes,Gorilla gorilla</textarea>
+        </td></tr>
+        
+        <tr><td>
+            <label for='format'>Result format:</label>
+        </td><td>
+            <select name='format' id='format'>
+            {% for format in formats %}
+                <option{% if format == "newick" %} selected='selected'{% endif %}>{{format}}</option>
+            {% endfor %}
+            </select>
+            
+            <input type="submit" value="Query" />
+        </td></tr>
+    </table>
+    
+</form>
+
+{% endblock %}

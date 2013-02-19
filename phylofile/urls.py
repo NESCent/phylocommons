@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^trees/', include('trees.urls')),
 
     # treequery application
-    url(r'^trees/', include('treequery.urls')),
+    url(r'^query/', include('treequery.urls')),
     
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

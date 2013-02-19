@@ -1,6 +1,6 @@
 {% extends "master.html" %}
 
-{% block title %}{{tree_uri}} - PhyloFile{% endblock %}
+{% block title %}{{tree_id}} - PhyloFile{% endblock %}
 
 {% block leftmenu %}
 {% include "tree_menu.html" %}
@@ -22,8 +22,8 @@
     
     <tr><td><strong>Download</strong></td><td>
     <ul>
-    {% for format in download_formats %}
-    <li><a href='/trees/{{tree_uri}}/download?format={{format}}'>{{format}}</a></li>
+    {% for format in formats %}
+    <li><a href='/trees/{{tree_id}}/download?format={{format}}'>{{format}}</a></li>
     {% endfor %}
     </ul>
     </td></tr>
@@ -48,7 +48,7 @@
         {% endfor %}
     </select>
     {% else %}
-    <a href='/trees/{{tree_uri}}/?names=yes'>(show all taxa)</a>
+    <a href='/trees/{{tree_id}}/?names=yes'>(show all taxa)</a>
     {% endif %}
     </td></tr>
     

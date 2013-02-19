@@ -4,7 +4,8 @@ import os
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'phylofile.settings'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DOMAIN = 'http://www.phylofile.org/'
+DOMAIN = 'http://phylofile.nescent.org/'
+TREE_URI = DOMAIN + 'trees/'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

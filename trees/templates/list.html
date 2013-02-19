@@ -10,9 +10,9 @@
 
 {% if tree_list %}
 <ul>
-    {% for tree_uri in tree_list %}
+    {% for tree_id in tree_list %}
     <li>
-        <a href='/trees/{{tree_uri}}'>{{tree_uri}}</a>
+        <a href='/trees/{{tree_id}}'>{{tree_id}}</a>
     </li>
     {% endfor %}
 </ul>
