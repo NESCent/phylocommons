@@ -11,8 +11,11 @@ urlpatterns = patterns('',
     url(r'^contributors/$', 'phylofile.views.contributors', name='contributors'),
     url(r'^contact/$', 'phylofile.views.contact', name='contact'),
     
-    # trees application (add, get, etc.)
-    url(r'^trees/', include('trees.urls')),
+    # treeupload application
+    url(r'^trees/', include('treeupload.urls')),
+    
+    # treeview application
+    url(r'^trees/', include('treeview.urls')),
 
     # treequery application
     url(r'^query/', include('treequery.urls')),

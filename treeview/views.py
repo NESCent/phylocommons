@@ -2,7 +2,6 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.core.context_processors import csrf
 from phylofile.get_treestore import get_treestore, tree_id_from_uri, uri_from_tree_id
-from trees.forms import AddTreeForm
 import Bio.Phylo as bp
 from cStringIO import StringIO
 from phylofile import settings
@@ -17,26 +16,6 @@ def list(request):
     return render_to_response(
         'list.html',
         {'tree_list': trees}
-    )
-
-
-def add(request):
-    if request.method == 'POST':
-        form = AddTreeForm(request.POST)
-        if form.is_valid():
-            pass
-    else:
-        form = AddTreeForm()
-    
-    params = {
-              'form': form,
-              'domain': settings.DOMAIN.rstrip('/'),
-              }
-    params.update(csrf(request))
-    
-    return render_to_response(
-        'add.html',
-        params
     )
 
 
