@@ -7,6 +7,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = 'http://phylofile.nescent.org/'
 TREE_URI = DOMAIN + 'trees/'
 
+TREESTORE_KWARGS = {}
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -48,7 +50,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploaded_trees/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -163,4 +165,8 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = '/logout/'
 LOGOUT_REDIRECT_URL = '/'
 
-TREESTORE_KWARGS = {}
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.request',
+    #'home.user_processor.user',
+)

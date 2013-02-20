@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.core.context_processors import csrf
+from django.template import RequestContext
 from phylofile.get_treestore import get_treestore, tree_id_from_uri, uri_from_tree_id
 import Bio.Phylo as bp
 from cStringIO import StringIO
@@ -15,7 +16,8 @@ def list(request):
     
     return render_to_response(
         'list.html',
-        {'tree_list': trees}
+        {'tree_list': trees},
+        context_instance=RequestContext(request)
     )
 
 
@@ -39,7 +41,8 @@ def view(request, tree_id=None):
 
     return render_to_response(
         'view.html',
-        params
+        params,
+        context_instance=RequestContext(request)
     )
 
 

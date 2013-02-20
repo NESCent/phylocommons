@@ -1,6 +1,7 @@
 from django.db import models
 from django import forms
 from django.contrib.auth.models import User
+from django.template.defaultfilters import filesizeformat
 import Bio.Phylo as bp
 from phylofile import settings
 import os
@@ -10,9 +11,7 @@ import os
 
 class TreeSubmission(models.Model):
     tree_file = models.FileField(
-        upload_to=os.path.join(settings.BASE_DIR, 'uploaded_trees/'),
-        verbose_name='Select a file',
-        help_text='File should be a properly formatted species list CSV. Max size 50mb.',
+        upload_to=os.path.join(settings.MEDIA_ROOT),
     )
     
     tree_id = models.CharField(max_length=100)
@@ -24,6 +23,12 @@ class TreeSubmission(models.Model):
     
     uploaded_by = models.ForeignKey(User, related_name='uploaded_by')
     upload_time = models.DateTimeField(auto_now_add=True)
+    
+    def tree_file_name(self):
+        return os.path.split(self.tree_file.name)[1]
+        
+    def tree_file_size(self):
+        return filesizeformat(self.tree_file.size)
     
     
 class TreeSubmissionJob(models.Model):
