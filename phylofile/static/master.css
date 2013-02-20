@@ -8,8 +8,14 @@ margin:0;
 padding:0;
 }
 
+p {
+padding-top: 10px;
+padding-bottom: 10px;
+}
+
 a {
 text-decoration:none;
+font-size: 1.05em;
 }
 
 * {
@@ -150,6 +156,7 @@ table {
 border-top: solid 1px #000;
 border-bottom: solid 1px #000;
 border-collapse: collapse;
+width: 100%;
 }
 
 table td {
@@ -173,6 +180,6 @@ padding-top: 10px;
 padding-bottom: 10px;
 }
 
-label {
+label, input[type="submit"] {
 font-weight: bold;
 }

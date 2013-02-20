@@ -8,6 +8,31 @@
 
 {% block content %}
 
-Hello, world!
+<p>
+    <strong>PhyloFile</strong> is a community-edited, annotated repository of
+    phylogenetic trees. It simplifies the reuse of published trees and
+    aggregates knowledge about each tree that can be used to inform evolutionary
+    analyses.
+</p>
+<p>
+    PhyloFile uses semantic web technologies including RDF to enable quick, efficient 
+    reuse of trees. PhyloFile leverages the open source 
+    <a href='biopython.org'>BioPython project</a> to convert trees in various 
+    formats into RDF. These trees are then stored in Virtuoso, a database optized 
+    for RDF storage. This makes common tasks such as querying for specific trees 
+    based on metadata (year published, reconstruction method) or creating subtrees 
+    from a list of taxa very efficient.
+</p>
+<p>
+    PhyloFile builds on tools that were developed at two
+    <a href='http://phylotastic.org/'>Phylotastic</a> hackathons.
+</p>
+<p>
+    View the list of <a href='{% url contributors %}'>contributors</a>.
+</p>
+<p>
+    PhyloFile is open source and is available on 
+    <a href='https://github.com/bendmorris/phylofile'>GitHub</a>.
+</p>
 
 {% endblock %}

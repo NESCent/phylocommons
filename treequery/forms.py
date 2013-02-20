@@ -7,7 +7,7 @@ class QueryForm(forms.Form):
     treestore = get_treestore()
     
     taxa = forms.CharField(required=True,
-                           initial='Homo sapiens,Pan troglodytes,Gorilla gorilla,Pongo pygmaeus',
+                           initial='Homo sapiens,Pan troglodytes,Pan paniscus,Gorilla gorilla,Pongo pygmaeus',
                            widget=forms.Textarea)
     
     format_choices = ['ascii'] + sorted(bp._io.supported_formats.keys())
@@ -17,6 +17,8 @@ class QueryForm(forms.Form):
                                )
                                
     prune = forms.BooleanField(required=False, initial=True)
+    
+    match_all = forms.BooleanField(required=False, initial=False)
     
     tree_choices = [t for t in treestore.list_trees()]
     tree_choices = [('', '(Select automatically)')] + [(x,x) for x in tree_choices]

@@ -13,7 +13,7 @@
     
     {{ form.non_field_errors }}
     
-    <table width=100%>
+    <table>
         <tr><td>
             <label for='q'>Tree ID</label>
         </td><td>
@@ -33,9 +33,9 @@
         </td><td>
             {{ form.tree_file }}
             {{ form.tree_file.errors }}
-            
-            <input type="submit" value="Submit" />
         </td></tr>
+        
+        <tfoot><td></td><td><br/><br/><input type="submit" value="Submit" /></td></tfoot>
     </table>
     
 </form>
@@ -46,22 +46,25 @@
     <p>
         <strong>Tree ID:</strong>
         Give your tree a short but descriptive ID. You can use letters, numbers,
-        dashes, and underscores. This will be used to generate the tree's URI:
-        <br/><br/>
+        dashes, and underscores. Tree IDs are case sensitive.
+    </p>
+    <p>
+        This will be used to generate the tree's URI:
+    </p>
+    <p>
         {{ domain }}/trees/(tree_id)
     </p>
-    <br/>
+    
     <p>
         <strong>Tree format:</strong>
         The format of the tree being added. If the tree file is unable to be
         parsed, it will not be added and will instead return an error.
     </p>
-    <br/>
+    
     <p>
         <strong>Tree file:</strong>
         A text file containing the tree(s).
     </p>
-    <br/>
 </em>
 
 {% endblock%}

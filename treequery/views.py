@@ -15,6 +15,7 @@ def query(request):
     
     format = 'newick'
     prune = True
+    match_all = False
     tree_uri = None
     filter = None
     
@@ -24,6 +25,7 @@ def query(request):
             submitted_query = True
             taxa = form.cleaned_data['taxa']
             prune = form.cleaned_data['prune']
+            match_all = form.cleaned_data['match_all']
             format = form.cleaned_data['format']
             tree_uri = form.cleaned_data['tree']
             filter = form.cleaned_data['filter']
@@ -35,6 +37,7 @@ def query(request):
         taxa = request.GET.get('taxa')
         if 'format' in request.GET: format = request.GET.get('format')
         if 'prune' in request.GET: prune = request.GET.get('prune')[0].lower() == 'y'
+        if 'match_all' in request.GET: match_all = request.GET.get('match_all')[0].lower() == 'y'
         if 'tree' in request.GET: tree_uri = request.GET.get('tree')
         if 'filter' in request.GET: filter = request.GET.get('filter')
             
@@ -49,15 +52,19 @@ def query(request):
         
         try:
             trees = treestore.get_subtree(contains=contains, tree_uri=tree_uri,
-                                          format=format, prune=prune, filter=filter)
-        except:
+                                          format=format, prune=prune, filter=filter,
+                                          match_all=match_all)
+        except Exception as e:
             trees = None
+            exception = e
                                       
         if trees:
             return download_plaintext(request, trees)
         else:
             
             errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+            errors.append('%s' % e)
+            
             err_msg = "Your query didn't return a result. Try entering a new list of taxa"
             if tree_uri: err_msg += ' or selecting a different tree'
             err_msg += '.'

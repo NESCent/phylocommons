@@ -8,8 +8,8 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'phylofile.views.home', name='home'),
     url(r'^about/$', 'phylofile.views.about', name='about'),
-    url(r'^contributors/$', 'phylofile.views.about', name='contributors'),
-    url(r'^contact/$', 'phylofile.views.about', name='contact'),
+    url(r'^contributors/$', 'phylofile.views.contributors', name='contributors'),
+    url(r'^contact/$', 'phylofile.views.contact', name='contact'),
     
     # trees application (add, get, etc.)
     url(r'^trees/', include('trees.urls')),

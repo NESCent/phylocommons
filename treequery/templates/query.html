@@ -13,7 +13,7 @@
     
     {{ form.non_field_errors }}
     
-    <table width=100%>
+    <table>
         <tr><td>
             <label for='q'>Taxa</label>
         </td><td>
@@ -21,16 +21,16 @@
             {{ form.taxa.errors }}
         </td></tr>
         
-        <tr><td>
+        <tr><td style='border-bottom:none;'>
             <label for='tree'>From tree</label>
-        </td><td>
+        </td><td style='border-bottom:none;'>
             {{ form.tree }}
             {{ form.tree.errors }}
         </td></tr>
         
-        <tr><td>
-            <label for='filter'>Tree filter</label>
-        </td><td>
+        <tr><td style='border-top:none;'>
+            <label for='filter'>where</label>
+        </td><td style='border-top:none;'>
             {{ form.filter }}
             {{ form.filter.errors }}
         </td></tr>
@@ -43,13 +43,21 @@
         </td></tr>
         
         <tr><td>
+            <label for='match_all'>Must match all?</label>
+        </td><td>
+            {{ form.match_all }}
+            {{ form.match_all.errors }}
+        </td></tr>
+        
+        <tr><td>
             <label for='format'>Result format</label>
         </td><td>
             {{ form.format }}
             {{ form.format.errors }}
             
-            <input type="submit" value="Query" />
         </td></tr>
+        
+        <tfoot><td></td><td><br/><br/><input type="submit" value="Get tree" /></td></tfoot>
     </table>
     
 </form>
@@ -63,24 +71,29 @@
         (If you only enter a single taxon and choose not to prune, you can
         get a tree containing that taxon and all of its descendents.)
     </p>
-    <br/>
+    
     <p>
-        <strong>Tree:</strong>
+        <strong>From tree:</strong>
         Select a tree to query. By default, the tree (or one of the trees)
         containing the greatest number of the entered taxa will be chosen
         automatically.
     </p>
-    <br/>
     <p>
-        <strong>Tree filter:</strong>
+        Be careful if you don't select a tree - it's possible that you'll get
+        results from a taxonomy, which may not be very useful.
+    </p>
+    
+    <p>
+        <strong>Where:</strong>
         If "select automatically" is selected, this field can be used to filter
         which trees will be considered. You can enter a CQL query here.
         [TODO: document this feature]
-    </p><p>
+    </p>
+    <p>
         If a single tree is selected that does not match these requirements,
         no result will be returned.
     </p>
-    <br/>
+    
     <p>
         <strong>Prune result:</strong>
         If checked, the resulting tree will contain only the taxa you entered,
@@ -88,15 +101,23 @@
         necessary.) Otherwise, the entire subtree from the MRCA of the entered 
         taxa will be returned.
     </p>
-    <br/>
+    
+    <p>
+        <strong>Match all:</strong>
+        If checked, only return a tree if it contains all of the listed taxa.
+        Otherwise, return an error.
+    </p>
+    
     <p>
         <strong>Result format:</strong>
         The output format of the result tree.
     </p>
-    <br/><br/>
+    
+    <br/>
+    
     <p>
         You can also query PhyloFile using a URL string:<br/><br/>
-        {{ domain }}{% url query %}?taxa=Taxon 1,Taxon 2,Taxon 3&tree=tree_uri&filter=cql_filter&prune=y&format=newick
+        {{ domain }}{% url query %}?taxa=Taxon 1,Taxon 2,Taxon 3&tree=tree_uri&filter=cql_filter&prune=y&match_all=n&format=newick
     </p>
 </em>
 
