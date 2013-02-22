@@ -5,12 +5,6 @@ from django.contrib.auth import logout as auth_logout
 
 def home(request):
     return render_to_response(
-        'index.html',
-        context_instance=RequestContext(request)
-    )
-
-def about(request):
-    return render_to_response(
         'about.html',
         context_instance=RequestContext(request)
     )

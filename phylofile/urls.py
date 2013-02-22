@@ -10,7 +10,6 @@ urlpatterns = patterns('',
     url(r'^login', 'django.contrib.auth.views.login', 
         {'template_name': 'admin/login.html'}),
     url(r'^logout', 'phylofile.views.logout', name='logout'),
-    url(r'^about/$', 'phylofile.views.about', name='about'),
     url(r'^contributors/$', 'phylofile.views.contributors', name='contributors'),
     url(r'^contact/$', 'phylofile.views.contact', name='contact'),
     
