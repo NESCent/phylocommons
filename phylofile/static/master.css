@@ -9,8 +9,7 @@ padding:0;
 }
 
 p {
-padding-top: 10px;
-padding-bottom: 10px;
+padding-bottom: 20px;
 }
 
 a {
@@ -21,7 +20,6 @@ font-size: 1.05em;
 * {
 text-align:left;
 margin:0 auto;
-font-size:1em;
 }
 
 #page {
@@ -82,9 +80,9 @@ display:block;
 text-align:center;
 text-decoration:none;
 color:#fff;
-font-weight:700;
+font-size:18px;
+font-weight:bold;
 padding-top:18px;
-font-size:1.1em;
 padding-left:20px;
 padding-right:20px;
 }
@@ -99,11 +97,11 @@ float:right;
 }
 
 #leftmenu {
-margin-top:15px;
 width:204px;
 float:left;
 height:auto;
 background:#30309d;
+margin-top:15px;
 padding-top:20px;
 padding-bottom:20px;
 }
@@ -118,15 +116,14 @@ padding:0;
 display:block;
 list-style:none;
 width:184px;
+font-size:16px;
 padding-left:20px;
-padding-top:5px;
-padding-bottom:5px;
+padding-top:12px;
+padding-bottom:2px;
+margin:0;
 height:30px;
-text-align:left;
 color:#FFF;
-text-decoration:none;
-font-size:1.1em;
-font-weight:700;
+font-weight:bold;
 }
 
 #leftmenu ul li a:hover {

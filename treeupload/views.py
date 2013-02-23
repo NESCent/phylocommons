@@ -23,7 +23,11 @@ def add(request):
             newtree.save()
 
             # Redirect to the document list after POST
-            return HttpResponseRedirect(reverse('treeupload.views.add'))
+            return render_to_response(
+                'thankyou.html',
+                {},
+                context_instance=RequestContext(request)
+            )
 
     else:
         form = TreeSubmissionForm()

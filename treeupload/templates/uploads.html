@@ -1,0 +1,57 @@
+{% extends "master.html" %}
+
+{% block title %}Uploaded Trees - PhyloFile{% endblock %}
+
+{% block leftmenu %}
+{% include "tree_menu.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% if files %}
+    <table>
+        <thead>
+            <td>Tree ID</td>
+            <td>Date/time</td>
+            <td>Uploaded by</td>
+            <td>Format</td>                
+            <td>File</td>
+            <td>Size</td>
+        </thead>
+    {% for file in files %}
+        <tr>
+            <td>
+                {{ file.tree_id }}
+            </td>
+            <td>
+                {{ file.upload_time }}
+            </td>
+            <td>
+                {{ file.uploaded_by.username }}
+                {% if request.user.username == document.uploaded_by.username %}
+                <i>(me)</i>
+                {% endif %}
+            </td>
+            <td>
+                {{ file.format }}
+            </td>
+            <td>
+                {{ file.tree_file_name }}
+                {% if request.user.username == file.uploaded_by.username or deleter %}
+                (<a href='/delete/{{ document.id }}/'>delete</a>)
+                {% endif %}
+            </td>
+            <td>
+                {{ file.tree_file_size }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+    
+{% else %}
+
+    <p><i>(No uploaded trees.)</i></p>
+    
+{% endif %}
+
+{% endblock%}
