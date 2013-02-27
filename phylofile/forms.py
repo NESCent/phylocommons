@@ -1,9 +1,8 @@
-from django.db import models
-from django.forms import ModelForm
+from django import forms
 from phylofile.models import UserProfile
 
 
-class ProfileForm(ModelForm):
+class ProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
         try:

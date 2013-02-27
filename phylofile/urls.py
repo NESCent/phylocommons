@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
+from phylofile.forms import ProfileForm
 
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('registration.urls')),
     
     # profiles
+    url(r'^profiles/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm,}),
     url(r'^profiles/', include('profiles.urls')),
     
     # treeupload application

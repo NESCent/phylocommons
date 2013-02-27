@@ -9,13 +9,27 @@
 {% if user %}
 
 <table>
-    <tr><td>
+    <tr><td width=20%>
         <strong>Username</strong>
     </td><td>
         {{ user.username }}
     </td></tr>
     
+    
+    <tr><td>
+        <strong>Profile</strong>
+    </td><td>
+        <pre>{{ user.get_profile.profile_text }}</pre>
+    </td></tr>
 </table>
+
+<br/><br/>
+
+{% if request.user.username == user.username %}
+<p>
+    <a href='/profiles/edit/'>Click here to edit your profile</a>
+</p>
+{% endif %}
 
 {% else %}
 <p>No user was found with that name.</p>
