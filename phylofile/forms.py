@@ -12,7 +12,7 @@ class ProfileForm(forms.ModelForm):
         except User.DoesNotExist:
             pass
  
-    email = forms.EmailField(label="Primary email",help_text='')
+    email = forms.EmailField(label="E-mail (not shown)", help_text='')
  
     class Meta:
       model = UserProfile

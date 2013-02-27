@@ -27,7 +27,10 @@
 
 {% if request.user.username == user.username %}
 <p>
-    <a href='/profiles/edit/'>Click here to edit your profile</a>
+    <a href='/profiles/edit/'>Edit your profile</a>
+</p>
+<p>
+    <a href='/accounts/password/change/'>Change your password</a>
 </p>
 {% endif %}
 
