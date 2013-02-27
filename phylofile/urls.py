@@ -10,13 +10,15 @@ urlpatterns = patterns('',
     
     url(r'^contributors/$', 'phylofile.views.contributors', name='contributors'),
     url(r'^contact/$', 'phylofile.views.contact', name='contact'),
-    url(r'^profile/(?P<user_id>[^/]*)/$', 'phylofile.views.user_profile', name='user_profile'),
     
     # accounts
     url(r'^accounts/', include('registration.urls')),
     
     # profiles
-    url(r'^profiles/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm,}),
+    url(r'^profiles/edit', 'profiles.views.edit_profile', 
+        {
+         'form_class': ProfileForm,
+         }),
     url(r'^profiles/', include('profiles.urls')),
     
     # treeupload application
