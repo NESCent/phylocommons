@@ -83,7 +83,14 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '0($0e-0yk50dxgf&amp;9=qt2mvo-4-ue!9n2fddpvk4+*3qjw9@e2'
+try:
+    from secret_key import SECRET_KEY
+except ImportError:
+    from generate_key import generate_key
+    key = generate_key()
+    with open(os.path.join(BASE_DIR, 'secret_key.py'), 'w') as key_file:
+        key_file.write('SECRET_KEY = %s' % repr(key))
+    from secret_key import SECRET_KEY
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
