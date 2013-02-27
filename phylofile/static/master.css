@@ -166,7 +166,7 @@ table thead {
 font-weight: bold;
 }
 
-input[type="text"], textarea, select {
+td input[type="text"], td textarea, td select {
 width: 100%;
 }
 

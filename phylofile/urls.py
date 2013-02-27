@@ -7,11 +7,16 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'phylofile.views.home', name='home'),
-    url(r'^login', 'django.contrib.auth.views.login', 
-        {'template_name': 'admin/login.html'}),
-    url(r'^logout', 'phylofile.views.logout', name='logout'),
+    
     url(r'^contributors/$', 'phylofile.views.contributors', name='contributors'),
     url(r'^contact/$', 'phylofile.views.contact', name='contact'),
+    url(r'^profile/(?P<user_id>[^/]*)/$', 'phylofile.views.user_profile', name='user_profile'),
+    
+    # accounts
+    url(r'^accounts/', include('registration.urls')),
+    
+    # profiles
+    url(r'^profiles/', include('profiles.urls')),
     
     # treeupload application
     url(r'^trees/', include('treeupload.urls')),

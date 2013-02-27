@@ -21,14 +21,14 @@
                 <li class="menuitem"><a href="/contact/">Contact</a></li>
                 <li class="menuitem floatright" >
                 {% if request.user.is_authenticated %}
-                    <a href=''>{{ request.user.username }}</a>
+                    <a href='/profile/{{request.user.username}}/'>{{ request.user.username }}</a>
                     {% if request.user.is_staff %}
                     <a href="/admin/">admin</a>
                     {% endif %}
-                    <a href="/logout/">logout</a>
+                    <a href="{% url auth_logout %}">logout</a>
                 {% else %}
-                    <a href="/register/">Register</a>
-                    <a href="/login?next={{request.path}}">Sign In</a>
+                    <a href="{% url registration_register %}?next={{ request.get_full_path }}">Register</a>
+                    <a href="{% url auth_login %}{% if request.get_full_path != '/accounts/logout/' %}?next={{ request.get_full_path }}{% endif %}">Sign In</a>
                 {% endif %}
                     
                 </li>

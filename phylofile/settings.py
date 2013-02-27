@@ -120,10 +120,10 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'registration',
+    'profiles',
     'treeview',
     'treequery',
     'treeupload',
@@ -160,10 +160,15 @@ LOGGING = {
 }
 
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_URL = '/logout/'
+LOGOUT_URL = '/accounts/logout/'
 LOGOUT_REDIRECT_URL = '/'
+
+ACCOUNT_ACTIVATION_DAYS = 2
+EMAIL_HOST = 'localhost'
+DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+AUTH_PROFILE_MODULE = 'phylofile.UserProfile'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',

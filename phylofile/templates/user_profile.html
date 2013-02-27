@@ -1,0 +1,24 @@
+{% extends "master.html" %}
+
+{% block leftmenu %}
+{% include "home_menu.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% if user %}
+
+<table>
+    <tr><td>
+        <strong>Username</strong>
+    </td><td>
+        {{ user.username }}
+    </td></tr>
+    
+</table>
+
+{% else %}
+<p>No user was found with that name.</p>
+{% endif %}
+
+{% endblock %}

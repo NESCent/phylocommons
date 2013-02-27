@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 from phylofile.get_treestore import get_treestore, tree_id_from_uri, uri_from_tree_id
 from treeupload.models import TreeSubmission
 from treeupload.forms import TreeSubmissionForm
@@ -12,6 +13,7 @@ from phylofile import settings
 
 
 
+@login_required
 def add(request):
     if request.method == 'POST':
         form = TreeSubmissionForm(request.POST, request.FILES)
@@ -45,6 +47,7 @@ def add(request):
     )
     
     
+@login_required
 def uploads(request):
     #if request.method == 'POST':
     #    selected_documents = ','.join(request.POST.getlist('document-selector'))

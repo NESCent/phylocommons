@@ -1,0 +1,14 @@
+{% extends "master.html" %}
+{% load i18n %}
+
+{% block leftmenu %}
+{% include "home_menu.html" %}
+{% endblock %}
+
+{% block content %}
+<form method="post" action=".">
+  {{ form.as_p }}
+
+  <input type="submit" value="{% trans 'Submit' %}" />
+</form>
+{% endblock %}
