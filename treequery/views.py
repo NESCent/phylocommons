@@ -49,7 +49,7 @@ def query(request):
 
     if submitted_query:
         # execute the query and return the result as a plaintext tree
-        contains = taxa.split(',')
+        contains = [t.strip() for t in taxa.split(',')]
         
         try:
             trees = treestore.get_subtree(contains=contains, tree_uri=tree_uri,
