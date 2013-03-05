@@ -26,13 +26,13 @@ margin:0 auto;
 display:block;
 height:auto;
 position:relative;
-width:960px;
+width:1060px;
 margin-top:10px;
 }
 
 #header {
 height:85px;
-width:960px;
+width:100%;
 }
 
 #header h1 {
@@ -63,7 +63,7 @@ background:#30309d;
 #menu ul {
 list-style:none;
 margin-left:auto;
-width:960px;
+width:100%;
 padding:0;
 }
 
@@ -126,6 +126,10 @@ color:#FFF;
 font-weight:bold;
 }
 
+#leftmenu ul li.admin a,#leftmenu ul li.admin a:visited {
+color:yellow;
+}
+
 #leftmenu ul li a:hover {
 color:#EED7D7;
 background-color:#00f;
@@ -134,7 +138,7 @@ background-color:#00f;
 #content {
 display:block;
 float:left;
-width:736px;
+width:836px;
 height:auto;
 padding-left:20px;
 padding-top:30px;
@@ -142,7 +146,7 @@ padding-bottom:5px;
 }
 
 #footer {
-width:960px;
+width:100%;
 margin-top:50px;
 float:left;
 text-align:center;

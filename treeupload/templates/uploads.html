@@ -12,8 +12,8 @@
     <table>
         <thead>
             <td>Tree ID</td>
-            <td>Date/time</td>
-            <td>Uploaded by</td>
+            <td>Date</td>
+            <td>User</td>
             <td>Format</td>                
             <td>File</td>
             <td>Size</td>
@@ -40,16 +40,14 @@
                 {{ file.format }}
             </td>
             <td>
-                {{ file.tree_file_name }}
-                {% if request.user.username == file.uploaded_by.username or deleter %}
-                {% endif %}
+                {{ file.tree_file_name }}<br/>
+                <input type='submit' name='action' value='View file' />
+                <input type='submit' name='action' value='Test file' />
             </td>
             <td>
                 {{ file.tree_file_size }}
             </td>
             <td>
-                <input type='submit' name='action' value='View file' /><br/>
-                <input type='submit' name='action' value='Test file' /><br/>
                 <input type='submit' name='action' value='Approve' /><br/>
                 <input type='submit' name='action' value='Reject' /><br/>
             </td>
