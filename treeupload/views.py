@@ -69,3 +69,14 @@ def uploads(request):
         },
         context_instance=RequestContext(request)
     )
+    
+
+@login_required
+def upload_view(request, tree_id):
+    submission = TreeSubmission.objects.get(id=tree_id)
+    file_path = submission.tree_file.path
+    
+    response = HttpResponse(mimetype='text/plain')
+    response.write(open(file_path).read())
+
+    return response

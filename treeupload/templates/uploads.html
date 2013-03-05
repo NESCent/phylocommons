@@ -17,11 +17,14 @@
             <td>Format</td>                
             <td>File</td>
             <td>Size</td>
+            <td>Action</td>
         </thead>
     {% for file in files %}
+        <form action='/trees/uploads/approve/{{ file.id }}/' method='POST'>
+        {% csrf_token %}
         <tr>
             <td>
-                {{ file.tree_id }}
+                <input name='tree_id' value='{{ file.tree_id }}' />
             </td>
             <td>
                 {{ file.upload_time }}
@@ -37,12 +40,17 @@
             </td>
             <td>
                 {{ file.tree_file_name }}
+                (<a href='/trees/uploads/view/{{ file.id }}/'>view</a>)
                 {% if request.user.username == file.uploaded_by.username or deleter %}
-                (<a href='/delete/{{ document.id }}/'>delete</a>)
+                (<a href='/trees/uploads/delete/{{ file.id }}/'>delete</a>)
                 {% endif %}
             </td>
             <td>
                 {{ file.tree_file_size }}
+            </td>
+            <td>
+                <input type='submit' name='action' value='Approve' /></br>
+                <input type='submit' name='action' value='Reject' /></br>
             </td>
         </tr>
     {% endfor %}
