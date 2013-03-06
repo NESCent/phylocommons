@@ -35,10 +35,6 @@ def view(request, tree_id=None):
     tree_info = [t for t in treestore.get_tree_info(tree_uri)]
     params['tree_info'] = [(t['tree'], t['taxa']) for t in tree_info]
         
-    if 'names' in request.GET and request.GET.get('names')[0].lower() == 'y':
-        names = treestore.get_names(tree_uri)
-        params['names'] = names
-
     return render_to_response(
         'view.html',
         params,

@@ -37,19 +37,5 @@
     </table>
     {% endif %}
     </td></tr>
-    
-    
-    <tr><td><strong>Taxa</strong></td><td>
-    {% if names %}
-    <select name='taxa' multiple='multiple' style='width:100%;'>
-        {% for name in names %}
-        <option>{{name}}</option>
-        {% endfor %}
-    </select>
-    {% else %}
-    <a href='/trees/{{tree_id}}/?names=yes'>(show all taxa)</a>
-    {% endif %}
-    </td></tr>
-    
 </table>
 {% endblock %}
