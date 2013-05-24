@@ -158,6 +158,7 @@ border-top: solid 1px #000;
 border-bottom: solid 1px #000;
 border-collapse: collapse;
 width: 100%;
+padding: 0;
 }
 
 table td {
@@ -172,6 +173,7 @@ font-weight: bold;
 
 td input[type="text"], td textarea, td select {
 width: 100%;
+padding: 0;
 }
 
 ul.errorlist li {
