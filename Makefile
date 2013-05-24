@@ -8,7 +8,8 @@ username = 'superuser'
 email = 'me@example.com'
 # web application domain
 domain = 'http://www.phylocommons.org/'
-# 
+# python dictionary of keyword arguments for treestore connection
+# example: {'dsn': 'Virtuoso', user='dba', password='dba'}
 treestore_kwargs = {}
 
 .PHONY: all clean
