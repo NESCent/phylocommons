@@ -5,17 +5,11 @@ import posixpath
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'phylocommons.settings'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DOMAIN = 'http://www.phylocommons.org/'
 TREE_URI = posixpath.join(DOMAIN, 'trees/')
-
-TREESTORE_KWARGS = {}
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
-)
 
 MANAGERS = ADMINS
 
