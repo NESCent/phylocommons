@@ -1,7 +1,7 @@
 # if importing any of these python libraries fails, it should be cloned and installed
-rdf-treestore = $(shell (echo "try:"; echo "    import treestore"; echo "    print"; echo "except:"; echo "    print 'rdf-treestore'") | python)
 biopython = $(shell (echo "try:"; echo "    import Bio.Phylo"; echo "    print"; echo "except:"; echo "    print 'biopython'") | python)
-python-deps = $(rdf-treestore) $(biopython)
+rdf-treestore = $(shell (echo "try:"; echo "    import treestore"; echo "    print"; echo "except:"; echo "    print 'rdf-treestore'") | python)
+python-deps = $(biopython) $(rdf-treestore)
 
 username = 'superuser'
 email = 'me@example.com'
