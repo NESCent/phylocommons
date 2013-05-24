@@ -1,5 +1,5 @@
 from django import forms
-from phylofile.models import UserProfile
+from phylocommons.models import UserProfile
 
 
 class ProfileForm(forms.ModelForm):

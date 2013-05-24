@@ -1,6 +1,6 @@
 {% extends "master.html" %}
 
-{% block title %}PhyloFile, a community phylogenetic database{% endblock %}
+{% block title %}PhyloCommons, a community phylogenetic database{% endblock %}
 
 {% block leftmenu %}
 {% include "home_menu.html" %}
@@ -9,14 +9,14 @@
 {% block content %}
 
 <p>
-    <strong>PhyloFile</strong> is a community-edited, annotated repository of
+    <strong>PhyloCommons</strong> is a community-edited, annotated repository of
     phylogenetic trees. It simplifies the reuse of published trees and
     aggregates knowledge about each tree that can be used to inform evolutionary
     analyses.
 </p>
 <p>
-    PhyloFile uses semantic web technologies including RDF to enable quick, efficient 
-    reuse of trees. PhyloFile leverages the open source 
+    PhyloCommons uses semantic web technologies including RDF to enable quick, efficient 
+    reuse of trees. PhyloCommons leverages the open source 
     <a href='http://biopython.org'>BioPython project</a> to convert trees in various 
     formats into RDF. These trees are then stored in Virtuoso, a database optized 
     for RDF storage. This makes common tasks such as querying for specific trees 
@@ -24,23 +24,23 @@
     from a list of taxa very efficient.
 </p>
 <p>
-    <strong>Make PhyloFile better</strong> - you can contribute to PhyloFile by:
+    <strong>Make PhyloCommons better</strong> - you can contribute to PhyloCommons by:
     <ul>
         <li><a href='{% url add %}'>Submitting new trees</a></li>
         <li><a href='{% url list %}'>Adding or correcting metadata on existing trees</a></li>
-        <li><a href='https://github.com/bendmorris/phylofile/issues' target='_blank'>Suggesting enhancements or reporting bugs</a></li>
+        <li><a href='https://github.com/bendmorris/phylocommons/issues' target='_blank'>Suggesting enhancements or reporting bugs</a></li>
     </ul>
 </p>
 <p>
-    PhyloFile builds on tools that were developed at two
+    PhyloCommons builds on tools that were developed at two
     <a href='http://phylotastic.org/'>Phylotastic</a> hackathons.
 </p>
 <p>
     View the list of <a href='{% url contributors %}'>contributors</a>.
 </p>
 <p>
-    PhyloFile is open source and is available on 
-    <a href='https://github.com/bendmorris/phylofile'>GitHub</a>.
+    PhyloCommons is open source and is available on 
+    <a href='https://github.com/bendmorris/phylocommons'>GitHub</a>.
 </p>
 
 {% endblock %}

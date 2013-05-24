@@ -1,6 +1,6 @@
 from django import forms
 import Bio.Phylo as bp
-from phylofile.get_treestore import get_treestore, tree_id_from_uri, uri_from_tree_id
+from phylocommons.get_treestore import get_treestore, tree_id_from_uri, uri_from_tree_id
 
 
 class QueryForm(forms.Form):

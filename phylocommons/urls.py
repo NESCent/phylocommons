@@ -1,15 +1,15 @@
 from django.conf.urls import patterns, include, url
-from phylofile.forms import ProfileForm
+from phylocommons.forms import ProfileForm
 
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'phylofile.views.home', name='home'),
+    url(r'^$', 'phylocommons.views.home', name='home'),
     
-    url(r'^contributors/$', 'phylofile.views.contributors', name='contributors'),
-    url(r'^contact/$', 'phylofile.views.contact', name='contact'),
+    url(r'^contributors/$', 'phylocommons.views.contributors', name='contributors'),
+    url(r'^contact/$', 'phylocommons.views.contact', name='contact'),
     
     # accounts
     url(r'^accounts/', include('registration.urls')),

@@ -4,11 +4,11 @@ from django.core.context_processors import csrf
 from django.forms.util import ErrorList
 from django.forms.forms import NON_FIELD_ERRORS
 from django.template import RequestContext
-from phylofile.get_treestore import get_treestore, tree_id_from_uri, uri_from_tree_id
+from phylocommons.get_treestore import get_treestore, tree_id_from_uri, uri_from_tree_id
 from treequery.forms import QueryForm
 import Bio.Phylo as bp
 from cStringIO import StringIO
-from phylofile import settings
+from phylocommons import settings
 
 
 def query(request):

@@ -14,7 +14,7 @@ run this script with:
 
 
 from django.contrib.auth.models import User
-from phylofile.models import UserProfile
+from phylocommons.models import UserProfile
  
 users = User.objects.all()
 for u in users:

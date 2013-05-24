@@ -1,10 +1,10 @@
-# Django settings for phylofile project.
+# Django settings for phylocommons project.
 
 import os
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'phylofile.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'phylocommons.settings'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DOMAIN = 'http://phylofile.nescent.org/'
+DOMAIN = 'http://www.phylocommons.org/'
 TREE_URI = DOMAIN + 'trees/'
 
 TREESTORE_KWARGS = {}
@@ -21,7 +21,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'phylofile.db'),
+        'NAME': os.path.join(BASE_DIR, 'phylocommons.db'),
     }
 }
 
@@ -109,10 +109,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'phylofile.urls'
+ROOT_URLCONF = 'phylocommons.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'phylofile.wsgi.application'
+WSGI_APPLICATION = 'phylocommons.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -134,7 +134,7 @@ INSTALLED_APPS = (
     'treeview',
     'treequery',
     'treeupload',
-    'phylofile',
+    'phylocommons',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -175,7 +175,7 @@ LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_ACTIVATION_DAYS = 2
 EMAIL_HOST = 'localhost'
 DEFAULT_FROM_EMAIL = 'webmaster@localhost'
-AUTH_PROFILE_MODULE = 'phylofile.UserProfile'
+AUTH_PROFILE_MODULE = 'phylocommons.UserProfile'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',

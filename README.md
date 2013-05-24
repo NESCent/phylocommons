@@ -1,19 +1,19 @@
-phylofile is a Django web application frontend to the RDF treestore, which 
+phylocommons is a Django web application frontend to the RDF treestore, which 
 stores phylogenetic trees in a triple store for easy reuse.
 
 
-**Installing your own instance of phylofile**
+**Installing your own instance of phylocommons**
 
-1. To install phylofile, first install the RDF treestore:
+1. To install phylocommons, first install the RDF treestore:
 
         git clone https://https://github.com/bendmorris/rdf-treestore.git
         cd rdf-treestore
         sudo python setup.py install
 
-2. You'll need Django version 1.4 installed. phylofile uses the django-registration plugin
+2. You'll need Django version 1.4 installed. phylocommons uses the django-registration plugin
 which is not currently compatible with Django 1.5.
 
-3. Open phylofile/settings.py and change the following settings:
+3. Open phylocommons/settings.py and change the following settings:
 
         * DOMAIN: enter your own domain name, i.e. 'http://www.example.org/'.
         * ADMINS: add a list of ('name', 'email@domain.org') tuples for each administrator.

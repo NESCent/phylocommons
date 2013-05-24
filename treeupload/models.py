@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.template.defaultfilters import filesizeformat
 import Bio.Phylo as bp
-from phylofile import settings
+from phylocommons import settings
 import os
 
 

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from phylofile.signals import create_profile
+from phylocommons.signals import create_profile
 from django.utils.html import escape
 
 
