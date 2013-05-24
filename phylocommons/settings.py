@@ -1,11 +1,12 @@
 # Django settings for phylocommons project.
 
 import os
+import posixpath
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'phylocommons.settings'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = 'http://www.phylocommons.org/'
-TREE_URI = DOMAIN + 'trees/'
+TREE_URI = posixpath.join(DOMAIN, 'trees/')
 
 TREESTORE_KWARGS = {}
 

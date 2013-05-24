@@ -1,12 +1,12 @@
-phylocommons is a Django web application frontend to the RDF treestore, which 
+PhyloCommons is a Django web application frontend to the RDF treestore, which 
 stores phylogenetic trees in a triple store for easy reuse.
 
 
-## Installing your own instance of phylocommons
+## Installing your own instance of PhyloCommons
 
 ### Django
 
-You'll need Django version 1.4 installed. phylocommons uses the 
+You'll need Django version 1.4 installed. PhyloCommons uses the 
 django-registration plugin which is not currently compatible with Django 1.5.
 
 ### Virtuoso
@@ -16,7 +16,7 @@ and Virtuoso storage) installed.
 
 ### Installation
 
-To install phylocommons, run `make` from the root directory. This will install
+To install PhyloCommons, run `make` from the root directory. This will install
 the prerequisites (rdf-treestore and biopython) if they aren't already present,
 create the SQLite database, and set up the settings/secret key files.
 
