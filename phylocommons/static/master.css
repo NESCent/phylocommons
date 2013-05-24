@@ -109,6 +109,7 @@ padding-bottom:20px;
 #leftmenu ul {
 list-style:none;
 width:204px;
+margin:0;
 padding:0;
 }
 
@@ -124,6 +125,7 @@ margin:0;
 height:30px;
 color:#FFF;
 font-weight:bold;
+text-decoration:none;
 }
 
 #leftmenu ul li.admin a,#leftmenu ul li.admin a:visited {
