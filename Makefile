@@ -3,12 +3,16 @@ rdf-treestore = $(shell (echo "try:"; echo "    import treestore"; echo "    pri
 biopython = $(shell (echo "try:"; echo "    import Bio.Phylo"; echo "    print"; echo "except:"; echo "    print 'biopython'") | python)
 python-deps = $(rdf-treestore) $(biopython)
 
+username = 'superuser'
+email = 'me@example.com'
+
 .PHONY: all clean
 
 all: $(python-deps) phylocommons/phylocommons.db phylocommons/settings.py
 
 phylocommons/phylocommons.db: phylocommons/secret_key.py $(wildcard */models.py)
-	python manage.py syncdb
+	python manage.py syncdb --noinput
+	python manage.py createsuperuser --username $(username) --email $(email) --noinput
 
 phylocommons/settings.py: phylocommons/secret_key.py
 	# TODO: add specific user-specified settings
