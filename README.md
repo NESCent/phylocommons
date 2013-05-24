@@ -2,25 +2,40 @@ phylocommons is a Django web application frontend to the RDF treestore, which
 stores phylogenetic trees in a triple store for easy reuse.
 
 
-**Installing your own instance of phylocommons**
+## Installing your own instance of phylocommons
 
-1. To install phylocommons, first install the RDF treestore:
+### Django
 
-        git clone https://https://github.com/bendmorris/rdf-treestore.git
-        cd rdf-treestore
-        sudo python setup.py install
+You'll need Django version 1.4 installed. phylocommons uses the 
+django-registration plugin which is not currently compatible with Django 1.5.
 
-2. You'll need Django version 1.4 installed. phylocommons uses the django-registration plugin
-which is not currently compatible with Django 1.5.
+### Virtuoso
 
-3. Open phylocommons/settings.py and change the following settings:
+You'll also need Virtuoso and the Redland RDF library (with Python bindings
+and Virtuoso storage) installed.
 
-        * DOMAIN: enter your own domain name, i.e. 'http://www.example.org/'.
-        * ADMINS: add a list of ('name', 'email@domain.org') tuples for each administrator.
-        * TIME_ZONE, LANGUAGE_CODE: you can change these if necessary.
-        * TREESTORE_KWARGS: dictionary of keyword arguments to be passed to the Treestore. Common options are 'dsn', 'user', and 'password'.
+### Installation
 
-3. Run `python manage.py syncdb`. You'll be prompted to create a superuser 
-account; choose no, and then run `python manage.py createsuperuser`. If you
-choose create the superuser through syncdb, you'll need to run create_profiles.py;
-see that file for instructions.
+To install phylocommons, run `make` from the root directory. This will install
+the prerequisites (rdf-treestore and biopython) if they aren't already present,
+create the SQLite database, and set up the settings/secret key files.
+
+There are variables that can be passed to the `make` command, for example:
+
+    make username='bendmorris' email='ben@bendmorris.com'`
+
+Variables that can be specified include:
+
+* username: the username of the superuser (will be created without a password)
+* email: the email address of the superuser
+* domain: the domain the site will run from (e.g. http://www.phylocommons.org/)
+* treestore_kwargs: a python dictionary of keyword arguments to be passed to the
+  RDF treestore; common options are 'dsn', 'user', and 'password'
+
+### Testing
+
+To test PhyloCommons:
+
+* start Virtuoso
+* run `python manage.py runserver`
+* navigate to localhost:8000 in your web browser
