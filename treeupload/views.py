@@ -37,6 +37,7 @@ def add(request):
     params = {
               'form': form,
               'domain': settings.DOMAIN.rstrip('/'),
+              'tree_uri': settings.TREE_URI,
               }
     params.update(csrf(request))
     
