@@ -104,7 +104,29 @@ def upload_test(request, tree_id):
     
 @login_required
 def upload_approve(request, tree_id):
-    pass
+    submission = TreeSubmission.objects.get(id=tree_id)
+    tree_id = submission.tree_id
+    file_path = submission.tree_file.path
+    
+    try:
+        tree = bp.read(file_path, submission.format)
+        treestore = get_treestore()
+
+        treestore.add_trees(file_path, submission.format,
+                            tree_uri=uri_from_tree_id(tree_id), 
+                            bulk_loader=True)
+        
+        text = 'Successfully uploaded <b>%s</b>.' % (uri_from_tree_id(tree_id))
+
+        submission.delete()
+
+    except Exception as e:
+        text = '<b>ERROR:</b> <p>%s</p>' % e
+    
+    response = HttpResponse(mimetype='text/html')
+    response.write(text)
+
+    return response
     
     
 @login_required
