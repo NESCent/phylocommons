@@ -51,14 +51,36 @@ def query(request):
         # execute the query and return the result as a plaintext tree
         contains = [t.strip() for t in taxa.split(',')]
         
-        try:
-            trees = treestore.get_subtree(contains=contains, tree_uri=tree_uri,
-                                          format=format, prune=prune, filter=filter,
-                                          match_all=match_all)
-        except Exception as e:
+        if tree_uri is None:
+            # 'select automatically' was chosen; perform the disambiguation step
+            # if there are more than one matching tree
             trees = None
-            exception = e
-                                      
+            matches = []
+            for match in treestore.list_trees_containing_taxa(contains=contains, match_all=match_all, show_counts=False):
+                matches.append(match)
+                if len(matches) > 10: break
+            
+            if len(matches) == 1:
+                try:
+                    trees = treestore.get_subtree(contains=contains, tree_uri=matches[0],
+                                                  format=format, prune=prune, filter=filter,
+                                                  match_all=match_all)
+                except Exception as e:
+                    trees = None
+                    exception = e
+                    
+            elif len(matches) > 1:
+                return query_disambiguate(request, matches)
+                
+        else:
+            try:
+                trees = treestore.get_subtree(contains=contains, tree_uri=tree_uri,
+                                              format=format, prune=prune, filter=filter,
+                                              match_all=match_all)
+            except Exception as e:
+                trees = None
+                exception = e
+                
         if trees:
             return download_plaintext(request, trees)
         else:
@@ -87,6 +109,16 @@ def query(request):
     )
 
             
+
+def query_disambiguate(request, matches):
+    #TODO
+    return render_to_response(
+        'disambiguate.html',
+        params,
+        context_instance=RequestContext(request)
+    )
+
+
 def download_plaintext(request, text, attachment=None):
     response = HttpResponse(mimetype='text/plain')
     if attachment:
