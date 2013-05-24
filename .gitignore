@@ -1,5 +1,6 @@
 *.pyc
 uploaded_trees
 ideas
+TODO
 phylocommons/phylocommons.db
 phylocommons/secret_key.py

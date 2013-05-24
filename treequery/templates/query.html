@@ -1,6 +1,6 @@
 {% extends "master.html" %}
 
-{% block title %}Query - PhyloFile{% endblock %}
+{% block title %}Query - PhyloCommons{% endblock %}
 
 {% block leftmenu %}
 {% include "tree_menu.html" %}
@@ -70,7 +70,7 @@
         Enter a comma-separated list of taxa from which to generate a tree.
         (If you only enter a single taxon and choose not to prune, you can
         get a tree containing that taxon and all of its descendents.)
-        Don't use underscores; PhyloFile automatically converts underscores
+        Don't use underscores; PhyloCommons automatically converts underscores
         to spaces in submitted trees.
     </p>
     
@@ -118,7 +118,7 @@
     <br/>
     
     <p>
-        You can also query PhyloFile using a URL string:<br/><br/>
+        You can also query PhyloCommons using a URL string:<br/><br/>
         {{ domain }}{% url query %}?taxa=Taxon 1,Taxon 2,Taxon 3&tree=tree_uri&filter=cql_filter&prune=y&match_all=n&format=newick
     </p>
 </em>
