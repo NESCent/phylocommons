@@ -18,15 +18,16 @@ width:100%;
 padding:100px 0 0 0;
 }
 
-#header h1 {
+#header img.logo {
 float:left;
 color:#aaa;
 font-size:43px;
 left:14px;
 vertical-align:middle;
+padding-top:20px;
 }
 
-#header img {
+#header img.nescent {
 float:right;
 }
 

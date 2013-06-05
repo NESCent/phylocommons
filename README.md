@@ -1,3 +1,5 @@
+![PhyloCommons](https://raw.github.com/bendmorris/phylocommons/master/phylocommons/static/phylocommons-logo.png)
+
 PhyloCommons is a Django web application frontend to the RDF treestore, which 
 stores phylogenetic trees in a triple store for easy reuse.
 
