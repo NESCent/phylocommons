@@ -1,5 +1,5 @@
 <div id="treelib-widget">
-    <div id="treeContainer" ondblclick="pan_to_mouse(event); zoom_in();" oncontextmenu="pan_to_mouse(event); zoom_out(); return false">
+    <div id="treeContainer" ondblclick="mouse_zoom_in(event);" oncontextmenu="mouse_zoom_out(event); return false">
         <div id="treeControls">
             <img src="/static/radial.svg" class="drawing_type" onclick="draw_tree('newick', 'radial')"/>
             <img src="/static/cladogram.svg" class="drawing_type" onclick="draw_tree('newick', 'cladogram')"/>

@@ -4,11 +4,13 @@
  *
  */
 
-//--------------------------------------------------------------------------------------------------
-// http://stackoverflow.com/questions/3019278/any-way-to-specify-the-base-of-math-log-in-javascript
 var VIEWER_WIDTH = 600;
 var VIEWER_HEIGHT = 500;
+var ZOOM_IN = 1.33;
+var ZOOM_OUT = 0.75;
 
+//--------------------------------------------------------------------------------------------------
+// http://stackoverflow.com/questions/3019278/any-way-to-specify-the-base-of-math-log-in-javascript
 function log10(val) {
   return Math.log(val) / Math.LN10;
 }
@@ -1911,12 +1913,22 @@ function pan(viewport, dx, dy) {
 
 function zoom_in() {
     var viewport = document.getElementById('viewport');
-    gradual_zoom(viewport, 1.33);
+    gradual_zoom(viewport, ZOOM_IN);
 }
 
 function zoom_out() {
     var viewport = document.getElementById('viewport');
-    gradual_zoom(viewport, 0.75);
+    gradual_zoom(viewport, ZOOM_OUT);
+}
+
+function mouse_zoom_in(event) {
+    pan_to_mouse(event, ZOOM_IN);
+    zoom_in();
+}
+
+function mouse_zoom_out(event) {
+    pan_to_mouse(event, ZOOM_OUT);
+    zoom_out();
 }
 
 function pan_btn(dir) {
@@ -1931,15 +1943,15 @@ function pan_btn(dir) {
     gradual_pan(viewport, dx, dy);
 }
 
-function pan_to_mouse(e) {
+function pan_to_mouse(e, scale) {
     var container = document.getElementById('treeContainer');
     var viewport = document.getElementById('viewport');
     offset = $(container).offset();
     
-    dx = (offset.left + container.offsetWidth/2) - e.pageX;
-    dy = (offset.top + container.offsetHeight/2) - e.pageY;
+    dx = e.pageX - (offset.left + container.offsetWidth/2);
+    dy = e.pageY - (offset.top + container.offsetHeight/2);
     
-    gradual_pan(viewport, dx/2, dy/2);
+    gradual_pan(viewport, dx*(1-scale), dy*(1-scale));
 }
 
 function gradual_pan(viewport, dx, dy) {
