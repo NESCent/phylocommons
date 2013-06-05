@@ -6,6 +6,8 @@
 {% include "tree_menu.html" %}
 {% endblock %}
 
+{% block nav-trees %}class="active"{% endblock %}
+
 {% block content %}
 
 <form action="{% url add %}" method="post" enctype="multipart/form-data">
