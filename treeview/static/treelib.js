@@ -1888,10 +1888,14 @@ function setMatrix(viewport, matrix) {
 
 function zoom(viewport, scale) {
     matrix = getMatrix(viewport);
+    old_scale = matrix[0];
+    if (scale * old_scale < 0.1) scale = 0.1/old_scale;
+    if (scale * old_scale > 100) scale = 100/old_scale;
     
     for (var i = 0; i < matrix.length; i++)
     {
         matrix[i] *= scale;
+        
     }
     
     bbox = viewport.getBBox();
@@ -1932,14 +1936,13 @@ function mouse_zoom_out(event) {
 }
 
 function pan_btn(dir) {
+    start_pan();
     var viewport = document.getElementById('viewport');
     matrix = getMatrix(viewport);
     scale = matrix[0];
     d = 100;
     dx = dir == 'l' ? d : (dir == 'r' ? -d : 0);
     dy = dir == 'u' ? d : (dir == 'd' ? -d : 0);
-    dx *= scale;
-    dy *= scale;
     gradual_pan(viewport, dx, dy);
 }
 
@@ -1954,30 +1957,42 @@ function pan_to_mouse(e, scale) {
     gradual_pan(viewport, dx*(1-scale), dy*(1-scale));
 }
 
+var panning = 0;
+var pan_pressed = false;
+
+function start_pan() { pan_pressed = true; }
+function stop_pan() { pan_pressed = false; }
+
 function gradual_pan(viewport, dx, dy) {
+    if (panning) return;
     steps = 25;
     duration = 0.25;
-    i = 0;
+    panning = 0;
     last_time = new Date()/1000;
     function frame() {
         this_time = new Date()/1000;
         time_elapsed = this_time - last_time;
         last_time = this_time;
-        i += time_elapsed/duration;
-        pan(viewport, dx/steps, dy/steps)
-        if (i >= 1) {
+        panning += time_elapsed/duration;
+        if (panning >= 1) panning = 1;
+        d = smooth_scale(panning);
+        pan(viewport, d*dx/steps, d*dy/steps)
+        if (panning >= 1 && !(pan_pressed)) {
+            panning = 0;
             clearInterval(id);
         }
     }
     var id = setInterval(frame, 1000*duration/steps);
 }
 
-var zooming = false;
+var zooming = 0;
+var zoom_pressed = false;
+
+function start_zoom() { zoom_pressed = true; }
+function stop_zoom() { zoom_pressed = false; }
 
 function gradual_zoom(viewport, scale) {
-    if (zooming) return;
-    
-    zooming = true;
+    if (zooming > 0) return;
     
     var viewport = document.getElementById('viewport');
     matrix = getMatrix(viewport);
@@ -1988,22 +2003,22 @@ function gradual_zoom(viewport, scale) {
     
     steps = 25;
     duration = 0.5;
-    i = 0;
     last_time = new Date()/1000;
     function frame() {
+        console.log(zoom_pressed);
         this_time = new Date()/1000;
         time_elapsed = this_time - last_time;
         last_time = this_time;
-        this_scale = initial_scale + (new_scale-initial_scale) * smooth_scale(i);
+        mult = scale < 1 ? zooming : Math.pow(zooming, 2.5);
+        this_scale = initial_scale + (new_scale-initial_scale) * mult;
         this_step = this_scale / old_scale;
         old_scale = this_scale;
-        i += time_elapsed/duration;
+        zooming += time_elapsed/duration;
         zoom(viewport, this_step)
-        if (i >= 1) {
+        if (zooming >= 1 && !(zoom_pressed)) {
             clearInterval(id);
+            zooming = 0;
         }
     }
     var id = setInterval(frame, 1000*duration/steps);
-    
-    zooming = false;
 }

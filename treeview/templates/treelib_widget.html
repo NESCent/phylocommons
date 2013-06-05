@@ -10,12 +10,12 @@
         </div>
         
         <ul id="zoomControls">
-            <li class="zoom-in" onclick="zoom_in()" ondblclick="event.stopPropagation()" />
-            <li class="zoom-out" onclick="zoom_out()" ondblclick="event.stopPropagation()" />
-            <li class="pan-up" onclick="pan_btn('u')" ondblclick="event.stopPropagation()" />
-            <li class="pan-left" onclick="pan_btn('l')" ondblclick="event.stopPropagation()" />
-            <li class="pan-right" onclick="pan_btn('r')" ondblclick="event.stopPropagation()" />
-            <li class="pan-down" onclick="pan_btn('d')" ondblclick="event.stopPropagation()" />
+            <li class="zoom-in" onmousedown="start_zoom(); zoom_in()" ondblclick="event.stopPropagation()" onmouseup="stop_zoom();" onmouseout="stop_zoom();" />
+            <li class="zoom-out" onmousedown="start_zoom(); zoom_out()" ondblclick="event.stopPropagation()" onmouseup="stop_zoom();" onmouseout="stop_zoom();" />
+            <li class="pan-up" onmousedown="pan_btn('u')" ondblclick="event.stopPropagation()" onmouseup="stop_pan();" onmouseout="stop_pan();" />
+            <li class="pan-left" onmousedown="pan_btn('l')" ondblclick="event.stopPropagation()" onmouseup="stop_pan();" onmouseout="stop_pan();" />
+            <li class="pan-right" onmousedown="pan_btn('r')" ondblclick="event.stopPropagation()" onmouseup="stop_pan();" onmouseout="stop_pan();" />
+            <li class="pan-down" onmousedown="pan_btn('d')" ondblclick="event.stopPropagation()" onmouseup="stop_pan();" onmouseout="stop_pan();" />
         </ul>
         <svg id="svg" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <g id="viewport">
@@ -23,3 +23,4 @@
         </svg>
     </div>
 </div>
+
