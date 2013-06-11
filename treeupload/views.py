@@ -113,8 +113,8 @@ def upload_approve(request, tree_id):
         treestore = get_treestore()
 
         treestore.add_trees(file_path, submission.format,
-                            tree_uri=uri_from_tree_id(tree_id), 
-                            bulk_loader=True)
+                            tree_uri=uri_from_tree_id(tree_id))
+                            
         
         text = 'Successfully uploaded <b>%s</b>.' % (uri_from_tree_id(tree_id))
 

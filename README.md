@@ -13,8 +13,8 @@ django-registration plugin which is not currently compatible with Django 1.5.
 
 ### Virtuoso
 
-You'll also need Virtuoso and the Redland RDF library (with Python bindings
-and Virtuoso storage) installed.
+You'll also need [OpenLink Virtuoso](http://virtuoso.openlinksw.com/) installed, 
+which is used to store the trees.
 
 ### Installation
 
