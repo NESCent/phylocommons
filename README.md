@@ -18,11 +18,19 @@ which is used to store the trees.
 
 ### Installation
 
+Clone the repository and initialize the submodules:
+
+    git clone https://github.com/bendmorris/phylocommons
+    cd phylocommons
+    git submodule init
+    git submodule update
+
 To install PhyloCommons, run `make` from the root directory. This will install
 the prerequisites (rdf-treestore and biopython) if they aren't already present,
 create the SQLite database, and set up the settings/secret key files.
 
-There are variables that can be passed to the `make` command, for example:
+To create a superuser account and configure the installation, pass variables 
+to make:
 
     make username='bendmorris' email='ben@bendmorris.com'`
 
