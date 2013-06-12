@@ -33,8 +33,7 @@ phylocommons/secret_key.py: generate_key.py
 	> $@
 
 rdf-treestore:
-	git clone https://github.com/bendmorris/rdf-treestore.git
-	cd rdf-treestore; python setup.py install
+	cd tools/rdf-treestore; python setup.py install
 
 biopython:
 	git clone https://github.com/biopython/biopython.git

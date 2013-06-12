@@ -4,3 +4,6 @@
 [submodule "tools/taxiphy"]
 	path = tools/taxiphy
 	url = https://github.com/bendmorris/taxiphy.git
+[submodule "tools/rdf-treestore"]
+	path = tools/rdf-treestore
+	url = https://github.com/bendmorris/rdf-treestore.git
