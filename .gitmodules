@@ -1,0 +1,6 @@
+[submodule "tools/phylolabel"]
+	path = tools/phylolabel
+	url = https://github.com/bendmorris/phylolabel.git
+[submodule "tools/taxiphy"]
+	path = tools/taxiphy
+	url = https://github.com/bendmorris/taxiphy.git
