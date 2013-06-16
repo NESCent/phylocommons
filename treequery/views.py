@@ -29,6 +29,7 @@ def query(request):
             match_all = form.cleaned_data['match_all']
             format = form.cleaned_data['format']
             tree_uri = form.cleaned_data['tree']
+            taxonomy = form.cleaned_data['taxonomy']
             filter = form.cleaned_data['filter']
         else:
             submitted_query = False
@@ -40,6 +41,7 @@ def query(request):
         if 'prune' in request.GET: prune = request.GET.get('prune')[0].lower() == 'y'
         if 'match_all' in request.GET: match_all = request.GET.get('match_all')[0].lower() == 'y'
         if 'tree' in request.GET: tree_uri = request.GET.get('tree')
+        if 'taxonomy' in request.GET: taxonomy = request.GET.get('taxonomy')
         if 'filter' in request.GET: filter = request.GET.get('filter')
             
     else:
@@ -64,7 +66,7 @@ def query(request):
                 try:
                     trees = treestore.get_subtree(contains=contains, tree_uri=matches[0],
                                                   format=format, prune=prune, filter=filter,
-                                                  match_all=match_all)
+                                                  match_all=match_all, taxonomy=taxonomy)
                 except Exception as e:
                     trees = None
                     exception = e
@@ -76,7 +78,7 @@ def query(request):
             try:
                 trees = treestore.get_subtree(contains=contains, tree_uri=tree_uri,
                                               format=format, prune=prune, filter=filter,
-                                              match_all=match_all)
+                                              match_all=match_all, taxonomy=taxonomy)
             except Exception as e:
                 trees = None
                 exception = e

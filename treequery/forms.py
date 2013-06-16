@@ -20,10 +20,16 @@ class QueryForm(forms.Form):
     
     match_all = forms.BooleanField(required=False, initial=False)
     
-    tree_choices = [t for t in treestore.list_trees()]
-    tree_choices = [('', '(Select automatically)')] + [(x,x) for x in tree_choices]
+    tree_list = treestore.list_trees()
+    
+    tree_choices = [('', '(Select automatically)')] + [(x,x) for x in tree_list]
     tree = forms.ChoiceField(choices=tree_choices,
                              initial=tree_choices[0],
                              required=False)
+
+    tax_choices = [('', '(None)')] + [(x,x) for x in tree_list if x.endswith('_taxonomy')]
+    taxonomy = forms.ChoiceField(choices=tax_choices,
+                                 initial=tax_choices[0],
+                                 required=False)
                              
     filter = forms.CharField(required=False)
