@@ -16,6 +16,13 @@ django-registration plugin which is not currently compatible with Django 1.5.
 You'll also need [OpenLink Virtuoso](http://virtuoso.openlinksw.com/) installed, 
 which is used to store the trees.
 
+Virtuoso needs to be configured to be able to load trees from a directory called 
+"treestore" inside your temporary file directory - on Unix systems, this will be 
+/tmp/treestore. Add this directory to the DirsAllowed parameter in Virtuoso's 
+virtuoso.ini configuration file. It should look something like this:
+
+    DirsAllowed                     = ., /usr/share/virtuoso/vad, /tmp/treestore
+
 ### Installation
 
 Clone the repository and initialize the submodules:
