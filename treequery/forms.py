@@ -10,8 +10,8 @@ class QueryForm(forms.Form):
                            initial='Homo sapiens,Pan troglodytes,Pan paniscus,Gorilla gorilla,Pongo pygmaeus',
                            widget=forms.Textarea)
     
-    format_choices = ['ascii'] + sorted(bp._io.supported_formats.keys())
-    format_choices = [(x,x) for x in format_choices]
+    format_choices = sorted(bp._io.supported_formats.keys()) + ['ascii']
+    format_choices = [(x,x) for x in format_choices] + [('view', 'open in tree viewer')]
     format = forms.ChoiceField(choices=format_choices,
                                 initial='newick'
                                )

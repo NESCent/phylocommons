@@ -9,6 +9,8 @@ from treequery.forms import QueryForm
 import Bio.Phylo as bp
 from cStringIO import StringIO
 from phylocommons import settings
+import treeview.views
+import urllib
 
 
 def query(request):
@@ -39,7 +41,6 @@ def query(request):
         taxa = request.GET.get('taxa')
         if 'format' in request.GET: format = request.GET.get('format')
         if 'prune' in request.GET: prune = request.GET.get('prune')[0].lower() == 'y'
-        if 'match_all' in request.GET: match_all = request.GET.get('match_all')[0].lower() == 'y'
         if 'tree' in request.GET: tree_uri = request.GET.get('tree')
         if 'taxonomy' in request.GET: taxonomy = request.GET.get('taxonomy')
         if 'filter' in request.GET: filter = request.GET.get('filter')
@@ -50,6 +51,19 @@ def query(request):
             
 
     if submitted_query:
+        if format == 'view':
+            tree_src = '/query/?' + urllib.urlencode([
+                ('format', 'newick'),
+                ('prune', 'y' if prune else 'n'),
+                ('taxa', taxa),
+                ('tree', tree_uri),
+                ('taxonomy', taxonomy),
+                ('filter', filter),
+                ])
+            print tree_src
+            return treeview.views.svgview(request, 
+                tree_src=tree_src)
+        
         # execute the query and return the result as a plaintext tree
         contains = [t.strip() for t in taxa.split(',')]
         
@@ -85,6 +99,7 @@ def query(request):
                 
         if trees:
             return download_plaintext(request, trees)
+            
         else:
             
             errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
