@@ -1717,6 +1717,9 @@ if (!String.prototype.trim)
 
 function draw_tree(element_id, drawing_type)
 {
+    var loading = document.getElementById('loading');
+    loading.style.visibility = 'shown';
+
     var t = new Tree();
     var element = document.getElementById(element_id);
     var newick = element.value;
@@ -1848,12 +1851,12 @@ function draw_tree(element_id, drawing_type)
 		// Scale to fit window
 		var bbox = svg.getBBox();
 		
-		var scale = Math.min(td.settings.width/bbox.width, td.settings.height/bbox.height);
+		var scale = Math.min(td.settings.width/bbox.width, td.settings.height/bbox.height) * 0.75;
 		
 		
 		// move drawing to centre of viewport
 		var viewport = document.getElementById('viewport');
-		baseMatrix = [1*scale, 0, 0, 1*scale, 0, 0];
+		baseMatrix = [1*scale, 0, 0, 1*scale, 100, 100];
 		setMatrix(viewport, baseMatrix);
 		
 		
@@ -1861,8 +1864,10 @@ function draw_tree(element_id, drawing_type)
 		bbox = svg.getBBox();
 		if (bbox.x < 0)
 		{
-		    pan(viewport, -bbox.x, -bbox.y);
-		}
+		    pan(viewport, bbox.width/2, bbox.height/2);
+		} else {
+            pan(viewport, -25, 25);
+        }
 		
 		
 		
@@ -1870,7 +1875,7 @@ function draw_tree(element_id, drawing_type)
 		$('svg').svgPan('viewport');
 	}
 	
-
+    loading.style.visibility = 'hidden';
 }
 
 
@@ -1900,7 +1905,7 @@ function zoom(viewport, scale) {
     
     bbox = viewport.getBBox();
     
-    matrix[4] += (1-scale) * bbox.width/2;
+    matrix[4] += (1-scale) * (bbox.width-50)/2;
     matrix[5] += (1-scale) * bbox.height/2;
     
     setMatrix(viewport, matrix);
@@ -1966,7 +1971,7 @@ function stop_pan() { pan_pressed = false; }
 function gradual_pan(viewport, dx, dy) {
     if (panning) return;
     steps = 25;
-    duration = 0.25;
+    duration = 0.5;
     panning = 0;
     last_time = new Date()/1000;
     function frame() {
@@ -1992,7 +1997,7 @@ function start_zoom() { zoom_pressed = true; }
 function stop_zoom() { zoom_pressed = false; }
 
 function gradual_zoom(viewport, scale) {
-    if (zooming > 0) return;
+    if (zooming > 0 || panning || pan_pressed) return;
     
     var viewport = document.getElementById('viewport');
     matrix = getMatrix(viewport);
@@ -2021,4 +2026,8 @@ function gradual_zoom(viewport, scale) {
         }
     }
     var id = setInterval(frame, 1000*duration/steps);
+}
+
+function download_svg() {
+    // TODO
 }

@@ -1,0 +1,48 @@
+{% extends "master.html" %}
+
+{% block title %}{{tree_id}} - PhyloCommons{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/treelib.css" type="text/css" />
+    <script type="text/javascript" src="/static/jquery-svgpan.js" ></script> 
+    <script type="text/javascript" src="/static/treelib.js"></script> 
+{% endblock %}
+
+{% block nav-trees %}class="active"{% endblock %}
+
+{% block leftmenu %}
+{% include "tree_menu.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% include "treelib_widget.html" %}
+
+<input type="hidden" name="newick" id="newick" value=""/>
+<input type="hidden" name="tree_src_url" id="tree_src_url" value="{{tree_src}}"/>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#message').empty();
+        $('#message').append('<p>Loading tree...</p>');
+        $('img#loading').show();
+        
+        $.ajax({
+            type: "GET",
+            url: $('#tree_src_url').val(),
+            success: function(data) {
+                $('#message').empty();
+                $('#newick').val(data);
+                $('img#loading').hide();
+                $('div#treelib-widget').show();
+                draw_tree('newick', 'circle');
+            },
+            error: function(msg) {
+                $('#message').empty();
+                $('#message').append("<a>Couldn't load tree. Click here to try again.</a>");
+            }
+        });
+    });
+</script>
+
+{% endblock %}

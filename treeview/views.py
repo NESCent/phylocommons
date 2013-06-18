@@ -69,3 +69,15 @@ def download_plaintext(request, text, attachment=None):
     response.write(text)
 
     return response
+    
+    
+def svgview(request, tree_id=None, tree_src=None):
+    treestore = get_treestore()
+    
+    if tree_id: tree_src = '/trees/%s/download?format=newick' % tree_id
+    
+    return render_to_response(
+        'svgview.html',
+        {'tree_src': tree_src},
+        context_instance=RequestContext(request)
+    )

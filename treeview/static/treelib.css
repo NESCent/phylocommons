@@ -1,7 +1,7 @@
 div#treeContainer {
     position: relative;
     width:600px;
-    height:530px;
+    height:500px;
     background-color:white;
     border:2px solid rgb(228,228,228);
 }
@@ -10,16 +10,19 @@ div#treeControls {
     position: absolute;
     left:0px; top:0px;
     padding:5px;
-    width:750px; height:80px;
+    height:55px;
+    opacity:0.75;
+    z-index: 20;
 }
 
 div#treeControls img {
-    width:75px; height:75px;
+    width:75px; height:50px;
     z-index:10;
     background-size:contain;
     background-repeat:stretch;
     background-color:#fff;
     position:relative;
+    border:2px solid rgb(228,228,228);
 }
 
 div#treeControls img:hover {
@@ -43,7 +46,7 @@ div#treeContainer #zoomControls li {
     background-size:contain;
     background-repeat:stretch;
     background-color:#fff;
-    opacity:0.8;
+    opacity:0.75;
     position:relative;
     z-index: 20;
 }
@@ -68,12 +71,15 @@ div#treeContainer #zoomControls .pan-right:hover { background-image:url(/static/
 div#treeContainer svg {
     position: absolute;
     left:0px;
-    top:80px;
+    top:0px;
     width:600px;
-    height:450px;
+    height:500px;
 }
 
-div#treeControls .drawing_type {
-    width: 75px;
-    border:2px solid rgb(228,228,228);
+img#loading {
+    position: absolute;
+    left:284px;
+    top:284px;
+    width:32px;
+    height:32px;
 }

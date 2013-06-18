@@ -1,12 +1,15 @@
 <div id="treelib-widget">
     <div id="treeContainer" ondblclick="mouse_zoom_in(event);" oncontextmenu="mouse_zoom_out(event); return false">
+        <img id="loading" src="/static/loading.gif" />
+
         <div id="treeControls">
-            <img src="/static/radial.svg" class="drawing_type" onclick="draw_tree('newick', 'radial')"/>
-            <img src="/static/cladogram.svg" class="drawing_type" onclick="draw_tree('newick', 'cladogram')"/>
-            <img src="/static/rectangle.svg" class="drawing_type" onclick="draw_tree('newick', 'rectanglecladogram')"/>
-            <img src="/static/phylogram.svg" class="drawing_type" onclick="draw_tree('newick', 'phylogram')"/>
-            <img src="/static/circle.svg" class="drawing_type" onclick="draw_tree('newick', 'circle')"/>
-            <img src="/static/circlephylogram.svg" class="drawing_type" onclick="draw_tree('newick', 'circlephylogram')"/>
+            <img src="/static/radial.svg" onclick="draw_tree('newick', 'radial')"/>
+            <img src="/static/cladogram.svg" onclick="draw_tree('newick', 'cladogram')"/>
+            <img src="/static/rectangle.svg" onclick="draw_tree('newick', 'rectanglecladogram')"/>
+            <img src="/static/phylogram.svg" onclick="draw_tree('newick', 'phylogram')"/>
+            <img src="/static/circle.svg" onclick="draw_tree('newick', 'circle')"/>
+            <img src="/static/circlephylogram.svg" onclick="draw_tree('newick', 'circlephylogram')"/>
+            <img src="/static/download.svg" onclick="download_svg()"/>
         </div>
         
         <ul id="zoomControls">

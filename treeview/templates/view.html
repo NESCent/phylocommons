@@ -2,12 +2,6 @@
 
 {% block title %}{{tree_id}} - PhyloCommons{% endblock %}
 
-{% block head %}
-    <link rel="stylesheet" href="/static/treelib.css" type="text/css" />
-    <script type="text/javascript" src="/static/jquery-svgpan.js" ></script> 
-    <script type="text/javascript" src="/static/treelib.js"></script> 
-{% endblock %}
-
 {% block nav-trees %}class="active"{% endblock %}
 
 {% block leftmenu %}
@@ -47,35 +41,8 @@
     </td></tr>
 </table>
 
-{% include "treelib_widget.html" %}
+<p><span id="message">
+    <a href="/trees/{{tree_id}}/view">Click here to load the SVG tree viewer.</a>
+</span></p>
 
-<input type="hidden" name="newick" id="newick" value=""/>
-
-<p><span id="message"><a id="treelib_load">Click here to load the tree viewer.</a></span></p>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('div#treelib-widget').hide()
-    })
-    
-    $('#message a').click(function() {
-        $('#message').empty();
-        $('#message').append('<p>Loading tree...</p>');
-        
-        $.ajax({
-            type: "GET",
-            url: "download?format=newick",
-            success: function(data) {
-                $('#message').empty();
-                $('#newick').val(data);
-                $('div#treelib-widget').show();
-                draw_tree('newick', 'circle');
-            },
-            error: function(msg) {
-                $('#message').empty();
-                $('#message').append("<a>Couldn't load tree. Click here to try again.</a>");
-            }
-        });
-    });
-</script>
 {% endblock %}
