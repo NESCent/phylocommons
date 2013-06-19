@@ -39,10 +39,12 @@
     </table>
     {% endif %}
     </td></tr>
-</table>
 
-<p><span id="message">
-    <a href="/trees/{{tree_id}}/view">Click here to load the SVG tree viewer.</a>
-</span></p>
+    <tr><td><strong>Tree Viewer</strong></td><td>
+        <a href="/trees/{{tree_id}}/view">
+            <img src='/static/rectangle.svg' width="100px" height="100px" style='border: 2px solid #00f;' />
+        </a>
+    </td></tr>
+</table>
 
 {% endblock %}
