@@ -10,8 +10,9 @@ treestore_kwargs = {}
 
 # if importing any of these python libraries fails, it should be cloned and installed
 biopython = $(shell (echo "try:"; echo "    import Bio.Phylo"; echo "    print"; echo "except:"; echo "    print 'biopython'") | python)
+phylolabel = $(shell (echo "try:"; echo "    import phylolabel"; echo "    print"; echo "except:"; echo "    print 'phylolabel'") | python)
 rdf-treestore = $(shell (echo "try:"; echo "    import treestore"; echo "    print"; echo "except:"; echo "    print 'rdf-treestore'") | python)
-python-deps = $(biopython) $(rdf-treestore)
+python-deps = $(biopython) $(phylolabel) $(rdf-treestore)
 
 .PHONY: all clean
 
@@ -34,6 +35,9 @@ phylocommons/secret_key.py: generate_key.py
 
 rdf-treestore:
 	cd tools/rdf-treestore; python setup.py install
+
+phylolabel:
+	cd tools/phylolabel; python setup.py install
 
 biopython:
 	git clone https://github.com/biopython/biopython.git
