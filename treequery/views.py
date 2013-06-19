@@ -19,7 +19,9 @@ def query(request):
     format = 'newick'
     prune = True
     tree_uri = None
+    tree_id = None
     filter = None
+    taxonomy = None
     
     if request.method == 'POST':
         form = QueryForm(request.POST)
@@ -28,7 +30,7 @@ def query(request):
             taxa = form.cleaned_data['taxa']
             prune = form.cleaned_data['prune']
             format = form.cleaned_data['format']
-            tree_uri = form.cleaned_data['tree']
+            tree_id = form.cleaned_data['tree']
             taxonomy = form.cleaned_data['taxonomy']
             filter = form.cleaned_data['filter']
         else:
@@ -39,7 +41,7 @@ def query(request):
         taxa = request.GET.get('taxa')
         if 'format' in request.GET: format = request.GET.get('format')
         if 'prune' in request.GET: prune = request.GET.get('prune')[0].lower() == 'y'
-        if 'tree' in request.GET: tree_uri = request.GET.get('tree')
+        if 'tree' in request.GET: tree_id = request.GET.get('tree')
         if 'taxonomy' in request.GET: taxonomy = request.GET.get('taxonomy')
         if 'filter' in request.GET: filter = request.GET.get('filter')
             
@@ -49,15 +51,22 @@ def query(request):
             
 
     if submitted_query:
+        if tree_id: tree_uri = uri_from_tree_id(tree_id)
+        if taxonomy: taxonomy = uri_from_tree_id(taxonomy)
+
         if format == 'view':
             tree_src = '/query/?' + urllib.urlencode([
+                (a, b) for (a, b) in
+                [
                 ('format', 'newick'),
                 ('prune', 'y' if prune else 'n'),
                 ('taxa', taxa),
-                ('tree', tree_uri),
+                ('tree', tree_id),
                 ('taxonomy', taxonomy),
                 ('filter', filter),
-                ])
+                ]
+                if b]
+                )
             print tree_src
             return treeview.views.svgview(request, 
                 tree_src=tree_src)
