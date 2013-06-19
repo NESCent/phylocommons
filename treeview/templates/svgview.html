@@ -38,6 +38,7 @@
                 $('img#loading').hide();
                 $('div#treelib-widget').show();
                 draw_tree('newick', 'circle');
+                $('#message').append('<a href="data:text/plaintext,' + encodeURIComponent(data) + '">Click to download in Newick format</a>');
             },
             error: function(msg) {
                 $('#message').empty();
