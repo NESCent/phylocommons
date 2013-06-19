@@ -18,7 +18,6 @@ def query(request):
     
     format = 'newick'
     prune = True
-    match_all = False
     tree_uri = None
     filter = None
     
@@ -28,7 +27,6 @@ def query(request):
             submitted_query = True
             taxa = form.cleaned_data['taxa']
             prune = form.cleaned_data['prune']
-            match_all = form.cleaned_data['match_all']
             format = form.cleaned_data['format']
             tree_uri = form.cleaned_data['tree']
             taxonomy = form.cleaned_data['taxonomy']
@@ -72,7 +70,7 @@ def query(request):
             # if there are more than one matching tree
             trees = None
             matches = []
-            for match in treestore.list_trees_containing_taxa(contains=contains, match_all=match_all, show_counts=False):
+            for match in treestore.list_trees_containing_taxa(contains=contains, show_counts=False):
                 matches.append(match)
                 if len(matches) > 10: break
             
@@ -80,7 +78,7 @@ def query(request):
                 try:
                     trees = treestore.get_subtree(contains=contains, tree_uri=matches[0],
                                                   format=format, prune=prune, filter=filter,
-                                                  match_all=match_all, taxonomy=taxonomy)
+                                                  taxonomy=taxonomy)
                 except Exception as e:
                     trees = None
                     exception = e
@@ -92,7 +90,7 @@ def query(request):
             try:
                 trees = treestore.get_subtree(contains=contains, tree_uri=tree_uri,
                                               format=format, prune=prune, filter=filter,
-                                              match_all=match_all, taxonomy=taxonomy)
+                                              taxonomy=taxonomy)
             except Exception as e:
                 trees = None
                 exception = e
