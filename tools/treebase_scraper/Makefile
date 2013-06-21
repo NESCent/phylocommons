@@ -3,7 +3,7 @@
 all: trees
 
 trees.rss:
-	wget "http://purl.org/phylo/treebase/phylows/tree/find?query=tb.kind.tree=\"Species Tree\"&format=rss1" -O $@
+	wget "http://purl.org/phylo/treebase/phylows/tree/find?query=tb.title.tree=\"\"&format=rss1" -O $@
 
 trees.list: trees.rss
 	grep -Po "TB2:Tr[0-9]+" trees.rss | sort | uniq > $@
