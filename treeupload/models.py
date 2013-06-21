@@ -23,6 +23,8 @@ class TreeSubmission(models.Model):
     
     uploaded_by = models.ForeignKey(User, related_name='uploaded_by')
     upload_time = models.DateTimeField(auto_now_add=True)
+
+    doi = models.CharField(max_length=100)
     
     def tree_file_name(self):
         return os.path.split(self.tree_file.name)[1]
