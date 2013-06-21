@@ -9,12 +9,14 @@ class QueryForm(forms.Form):
     taxa = forms.CharField(required=True,
                            initial='Homo sapiens,Pan troglodytes,Pan paniscus,Gorilla gorilla,Pongo pygmaeus',
                            widget=forms.Textarea)
+    taxa.widget.attrs['class'] = 'stretch'
     
     format_choices = sorted(bp._io.supported_formats.keys()) + ['ascii']
     format_choices = [(x,x) for x in format_choices] + [('view', '(open in tree viewer)')]
     format = forms.ChoiceField(choices=format_choices,
                                initial='newick'
                                )
+    format.widget.attrs['class'] = 'stretch'
                                
     prune = forms.BooleanField(required=False, initial=True)
     

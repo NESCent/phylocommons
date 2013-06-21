@@ -39,7 +39,7 @@ table form {
 width:100%;
 }
 
-td input, td textarea, td select, form input, form textarea, form select {
+.stretch {
 width: 100%;
 padding: 0;
 }

@@ -30,7 +30,10 @@
     <div class="control-group">
         <label class="control-label" for='tree'>From tree</label>
         <div class="controls">
+            <div class="input-prepend stretch">
+            <span class="add-on">{{ tree_uri }}</span>
             {{ form.tree }}
+            </div>
             {{ form.tree.errors }}
         </div>
     </div>
@@ -52,7 +55,10 @@
     <div class="control-group advanced">
         <label class="control-label" for='tree'>Using taxonomy</label>
         <div class="controls">
+            <div class="input-prepend stretch">
+            <span class="add-on">{{ tree_uri }}</span>
             {{ form.taxonomy }}
+            </div>
             {{ form.taxonomy.errors }}
         </div>
     </div>
@@ -75,7 +81,7 @@
         
     <div class="control-group">
         <div class="controls">
-            <button class="btn" type="submit">Get tree</button>
+            <button class="btn btn-primary" type="submit">Get tree</button>
         </div>
     </div>
 </form>
