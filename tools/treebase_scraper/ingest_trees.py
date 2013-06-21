@@ -25,6 +25,9 @@ for tree_file in tree_files:
     if tree_uri in tree_list: continue
     print '**', tree_uri
     tree_path = os.path.join('trees', tree_file)
+    with open(tree_path) as input_file:
+        r = input_file.read()
+    if '<!DOCTYPE html' in r: continue
     try:
         t.add_trees(tree_path, 'nexus', tree_uri=tree_uri, rooted=False,
                     taxonomy=taxonomy, tax_root=None)
