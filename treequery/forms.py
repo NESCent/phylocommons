@@ -37,3 +37,4 @@ class QueryForm(forms.Form):
     taxonomy.widget.attrs['class'] = 'combobox'
                              
     filter = forms.CharField(required=False)
+    filter.widget.attrs['class'] = 'stretch'
