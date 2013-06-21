@@ -11,13 +11,13 @@
 {% block content %}
 
 {% if tree_list %}
-<ul>
+<table class='table table-condensed table-striped table-hover table-bordered'>
     {% for tree_id in tree_list %}
-    <li>
+    <tr><td>
         <a href='/trees/{{tree_id}}'>{{tree_id}}</a>
-    </li>
+    </td></tr>
     {% endfor %}
-</ul>
+</table>
 
 <div class="pagination">
     <ul>
