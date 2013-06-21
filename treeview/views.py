@@ -66,7 +66,7 @@ def download(request, tree_id=None):
     trees = treestore.get_trees(tree_uri=tree_uri)
     s = StringIO()
     if format == 'ascii':
-        bp._utils.draw_ascii(trees.next(), file=s)
+        bp._utils.draw_ascii(trees[0], file=s)
     else: 
         bp.write(trees, s, format)
 
