@@ -14,67 +14,70 @@
 
 {% block content %}
 
-<form action="{% url query %}" method="post" enctype="multipart/form-data">
+<form action="{% url query %}" method="post" enctype="multipart/form-data" class="form-horizontal">
     {% csrf_token %}
     
     {{ form.non_field_errors }}
     
-    <table>
-        <tr><td>
-            <label for='q'>Taxa</label>
-        </td><td>
+    <div class="control-group">
+        <label class="control-label" for='q'>Taxa</label>
+        <div class="controls">
             {{ form.taxa }}
             {{ form.taxa.errors }}
-        </td></tr>
-        
-        <tr><td style='border-bottom:none;'>
-            <label for='tree'>From tree</label>
-        </td><td style='border-bottom:none;'>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for='tree'>From tree</label>
+        <div class="controls">
             {{ form.tree }}
             {{ form.tree.errors }}
-        </td></tr>
-
-        <tr><td>
-            <label for='format'>Result format</label>
-        </td><td>
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <label class="control-label" for='format'>Result format</label>
+        <div class="controls">
             {{ form.format }}
             {{ form.format.errors }}
-            
-        </td></tr>
-
-        <tr><td>
-        <a style="cursor:pointer" onclick='toggle_extra_options()'>Advanced options...</a>
-        </td><td>
-        </td></tr>
-
-        <tr class='advanced'><td style='border-bottom:none;'>
-            <label for='tree'>Using taxonomy</label>
-        </td><td style='border-bottom:none;'>
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <div class="controls">
+            <a style="cursor:pointer" onclick='toggle_extra_options()'>Advanced options...</a>
+        </div>
+    </div>
+    
+    <div class="control-group advanced">
+        <label class="control-label" for='tree'>Using taxonomy</label>
+        <div class="controls">
             {{ form.taxonomy }}
             {{ form.taxonomy.errors }}
-        </td></tr>
-        
-        <tr class='advanced'><td style='border-top:none;'>
-            <label for='filter'>SPARQL tree filter</label>
-        </td><td style='border-top:none;'>
-            {{ form.filter }}
-            {{ form.filter.errors }}
-        </td></tr>
-        
-        <tr class='advanced'><td>
-            <label for='prune'>Prune result?</label>
-        </td><td>
-            {{ form.prune }}
-            {{ form.prune.errors }}
-        </td></tr>
-        
+        </div>
     </div>
         
-        <tfoot><td></td><td><br/><br/><input type="submit" value="Get tree" /></td></tfoot>
-    </table>
-
-
-
+    <div class="control-group advanced">
+        <label class="control-label" for='filter'>SPARQL tree filter</label>
+        <div class="controls">
+            {{ form.filter }}
+            {{ form.filter.errors }}
+        </div>
+    </div>
+    
+    <div class="control-group advanced">
+        <label class="control-label" for='prune'>Prune result?</label>
+        <div class="controls">
+            {{ form.prune }}
+            {{ form.prune.errors }}
+        </div>
+    </div>
+        
+    <div class="control-group">
+        <div class="controls">
+            <button class="btn" type="submit">Get tree</button>
+        </div>
+    </div>
 </form>
 
 <script type='text/javascript'>
@@ -90,57 +93,55 @@
 
 <br/><br/>
 
-<em>
-    <p>
-        <strong>Taxa:</strong>
+<dl class="dl-horizontal help">
+    <dt>Taxa</dt>
+    <dd>
         Enter a comma-separated list of taxa from which to generate a tree.
         (If you only enter a single taxon and choose not to prune, you can
         get a tree containing that taxon and all of its descendents.)
         Don't use underscores; PhyloCommons automatically converts underscores
         to spaces in submitted trees.
-    </p>
+    </dd>
     
-    <p>
-        <strong>From tree:</strong>
+    <dt>From tree</dt>
+    <dd>
         Select a tree to query. By default, the tree (or one of the trees)
         containing the greatest number of the entered taxa will be chosen
         automatically.
-    </p>
+    </dd>
     
-    <p>
-        <strong>Result format:</strong>
+    <dt>Result format</dt>
+    <dd>
         The output format of the result tree.
-    </p>
-
-    <p>
-        <strong>Taxonomy:</strong>
+    </dd>
+    
+    <dt>Taxonomy</dt>
+    <dd>
         Choosing a taxonomy will enable synonym matching: if the exact names you
         entered aren't present in the tree, PhyloCommons will also attempt to match
         to their synonyms. When matching synonyms, the resulting tree will contain 
         the labels you queried for instead of the labels from the phylogeny.
-    </p>
-
-    <p>
-        <strong>SPARQL filter:</strong>
+    </dd>
+    
+    <dt>SPARQL filter</dt>
+    <dd>
         If "select automatically" is selected, this field can be used to filter
         which trees will be considered. You can enter a SPARQL filter expression here,
         using the ?tree variable to stand for potential matching trees.
-    </p>
+    </dd>
     
-    <p>
-        <strong>Prune result:</strong>
+    <dt>Prune result</dt>
+    <dd>
         If checked, the resulting tree will contain only the taxa you entered,
         and any others will be pruned away (preserving branch lengths where
         necessary.) Otherwise, the entire subtree from the MRCA of the entered 
         taxa will be returned.
-    </p>
-    
-    <br/>
-    
-    <p>
-        You can also query PhyloCommons using a URL string:<br/><br/>
-        {{ domain }}{% url query %}?taxa=Taxon 1,Taxon 2,Taxon 3&tree=tree_uri&filter=cql_filter&prune=y&format=newick
-    </p>
-</em>
+    </dd>
+</dl>
+
+<p>
+    You can also query PhyloCommons using a URL string:<br/><br/>
+    {{ domain }}{% url query %}?taxa=Taxon 1,Taxon 2,Taxon 3&tree=tree_uri&filter=cql_filter&prune=y&format=newick
+</p>
 
 {% endblock %}

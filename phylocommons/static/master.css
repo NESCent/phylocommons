@@ -35,11 +35,11 @@ float:right;
 color:#00f;
 }
 
-table {
+table form {
 width:100%;
 }
 
-td input[type="text"], td textarea, td select {
+td input, td textarea, td select, form input, form textarea, form select {
 width: 100%;
 padding: 0;
 }
