@@ -2,6 +2,10 @@
 
 {% block title %}Query - PhyloCommons{% endblock %}
 
+{% block head %}
+    <script type="text/javascript" src="/static/select2.js"></script>
+{% endblock %}
+
 {% block leftmenu %}
 {% include "tree_menu.html" %}
 {% endblock %}
@@ -37,46 +41,50 @@
             {{ form.format.errors }}
             
         </td></tr>
-        
-        <tfoot><td></td><td><br/><br/><input type="submit" value="Get tree" /></td></tfoot>
-    </table>
 
-    <a onclick='toggle_extra_options()'>Advanced options...</a>
+        <tr><td>
+        <a style="cursor:pointer" onclick='toggle_extra_options()'>Advanced options...</a>
+        </td><td>
+        </td></tr>
 
-    <div id='extra-options'><table>
-
-        <tr><td style='border-bottom:none;'>
+        <tr class='advanced'><td style='border-bottom:none;'>
             <label for='tree'>Using taxonomy</label>
         </td><td style='border-bottom:none;'>
             {{ form.taxonomy }}
             {{ form.taxonomy.errors }}
         </td></tr>
         
-        <tr><td style='border-top:none;'>
+        <tr class='advanced'><td style='border-top:none;'>
             <label for='filter'>SPARQL tree filter</label>
         </td><td style='border-top:none;'>
             {{ form.filter }}
             {{ form.filter.errors }}
         </td></tr>
         
-        <tr><td>
+        <tr class='advanced'><td>
             <label for='prune'>Prune result?</label>
         </td><td>
             {{ form.prune }}
             {{ form.prune.errors }}
         </td></tr>
         
-    </table></div>
+    </div>
+        
+        <tfoot><td></td><td><br/><br/><input type="submit" value="Get tree" /></td></tfoot>
+    </table>
+
+
 
 </form>
 
 <script type='text/javascript'>
     $(document).ready(function() {
-        $('div#extra-options').hide()
+        $('.advanced').hide();
+        //$('.combobox').select2();
     });
 
     function toggle_extra_options() {
-        $('div#extra-options').toggle();
+        $('.advanced').toggle();
     }
 </script>
 

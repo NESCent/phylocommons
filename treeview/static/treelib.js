@@ -9,6 +9,8 @@ var VIEWER_HEIGHT = 500;
 var ZOOM_IN = 1.33;
 var ZOOM_OUT = 0.75;
 
+var errors = ['syntax', 'missing parenthesis', 'unbalanced parentheses', 'stack not empty'];
+
 //--------------------------------------------------------------------------------------------------
 // http://stackoverflow.com/questions/3019278/any-way-to-specify-the-base-of-math-log-in-javascript
 function log10(val) {
@@ -1875,6 +1877,7 @@ function draw_tree(element_id, drawing_type)
 	if (t.error != 0)
 	{
 		document.getElementById('message').innerHTML='Error parsing tree';
+        throw "Error parsing tree: " + errors[t.error-1];
 	}
 	else
 	{

@@ -10,7 +10,7 @@ t = Treestore()
 
 tree_files = [x for x in os.listdir('trees') if x.endswith('.nex')]
 base_uri = 'http://www.phylocommons.org/trees/%s'
-tree_list = t.list_trees()
+tree_list = set(t.list_trees())
 if taxonomy:
     sys.stdout.write('Loading taxonomy...')
     sys.stdout.flush()
@@ -28,7 +28,8 @@ for tree_file in tree_files:
     try:
         t.add_trees(tree_path, 'nexus', tree_uri=tree_uri, rooted=False,
                     taxonomy=taxonomy, tax_root=None)
-    except:
+    except Exception as e:
+        print 'ERROR: ', e
         errors.add(tree_id)
 
 if errors:

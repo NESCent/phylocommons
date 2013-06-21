@@ -11,7 +11,7 @@ class QueryForm(forms.Form):
                            widget=forms.Textarea)
     
     format_choices = sorted(bp._io.supported_formats.keys()) + ['ascii']
-    format_choices = [(x,x) for x in format_choices] + [('view', 'open in tree viewer')]
+    format_choices = [(x,x) for x in format_choices] + [('view', '(open in tree viewer)')]
     format = forms.ChoiceField(choices=format_choices,
                                initial='newick'
                                )

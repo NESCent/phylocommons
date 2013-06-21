@@ -79,7 +79,9 @@ def query(request):
             # if there are more than one matching tree
             trees = None
             matches = []
-            for match in treestore.list_trees_containing_taxa(contains=contains, show_counts=False):
+            for match in treestore.list_trees_containing_taxa(contains=contains, 
+                                                              show_counts=False,
+                                                              filter=filter):
                 matches.append(match)
                 if len(matches) > 10: break
             
