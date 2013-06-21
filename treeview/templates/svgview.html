@@ -41,6 +41,7 @@
                     draw_tree('newick', 'circle');
                 } catch(e) {
                     $('#message').append("<p class='error'>Error: " + e.message + '</p>');
+                    throw e;
                 }
                 $('#message').append('<a href="data:text/plaintext,' + 
                                      data + //encodeURIComponent(data) + 
