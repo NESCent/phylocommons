@@ -18,6 +18,31 @@
     </li>
     {% endfor %}
 </ul>
+
+<div class="pagination">
+    <ul>
+        {% if tree_list.previous_page_number > 1 %}
+        <li><a href="?page=1">1</a></li>
+        <li><a>...</a></li>
+        {% endif %}
+
+        {% if tree_list.has_previous %}
+        <li><a href="?page={{ tree_list.previous_page_number }}">{{ tree_list.previous_page_number }}</a></li>    
+        {% endif %}
+        
+        <li class="active"><a>{{ tree_list.number }}</a></li>
+        
+        {% if tree_list.has_next %}
+        <li><a href="?page={{ tree_list.next_page_number }}">{{ tree_list.next_page_number }}</a></li>
+        {% endif %}
+
+        {% if tree_list.next_page_number < tree_list.paginator.num_pages %}
+        <li><a>...</a></li>
+        <li><a href="?page={{ tree_list.paginator.num_pages }}">{{ tree_list.paginator.num_pages }}</a></li>
+        {% endif %}
+    </ul>
+</div>
+
 {% endif %}
 
 {% endblock %}

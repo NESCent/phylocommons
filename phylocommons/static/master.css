@@ -39,16 +39,6 @@ table {
 width:100%;
 }
 
-table td {
-padding: 5px;
-border-top: solid 1px #000;
-border-bottom: solid 1px #000;
-}
-
-table thead {
-font-weight: bold;
-}
-
 td input[type="text"], td textarea, td select {
 width: 100%;
 padding: 0;

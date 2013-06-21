@@ -10,18 +10,12 @@
 
 {% block content %}
 
-<p>
-    <a href='/trees/'>&lt;&lt; Back to list of trees</a>
-</p>
-
-<br/><br/>
-
-<table>
-    <tr><td><strong>URI</strong></td><td>
+<table class="table">
+    <tr><td>URI</td><td>
     {{tree_uri}}
     </td></tr>
     
-    <tr><td><strong>Download</strong></td><td>
+    <tr><td>Download</td><td>
     <ul>
     {% for format in formats %}
     <li><a href='/trees/{{tree_id}}/download?format={{format}}'>{{format}}</a></li>
@@ -29,18 +23,15 @@
     </ul>
     </td></tr>
     
-    <tr><td><strong>Trees</strong></td><td>
-    {% if tree_info %}
-    <table style='width:100%'>
-    <thead><td>Tree URI</td><td>Taxa</td></thead>
-        {% for uri, taxa in tree_info %}
-        <tr><td>{{uri}}</td><td>{{taxa}}</td></tr>
-        {% endfor %}
-    </table>
+    {% if taxa %}
+    <tr><td>Labeled taxa</td><td>{{taxa}}</td></tr>
     {% endif %}
-    </td></tr>
 
-    <tr><td><strong>Tree Viewer</strong></td><td>
+    {% if doi %}
+    <tr><td>Citation (DOI)</td><td><a href="{{doi}}">{{doi}}</a></td></tr>
+    {% endif %}
+
+    <tr><td>Tree Viewer</td><td>
         <a href="/trees/{{tree_id}}/view">
             <img src='/static/rectangle.svg' width="100px" height="100px" style='border: 2px solid #00f;' />
         </a>

@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.core.context_processors import csrf
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext
 from phylocommons.get_treestore import get_treestore, tree_id_from_uri, uri_from_tree_id
 import Bio.Phylo as bp
@@ -11,12 +12,23 @@ from phylocommons import settings
 
 def list(request):
     treestore = get_treestore()
-
+    
     trees = [tree_id_from_uri(uri) for uri in treestore.list_trees()]
+    paginator = Paginator(trees, 25) # Show 25 contacts per page
+    
+    page = request.GET.get('page')
+    try:
+        tree_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        tree_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        tree_list = paginator.page(paginator.num_pages)
     
     return render_to_response(
         'list.html',
-        {'tree_list': trees},
+        {'tree_list': tree_list},
         context_instance=RequestContext(request)
     )
 
@@ -32,8 +44,8 @@ def view(request, tree_id=None):
               'formats': sorted(bp._io.supported_formats.keys()) + ['ascii'],
               }
               
-    tree_info = [t for t in treestore.get_tree_info(tree_uri)]
-    params['tree_info'] = [(t['tree'], t['taxa']) for t in tree_info]
+    tree_info = treestore.get_tree_info(tree_uri)[0]
+    params.update(tree_info)
         
     return render_to_response(
         'view.html',
