@@ -139,7 +139,7 @@ def query_disambiguate(request, matches, form_fields):
     if 'tree_id' in form_fields: del form_fields['tree_id']
     matches = [(tree_id_from_uri(m[0]), m[1]) for m in matches]
     params = {'tree_list': matches, 
-              'max_match_count': matches[0][1], 
+              'max_match_count': len(form_fields['taxa'].split(',')), 
               'form_fields': form_fields}
 
     params.update(csrf(request))
