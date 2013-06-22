@@ -12,7 +12,7 @@
 
 {% if form %}
 
-<form action="{% url trees %}" method="post" enctype="multipart/form-data" class="form-inline form-search">
+<form action="{% url tree_list %}" method="post" enctype="multipart/form-data" class="form-inline form-search">
     {% csrf_token %}
     
     <div class='input-append'>
@@ -25,9 +25,9 @@
 
 {% if tree_list %}
 <table class='table table-condensed table-striped table-hover table-bordered'>
-    {% for tree_id in tree_list %}
-    <tr><td>
-        <a href='/trees/{{tree_id}}'>{{tree_id}}</a>
+    {% for tree_id, count in tree_list %}
+    <tr{% if count == max_match_count %} class="success"{% elif max_match_count %} class="warning"{% endif %}><td>
+        <a href='/trees/{{tree_id}}'>{{tree_id}}</a>{% if max_match_count %} ({{ count }}/{{max_match_count}}){% endif %}
     </td></tr>
     {% endfor %}
 </table>

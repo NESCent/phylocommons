@@ -14,7 +14,7 @@ import urllib
 
 TREES_PER_PAGE = 10
 
-def list(request):
+def tree_list(request):
     treestore = get_treestore()
     if request.method == 'POST':
         form = SearchForm(request.POST)
@@ -32,7 +32,9 @@ def list(request):
 
     taxa = [x.strip() for x in taxa.split(',')] if taxa else []
 
-    trees = [tree_id_from_uri(uri) for uri in treestore.list_trees_containing_taxa(contains=taxa, filter=filter)]
+    trees = list(treestore.list_trees_containing_taxa(contains=taxa, filter=filter, 
+        taxonomy=settings.DEFAULT_TAXONOMY, show_counts=True))
+    trees = [(tree_id_from_uri(m[0]), int(m[1])) for m in trees]
     paginator = Paginator(trees, TREES_PER_PAGE)
     
     page = request.GET.get('page')
@@ -46,21 +48,22 @@ def list(request):
         tree_list = paginator.page(paginator.num_pages)
     
     params = {'tree_list': tree_list,
-              'form': form}
+              'form': form,
+              'max_match_count': len(taxa)}
     params.update(csrf(request))
 
     num_pages = paginator.num_pages
     page_range = [n for n in range(tree_list.number - 2, tree_list.number + 3) 
                   if n >= 1 and n <= num_pages]
-
+    
     if page_range[0] == 2: page_range = [1] + page_range
     elif page_range[0] > 2: page_range = [1, '...'] + page_range
-
+    
     if page_range[-1] == num_pages - 1: page_range += [num_pages]
     elif page_range[-1] < num_pages - 1: page_range += ['...', num_pages]
-
+    
     pages = []
-
+    
     for page in page_range:
         if page == '...': pages.append((page, None))
         else:
@@ -71,9 +74,9 @@ def list(request):
             p += [('page', page)]
             print p
             pages.append((page, '/trees/?' + urllib.urlencode(p)))
-
+    
     params['pages'] = pages
-
+    
     return render_to_response(
         'list.html',
         params,
