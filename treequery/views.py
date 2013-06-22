@@ -73,7 +73,7 @@ def query(request):
                                                               show_counts=True,
                                                               taxonomy=taxonomy,
                                                               filter=params['filter']):
-                matches.append(match)
+                matches.append((match[0], int(match[1])))
                 if len(matches) >= MAX_DISAMBIG_MATCHES: break
             
             if len(matches) == 1:

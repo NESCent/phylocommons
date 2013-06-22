@@ -78,7 +78,6 @@ def tree_list(request):
                 if arg in request.GET:
                     p += [(arg, request.GET.get(arg))]
             p += [('page', page)]
-            print p
             pages.append((page, '/trees/?' + urllib.urlencode(p)))
     
     params['pages'] = pages
