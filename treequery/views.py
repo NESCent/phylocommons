@@ -40,7 +40,7 @@ def query(request):
         submitted_query = True
         taxa = request.GET.get('taxa')
         if 'format' in request.GET: format = request.GET.get('format')
-        if 'prune' in request.GET: prune = request.GET.get('prune')[0].lower() == 'y'
+        if 'prune' in request.GET: prune = request.GET.get('prune') == 'True'
         if 'tree' in request.GET: tree_id = request.GET.get('tree')
         if 'taxonomy' in request.GET: taxonomy = request.GET.get('taxonomy')
         if 'filter' in request.GET: filter = request.GET.get('filter')
@@ -51,19 +51,19 @@ def query(request):
             
 
     if submitted_query:
-        if format == 'view':
-            tree_src = '/query/?' + urllib.urlencode([
-                (a, b) for (a, b) in
-                [
-                ('format', 'newick'),
-                ('prune', 'y' if prune else 'n'),
-                ('taxa', taxa),
-                ('tree', tree_id),
-                ('taxonomy', taxonomy),
-                ('filter', filter),
-                ]
-                if b]
-                )
+        tree_src = '/query/?' + urllib.urlencode([
+            (a, b) for (a, b) in
+             ([('tree', tree_id)] if tree_id else []) + 
+            [
+             ('format', 'newick' if format == 'view' else format),
+             ('prune', 'True' if prune else 'False'),
+             ('taxa', taxa),
+             ('taxonomy', taxonomy),
+             ('filter', filter),
+             ]
+             if b]
+             )
+        if format == 'view' and tree_id:
             print tree_src
             return treeview.views.svgview(request, 
                 tree_src=tree_src)
@@ -80,14 +80,15 @@ def query(request):
             trees = None
             matches = []
             for match in treestore.list_trees_containing_taxa(contains=contains, 
-                                                              show_counts=False,
+                                                              show_counts=True,
+                                                              taxonomy=taxonomy,
                                                               filter=filter):
                 matches.append(match)
                 if len(matches) > 10: break
             
             if len(matches) == 1:
                 try:
-                    trees = treestore.get_subtree(contains=contains, tree_uri=matches[0],
+                    trees = treestore.get_subtree(contains=contains, tree_uri=matches[0][0],
                                                   format=format, prune=prune, filter=filter,
                                                   taxonomy=taxonomy)
                 except Exception as e:
@@ -95,7 +96,14 @@ def query(request):
                     exception = e
                     
             elif len(matches) > 1:
-                return query_disambiguate(request, matches)
+                return query_disambiguate(request, matches, 
+                    {'taxa': taxa,
+                     'prune': 'True' if prune else 'False',
+                     'format': format,
+                     'taxonomy': tree_id_from_uri(taxonomy),
+                     'filter': filter})
+            else:
+                e = None
                 
         else:
             try:
@@ -112,7 +120,7 @@ def query(request):
         else:
             
             errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
-            errors.append('%s' % e)
+            if e: errors.append('%s' % e)
             
             err_msg = "Your query didn't return a result. Try entering a new list of taxa"
             if tree_uri: err_msg += ' or selecting a different tree'
@@ -137,8 +145,14 @@ def query(request):
 
             
 
-def query_disambiguate(request, matches):
-    #TODO
+def query_disambiguate(request, matches, form_fields):
+    matches = [(tree_id_from_uri(m[0]), m[1]) for m in matches]
+    params = {'tree_list': matches, 
+              'max_match_count': matches[0][1], 
+              'form_fields': form_fields}
+
+    params.update(csrf(request))
+
     return render_to_response(
         'disambiguate.html',
         params,

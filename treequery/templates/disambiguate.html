@@ -1,0 +1,35 @@
+{% extends "master.html" %}
+
+{% block title %}Query - PhyloCommons{% endblock %}
+
+{% block leftmenu %}
+{% include "tree_menu.html" %}
+{% endblock %}
+
+{% block nav-trees %}class="active"{% endblock %}
+
+{% block content %}
+
+{% if tree_list %}
+
+<form action="{% url query %}" method="post" enctype="multipart/form-data" class="form-horizontal">
+    {% csrf_token %}
+
+{% for k, v in form_fields.items %}
+<input type="hidden" name="{{k}}" value="{{v}}" />
+{% endfor %}
+
+<table class='table table-condensed table-striped table-hover table-bordered'>
+    {% for tree_id, match_count in tree_list %}
+    <tr><td>
+        <a href='/trees/{{tree_id}}'>{{tree_id}} ({{match_count}})</a>
+        <button class="btn {% if match_count == max_match_count %}btn-primary{% endif %} pull-right" id="tree_uri" name="tree" value="{{tree_id}}">Get tree</button>
+    </td></tr>
+    {% endfor %}
+</table>
+
+</form>
+
+{% endif %}
+
+{% endblock %}
