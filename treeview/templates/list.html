@@ -26,7 +26,7 @@
 {% if tree_list %}
 <table class='table table-condensed table-striped table-hover table-bordered'>
     {% for tree_id, count in tree_list %}
-    <tr{% if count == max_match_count %} class="success"{% elif max_match_count %} class="warning"{% endif %}><td>
+    <tr{% if '_taxonomy' in tree_id %} class="success"{% elif count == max_match_count %} class="info"{% elif max_match_count %} class="warning"{% endif %}><td>
         <a href='/trees/{{tree_id}}'>{{tree_id}}</a>{% if max_match_count %} ({{ count }}/{{max_match_count}}){% endif %}
     </td></tr>
     {% endfor %}
