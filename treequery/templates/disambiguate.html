@@ -20,10 +20,14 @@
 {% endfor %}
 
 <table class='table table-condensed table-striped table-hover table-bordered'>
+    <thead><tr><th>Tree</th><th>Matches</th></th></thead>
+    
     {% for tree_id, match_count in tree_list %}
     <tr><td>
-        <a href='/trees/{{tree_id}}'>{{tree_id}} ({{match_count}}/{{max_match_count}})</a>
-        <button class="btn {% if match_count == max_match_count %}btn-primary{% endif %} pull-right" id="tree_id" name="tree_id" value="{{tree_id}}">Get tree</button>
+        <a href='/trees/{{tree_id}}'>{{tree_id}}</a>
+    </td><td>
+        ({{match_count}}/{{max_match_count}})
+        <button class="btn {% if "_taxonomy" in tree_id  %}btn-success{% elif match_count == max_match_count %}btn-primary{% else %}btn-warning{% endif %} pull-right" id="tree_id" name="tree_id" value="{{tree_id}}">Get tree</button>
     </td></tr>
     {% endfor %}
 </table>
