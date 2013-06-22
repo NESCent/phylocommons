@@ -10,6 +10,8 @@ TREE_URI = posixpath.join(DOMAIN, 'trees/')
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+DEFAULT_TAXONOMY = 'ncbi_taxonomy'
+
 
 MANAGERS = ADMINS
 
