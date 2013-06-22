@@ -24,7 +24,7 @@ class QueryForm(forms.Form):
     
     tree_list = [tree_id_from_uri(x) for x in treestore.list_trees()]
     
-    tree_choices = [('', '(Select automatically)')] + [(x,x) for x in tree_list]
+    tree_choices = [('', '(see all matching trees)')] + [(x,x) for x in tree_list]
     tree = forms.ChoiceField(choices=tree_choices,
                              initial=tree_choices[0],
                              required=False)
