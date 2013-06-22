@@ -51,9 +51,6 @@ def query(request):
             
 
     if submitted_query:
-        if tree_id: tree_uri = uri_from_tree_id(tree_id)
-        if taxonomy: taxonomy = uri_from_tree_id(taxonomy)
-
         if format == 'view':
             tree_src = '/query/?' + urllib.urlencode([
                 (a, b) for (a, b) in
@@ -71,6 +68,9 @@ def query(request):
             return treeview.views.svgview(request, 
                 tree_src=tree_src)
         
+        if tree_id: tree_uri = uri_from_tree_id(tree_id)
+        if taxonomy: taxonomy = uri_from_tree_id(taxonomy)
+
         # execute the query and return the result as a plaintext tree
         contains = [t.strip() for t in taxa.split(',')]
         
