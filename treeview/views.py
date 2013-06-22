@@ -55,6 +55,12 @@ def tree_list(request):
     num_pages = paginator.num_pages
     page_range = [n for n in range(tree_list.number - 2, tree_list.number + 3) 
                   if n >= 1 and n <= num_pages]
+
+    params.update({
+        'total_results': len(trees),
+        'low_result': TREES_PER_PAGE * (tree_list.number - 1) + 1,
+        'high_result': min(len(trees), TREES_PER_PAGE * tree_list.number)
+        })
     
     if page_range[0] == 2: page_range = [1] + page_range
     elif page_range[0] > 2: page_range = [1, '...'] + page_range

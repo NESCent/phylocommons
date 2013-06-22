@@ -26,7 +26,7 @@
     <tr><td>
         <a href='/trees/{{tree_id}}'>{{tree_id}}</a>
     </td><td>
-        ({{match_count}}/{{max_match_count}})
+        {{match_count}}/{{max_match_count}}
         <button class="btn {% if "_taxonomy" in tree_id  %}btn-success{% elif match_count == max_match_count %}btn-primary{% else %}btn-warning{% endif %} pull-right" id="tree_id" name="tree_id" value="{{tree_id}}">Get tree</button>
     </td></tr>
     {% endfor %}
