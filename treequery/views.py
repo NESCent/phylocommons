@@ -13,6 +13,8 @@ import treeview.views
 import urllib
 
 
+MAX_DISAMBIG_MATCHES = 50
+
 def query(request):
     treestore = get_treestore()
     
@@ -84,7 +86,7 @@ def query(request):
                                                               taxonomy=taxonomy,
                                                               filter=filter):
                 matches.append(match)
-                if len(matches) > 10: break
+                if len(matches) >= MAX_DISAMBIG_MATCHES: break
             
             if len(matches) == 1:
                 try:
