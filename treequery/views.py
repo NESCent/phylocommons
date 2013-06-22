@@ -18,59 +18,51 @@ MAX_DISAMBIG_MATCHES = 50
 def query(request):
     treestore = get_treestore()
     
-    format = 'newick'
-    prune = True
     tree_uri = None
-    tree_id = None
-    filter = None
-    taxonomy = None
+    params = {
+        'taxa': '',
+        'format': 'newick',
+        'prune': True,
+        'tree_id': None,
+        'filter': None,
+        'taxonomy': None,
+        }
     
     if request.method == 'POST':
         form = QueryForm(request.POST)
         if form.is_valid():
-            params = [(x, y) for x, y in form.cleaned_data.items()]
-            return redirect('/query/?' + urllib.urlencode(params))
+            url = '/query/?' + urllib.urlencode(form.cleaned_data.items())
+            if len(url) < 200: return redirect(url)
+            params.update(form.cleaned_data)
+            submitted_query = True
         else:
             submitted_query = False
-
         
     elif request.method == 'GET' and 'taxa' in request.GET:
         submitted_query = True
         taxa = request.GET.get('taxa')
-        if 'format' in request.GET: format = request.GET.get('format')
-        if 'prune' in request.GET: prune = request.GET.get('prune') == 'True'
-        if 'tree' in request.GET: tree_id = request.GET.get('tree')
-        if 'taxonomy' in request.GET: taxonomy = request.GET.get('taxonomy')
-        if 'filter' in request.GET: filter = request.GET.get('filter')
-            
+        params.update(request.GET.dict())
+        if 'prune' in request.GET: params['prune'] = params['prune'] == 'True'
+        form = QueryForm(initial=request.GET.dict())
+        form.full_clean()
+        
     else:
         submitted_query = False
         form = QueryForm()
-            
-
+    
+    
     if submitted_query:
-        tree_src = '/query/?' + urllib.urlencode([
-            (a, b) for (a, b) in
-             ([('tree', tree_id)] if tree_id else []) + 
-            [
-             ('format', 'newick' if format == 'view' else format),
-             ('prune', 'True' if prune else 'False'),
-             ('taxa', taxa),
-             ('taxonomy', taxonomy),
-             ('filter', filter),
-             ]
-             if b]
-             )
-        if format == 'view' and tree_id:
-            print tree_src
-            return treeview.views.svgview(request, 
-                tree_src=tree_src)
+        tree_uri = uri_from_tree_id(params['tree_id']) if params['tree_id'] else None
+        taxonomy = uri_from_tree_id(params['taxonomy']) if params['taxonomy'] else None
         
-        if tree_id: tree_uri = uri_from_tree_id(tree_id)
-        if taxonomy: taxonomy = uri_from_tree_id(taxonomy)
+        if params['format'] == 'view' and tree_uri:
+            params['format'] = 'newick'
+            tree_src = '/query/?' + urllib.urlencode(params.items())
 
+            return treeview.views.svgview(request, tree_src=tree_src)
+        
         # execute the query and return the result as a plaintext tree
-        contains = [t.strip() for t in taxa.split(',')]
+        contains = [t.strip() for t in params['taxa'].split(',')]
         
         if tree_uri is None:
             # 'select automatically' was chosen; perform the disambiguation step
@@ -80,33 +72,33 @@ def query(request):
             for match in treestore.list_trees_containing_taxa(contains=contains, 
                                                               show_counts=True,
                                                               taxonomy=taxonomy,
-                                                              filter=filter):
+                                                              filter=params['filter']):
                 matches.append(match)
                 if len(matches) >= MAX_DISAMBIG_MATCHES: break
             
             if len(matches) == 1:
                 try:
                     trees = treestore.get_subtree(contains=contains, tree_uri=matches[0][0],
-                                                  format=format, prune=prune, filter=filter,
+                                                  format=params['format'], 
+                                                  prune=params['prune'], 
+                                                  filter=params['filter'],
                                                   taxonomy=taxonomy)
                 except Exception as e:
                     trees = None
                     exception = e
                     
             elif len(matches) > 1:
-                return query_disambiguate(request, matches, 
-                    {'taxa': taxa,
-                     'prune': 'True' if prune else 'False',
-                     'format': format,
-                     'taxonomy': tree_id_from_uri(taxonomy),
-                     'filter': filter})
+                return query_disambiguate(request, matches, params)
             else:
                 e = None
                 
         else:
             try:
-                trees = treestore.get_subtree(contains=contains, tree_uri=tree_uri,
-                                              format=format, prune=prune, filter=filter,
+                trees = treestore.get_subtree(contains=contains,
+                                              tree_uri=tree_uri,
+                                              format=params['format'],
+                                              prune=params['prune'],
+                                              filter=params['filter'],
                                               taxonomy=taxonomy)
             except Exception as e:
                 trees = None
@@ -144,6 +136,7 @@ def query(request):
             
 
 def query_disambiguate(request, matches, form_fields):
+    if 'tree_id' in form_fields: del form_fields['tree_id']
     matches = [(tree_id_from_uri(m[0]), m[1]) for m in matches]
     params = {'tree_list': matches, 
               'max_match_count': matches[0][1], 

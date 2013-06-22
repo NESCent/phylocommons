@@ -23,7 +23,7 @@
     {% for tree_id, match_count in tree_list %}
     <tr><td>
         <a href='/trees/{{tree_id}}'>{{tree_id}} ({{match_count}}/{{max_match_count}})</a>
-        <button class="btn {% if match_count == max_match_count %}btn-primary{% endif %} pull-right" id="tree_uri" name="tree" value="{{tree_id}}">Get tree</button>
+        <button class="btn {% if match_count == max_match_count %}btn-primary{% endif %} pull-right" id="tree_id" name="tree_id" value="{{tree_id}}">Get tree</button>
     </td></tr>
     {% endfor %}
 </table>

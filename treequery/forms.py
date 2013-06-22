@@ -20,15 +20,13 @@ class QueryForm(forms.Form):
                                
     prune = forms.BooleanField(required=False, initial=True)
     
-    match_all = forms.BooleanField(required=False, initial=False)
-    
     tree_list = [tree_id_from_uri(x) for x in treestore.list_trees()]
     
     tree_choices = [('', '(see all matching trees)')] + [(x,x) for x in tree_list]
-    tree = forms.ChoiceField(choices=tree_choices,
-                             initial=tree_choices[0],
-                             required=False)
-    tree.widget.attrs['class'] = 'combobox'
+    tree_id = forms.ChoiceField(choices=tree_choices,
+                                initial=tree_choices[0],
+                                required=False)
+    tree_id.widget.attrs['class'] = 'combobox'
 
     tax_choices = [('', '(None)')] + [(x,x) for x in tree_list if x.endswith('_taxonomy')]
     taxonomy = forms.ChoiceField(choices=tax_choices,
