@@ -21,9 +21,7 @@ def list(request):
         if form.is_valid():
             taxa = form.cleaned_data['taxa']
             filter = form.cleaned_data['filter']
-            params = []
-            if taxa: params += [('taxa', taxa)]
-            if filter: params += [('filter', filter)]
+            params = [(x, y) for x, y in form.cleaned_data.items()]
             return redirect('/trees/?' + urllib.urlencode(params))
     else:    
         taxa = request.GET.get('taxa')

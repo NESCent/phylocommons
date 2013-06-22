@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponse
 from django.core.context_processors import csrf
 from django.forms.util import ErrorList
@@ -28,15 +28,11 @@ def query(request):
     if request.method == 'POST':
         form = QueryForm(request.POST)
         if form.is_valid():
-            submitted_query = True
-            taxa = form.cleaned_data['taxa']
-            prune = form.cleaned_data['prune']
-            format = form.cleaned_data['format']
-            tree_id = form.cleaned_data['tree']
-            taxonomy = form.cleaned_data['taxonomy']
-            filter = form.cleaned_data['filter']
+            params = [(x, y) for x, y in form.cleaned_data.items()]
+            return redirect('/query/?' + urllib.urlencode(params))
         else:
             submitted_query = False
+
         
     elif request.method == 'GET' and 'taxa' in request.GET:
         submitted_query = True
