@@ -9,7 +9,8 @@ import Bio.Phylo as bp
 from cStringIO import StringIO
 from phylocommons import settings
 import urllib
-
+from django.forms.forms import NON_FIELD_ERRORS
+from django.forms.util import ErrorList
 
 
 TREES_PER_PAGE = 10
@@ -29,11 +30,27 @@ def tree_list(request):
         filter = filter if filter else None
 
         form = SearchForm(initial=request.GET)
+        form.full_clean()
 
     taxa = [x.strip() for x in taxa.split(',')] if taxa else []
-
-    trees = list(treestore.list_trees_containing_taxa(contains=taxa, filter=filter, 
-        taxonomy=settings.DEFAULT_TAXONOMY, show_counts=True))
+    
+    params = {'form': form}
+    params.update(csrf(request))
+    
+    try:
+        trees = list(treestore.list_trees_containing_taxa(contains=taxa, filter=filter, 
+                        taxonomy=settings.DEFAULT_TAXONOMY, show_counts=True))
+    except Exception as e:
+        errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
+        err_msg = "There was a problem with your search: %s" % e
+        errors.append(err_msg)
+        
+        return render_to_response(
+            'list.html',
+            params,
+            context_instance=RequestContext(request)
+        )
+        
     trees = [(tree_id_from_uri(m[0]), int(m[1])) for m in trees]
     paginator = Paginator(trees, TREES_PER_PAGE)
     
@@ -47,10 +64,8 @@ def tree_list(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         tree_list = paginator.page(paginator.num_pages)
     
-    params = {'tree_list': tree_list,
-              'form': form,
-              'max_match_count': len(taxa)}
-    params.update(csrf(request))
+    params.update({'tree_list': tree_list,
+                   'max_match_count': len(taxa)})
 
     num_pages = paginator.num_pages
     page_range = [n for n in range(tree_list.number - 2, tree_list.number + 3) 

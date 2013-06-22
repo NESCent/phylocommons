@@ -64,17 +64,24 @@ def query(request):
         # execute the query and return the result as a plaintext tree
         contains = [t.strip() for t in params['taxa'].split(',')]
         
+        e = None
+        
         if tree_uri is None:
             # 'select automatically' was chosen; perform the disambiguation step
             # if there are more than one matching tree
             trees = None
             matches = []
-            for match in treestore.list_trees_containing_taxa(contains=contains, 
-                                                              show_counts=True,
-                                                              taxonomy=taxonomy,
-                                                              filter=params['filter']):
-                matches.append((match[0], int(match[1])))
-                if len(matches) >= MAX_DISAMBIG_MATCHES: break
+            try:
+                for match in treestore.list_trees_containing_taxa(contains=contains, 
+                                                                  show_counts=True,
+                                                                  taxonomy=taxonomy,
+                                                                  filter=params['filter']):
+                    matches.append((match[0], int(match[1])))
+                    if len(matches) >= MAX_DISAMBIG_MATCHES: break
+
+            except Exception as e:
+                trees = None
+                exception = e
             
             if len(matches) == 1:
                 try:
@@ -89,8 +96,7 @@ def query(request):
                     
             elif len(matches) > 1:
                 return query_disambiguate(request, matches, params)
-            else:
-                e = None
+            
                 
         else:
             try:
@@ -108,14 +114,14 @@ def query(request):
             return download_plaintext(request, trees)
             
         else:
-            
             errors = form._errors.setdefault(NON_FIELD_ERRORS, ErrorList())
-            if e: errors.append('%s' % e)
-            
-            err_msg = "Your query didn't return a result. Try entering a new list of taxa"
-            if tree_uri: err_msg += ' or selecting a different tree'
-            err_msg += '.'
-            errors.append(err_msg)
+            if e:
+                errors.append('There was a problem with your query: %s' % e)
+            else:
+                err_msg = "Your query didn't return a result. Try entering a new list of taxa"
+                if tree_uri: err_msg += ' or selecting a different tree'
+                err_msg += '.'
+                errors.append(err_msg)
         
         
     # show the query builder page

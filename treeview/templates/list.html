@@ -14,12 +14,14 @@
 
 <form action="{% url tree_list %}" method="post" enctype="multipart/form-data" class="form-inline form-search">
     {% csrf_token %}
-    
+
     <div class='input-append'>
         {{ form.taxa }}
         {{ form.filter }}
         <button class="btn" type="submit">Search</button>
     </div>
+
+    {{ form.non_field_errors }}
 </form>
 {% endif %}
 
