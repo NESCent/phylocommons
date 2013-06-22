@@ -31,10 +31,24 @@
     <tr><td>Citation (DOI)</td><td><a href="{{doi}}">{{doi}}</a></td></tr>
     {% endif %}
 
+    {% if obj_info %}
+        <tr><td>Metadata</td><td>
+            <table class='table table-compact'>
+            {% for v, o in obj_info %}
+                <tr><td>{{ v }}</td><td>{{ o }}</td></tr>
+            {% endfor %}
+            </table>
+        </td></tr>
+    {% endif %}
+
     <tr><td>Tree Viewer</td><td>
         <a href="/trees/{{tree_id}}/view">
             <img class="img-polaroid" src='/static/rectangle.svg' width="100px" height="100px" />
         </a>
+    </td></tr>
+
+    <tr><td>Query</td><td>
+        <a href="/query/?tree_id={{tree_id}}">Click to create a subtree from members of this tree</a>
     </td></tr>
 </table>
 

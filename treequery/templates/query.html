@@ -47,6 +47,14 @@
     </div>
     
     <div class="control-group">
+        <label class="control-label" for='prune'>Prune result?</label>
+        <div class="controls">
+            {{ form.prune }}
+            {{ form.prune.errors }}
+        </div>
+    </div>
+        
+    <div class="control-group">
         <div class="controls">
             <a style="cursor:pointer" onclick='toggle_extra_options()'>Advanced options...</a>
         </div>
@@ -71,14 +79,6 @@
         </div>
     </div>
     
-    <div class="control-group advanced">
-        <label class="control-label" for='prune'>Prune result?</label>
-        <div class="controls">
-            {{ form.prune }}
-            {{ form.prune.errors }}
-        </div>
-    </div>
-        
     <div class="control-group">
         <div class="controls">
             <button class="btn btn-primary btn-block" type="submit">Get tree</button>

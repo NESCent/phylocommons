@@ -48,7 +48,7 @@ def query(request):
         
     else:
         submitted_query = False
-        form = QueryForm()
+        form = QueryForm(initial=request.GET.dict())
     
     
     if submitted_query:

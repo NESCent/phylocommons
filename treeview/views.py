@@ -96,7 +96,9 @@ def view(request, tree_id=None):
               }
               
     tree_info = treestore.get_tree_info(tree_uri)[0]
+    obj_info = treestore.get_object_info(tree_uri)
     params.update(tree_info)
+    params['obj_info'] = obj_info
         
     return render_to_response(
         'view.html',
