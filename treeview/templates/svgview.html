@@ -36,6 +36,10 @@
             success: function(data) {
                 $('#message').empty();
                 $('#newick').val(data);
+                $('#message2').append('<a href="data:text/plaintext,' + 
+                                      data + //encodeURIComponent(data) + 
+                                      '">Click to download in Newick format</a>'
+                                      );
                 $('img#loading').hide();
                 $('div#treelib-widget').show();
                 try {
@@ -44,10 +48,6 @@
                     $('#message').append("<p class='error'>Error: " + e.message + '</p>');
                     throw e;
                 }
-                $('#message2').append('<a href="data:text/plaintext,' + 
-                                      data + //encodeURIComponent(data) + 
-                                      '">Click to download in Newick format</a>'
-                                      );
             },
             error: function(msg) {
                 $('#message').empty();
