@@ -22,7 +22,7 @@ if taxonomy:
 errors = set()
 for tree_file in tree_files:
     tree_id = 'TB2_' + tree_file[:-len('.nex')]
-    if tree_id in tree_list: continue
+    if Treestore.uri_from_id(tree_id) in tree_list: continue
     print '**', tree_id
     tree_path = os.path.join('trees', tree_file)
     with open(tree_path) as input_file:
