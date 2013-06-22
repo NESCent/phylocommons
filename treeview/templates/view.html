@@ -16,11 +16,9 @@
     </td></tr>
     
     <tr><td>Download</td><td>
-    <ul>
     {% for format in formats %}
-    <li><a href='/trees/{{tree_id}}/download?format={{format}}'>{{format}}</a></li>
+    <a href='/trees/{{tree_id}}/download?format={{format}}' class='btn'>{{format}}</a>
     {% endfor %}
-    </ul>
     </td></tr>
     
     {% if taxa %}
@@ -29,16 +27,6 @@
 
     {% if doi %}
     <tr><td>Citation (DOI)</td><td><a href="{{doi}}">{{doi}}</a></td></tr>
-    {% endif %}
-
-    {% if obj_info %}
-        <tr><td>Metadata</td><td>
-            <table class='table table-compact'>
-            {% for v, o in obj_info %}
-                <tr><td>{{ v }}</td><td>{{ o }}</td></tr>
-            {% endfor %}
-            </table>
-        </td></tr>
     {% endif %}
 
     <tr><td>Tree Viewer</td><td>
@@ -51,5 +39,14 @@
         <a href="/query/?tree_id={{tree_id}}">Click to create a subtree from members of this tree</a>
     </td></tr>
 </table>
+
+{% if obj_info %}
+<table class='table table-compact'>
+    <thead><tr><th>Property</th><th>Value</th></tr></thead>
+    {% for v, o in obj_info %}
+    <tr><td>{{ v }}</td><td>{{ o }}</td></tr>
+    {% endfor %}
+</table>
+{% endif %}
 
 {% endblock %}
