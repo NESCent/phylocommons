@@ -1,20 +1,41 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponse
 from django.core.context_processors import csrf
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext
 from phylocommons.get_treestore import get_treestore, tree_id_from_uri, uri_from_tree_id
+from forms import SearchForm
 import Bio.Phylo as bp
 from cStringIO import StringIO
 from phylocommons import settings
+import urllib
 
 
+
+TREES_PER_PAGE = 10
 
 def list(request):
     treestore = get_treestore()
-    
-    trees = [tree_id_from_uri(uri) for uri in treestore.list_trees()]
-    paginator = Paginator(trees, 25) # Show 25 contacts per page
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            taxa = form.cleaned_data['taxa']
+            filter = form.cleaned_data['filter']
+            params = []
+            if taxa: params += [('taxa', taxa)]
+            if filter: params += [('filter', filter)]
+            return redirect('/trees/?' + urllib.urlencode(params))
+    else:    
+        taxa = request.GET.get('taxa')
+        filter = request.GET.get('filter')
+        filter = filter if filter else None
+
+        form = SearchForm(initial=request.GET)
+
+    taxa = [x.strip() for x in taxa.split(',')] if taxa else []
+
+    trees = [tree_id_from_uri(uri) for uri in treestore.list_trees_containing_taxa(contains=taxa, filter=filter)]
+    paginator = Paginator(trees, TREES_PER_PAGE)
     
     page = request.GET.get('page')
     try:
@@ -26,9 +47,38 @@ def list(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         tree_list = paginator.page(paginator.num_pages)
     
+    params = {'tree_list': tree_list,
+              'form': form}
+    params.update(csrf(request))
+
+    num_pages = paginator.num_pages
+    page_range = [n for n in range(tree_list.number - 2, tree_list.number + 3) 
+                  if n >= 1 and n <= num_pages]
+
+    if page_range[0] == 2: page_range = [1] + page_range
+    elif page_range[0] > 2: page_range = [1, '...'] + page_range
+
+    if page_range[-1] == num_pages - 1: page_range += [num_pages]
+    elif page_range[-1] < num_pages - 1: page_range += ['...', num_pages]
+
+    pages = []
+
+    for page in page_range:
+        if page == '...': pages.append((page, None))
+        else:
+            p = []
+            for arg in ('taxa', 'filter'):
+                if arg in request.GET:
+                    p += [(arg, request.GET.get(arg))]
+            p += [('page', page)]
+            print p
+            pages.append((page, '/trees/?' + urllib.urlencode(p)))
+
+    params['pages'] = pages
+
     return render_to_response(
         'list.html',
-        {'tree_list': tree_list},
+        params,
         context_instance=RequestContext(request)
     )
 

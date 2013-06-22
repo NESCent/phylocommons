@@ -10,6 +10,19 @@
 
 {% block content %}
 
+{% if form %}
+
+<form action="{% url trees %}" method="post" enctype="multipart/form-data" class="form-inline form-search">
+    {% csrf_token %}
+    
+    <div class='input-append'>
+        {{ form.taxa }}
+        {{ form.filter }}
+        <button class="btn" type="submit">Search</button>
+    </div>
+</form>
+{% endif %}
+
 {% if tree_list %}
 <table class='table table-condensed table-striped table-hover table-bordered'>
     {% for tree_id in tree_list %}
@@ -21,27 +34,19 @@
 
 <div class="pagination">
     <ul>
-        {% if tree_list.previous_page_number > 1 %}
-        <li><a href="?page=1">1</a></li>
-        <li class="disabled"><a>...</a></li>
-        {% endif %}
+        {% for page, link in pages %}
 
-        {% if tree_list.has_previous %}
-        <li><a href="?page={{ tree_list.previous_page_number }}">{{ tree_list.previous_page_number }}</a></li>    
-        {% endif %}
-        
-        <li class="active"><a>{{ tree_list.number }}</a></li>
-        
-        {% if tree_list.has_next %}
-        <li><a href="?page={{ tree_list.next_page_number }}">{{ tree_list.next_page_number }}</a></li>
-        {% endif %}
+        <li{% if page == tree_list.number %} class="active"{% endif %}>
+            <a{% if link and page != tree_list.number %} href="{{link}}"{% endif %}>{{ page }}</a>
+        </li>
 
-        {% if tree_list.next_page_number < tree_list.paginator.num_pages %}
-        <li class="disabled"><a>...</a></li>
-        <li><a href="?page={{ tree_list.paginator.num_pages }}">{{ tree_list.paginator.num_pages }}</a></li>
-        {% endif %}
+        {% endfor %}
     </ul>
 </div>
+
+{% else %}
+
+<p>No trees were found. Try a different search.</p>
 
 {% endif %}
 
