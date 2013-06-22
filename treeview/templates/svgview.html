@@ -19,6 +19,7 @@
 {% include "treelib_widget.html" %}
 
 <p id='message' class='muted'></p>
+<p id='message2' class='muted'></p>
 
 <input type="hidden" name="newick" id="newick" value=""/>
 <input type="hidden" name="tree_src_url" id="tree_src_url" value="{{tree_src}}"/>
@@ -43,10 +44,10 @@
                     $('#message').append("<p class='error'>Error: " + e.message + '</p>');
                     throw e;
                 }
-                $('#message').append('<a href="data:text/plaintext,' + 
-                                     data + //encodeURIComponent(data) + 
-                                     '">Click to download in Newick format</a>'
-                                     );
+                $('#message2').append('<a href="data:text/plaintext,' + 
+                                      data + //encodeURIComponent(data) + 
+                                      '">Click to download in Newick format</a>'
+                                      );
             },
             error: function(msg) {
                 $('#message').empty();
