@@ -7,9 +7,9 @@ class QueryForm(forms.Form):
     treestore = get_treestore()
     
     taxa = forms.CharField(required=True,
-                           initial='Homo sapiens,Pan troglodytes,Pan paniscus,Gorilla gorilla,Pongo pygmaeus',
                            widget=forms.Textarea)
     taxa.widget.attrs['class'] = 'stretch'
+    taxa.widget.attrs['placeholder'] = 'comma-separated list of taxa, e.g. Homo sapiens,Pan troglodytes,Pan paniscus,Gorilla gorilla,Pongo pygmaeus'
     
     format_choices = sorted(bp._io.supported_formats.keys()) + ['ascii']
     format_choices = [(x,x) for x in format_choices] + [('view', '(open in tree viewer)')]
