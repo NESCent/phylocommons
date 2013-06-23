@@ -11,6 +11,7 @@ from phylocommons import settings
 import urllib
 from django.forms.forms import NON_FIELD_ERRORS
 from django.forms.util import ErrorList
+from django.http import Http404
 
 
 TREES_PER_PAGE = 10
@@ -115,7 +116,11 @@ def view(request, tree_id=None):
               'formats': sorted(bp._io.supported_formats.keys()) + ['ascii'],
               }
               
-    tree_info = treestore.get_tree_info(tree_uri)[0]
+    try:
+        tree_info = treestore.get_tree_info(tree_uri)[0]
+    except IndexError:
+        raise Http404
+        return not_found(request, tree_uri)
     obj_info = treestore.get_object_info(tree_uri)
     params.update(tree_info)
     params['obj_info'] = obj_info
