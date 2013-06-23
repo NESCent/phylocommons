@@ -16,7 +16,7 @@ python-deps = $(biopython) $(phylolabel) $(rdf-treestore)
 
 .PHONY: all clean
 
-all: $(python-deps) phylocommons/phylocommons.db phylocommons/settings.py
+all: $(python-deps) phylocommons/settings.py phylocommons/phylocommons.db
 
 phylocommons/phylocommons.db: phylocommons/secret_key.py $(wildcard */models.py)
 	python manage.py syncdb --noinput
