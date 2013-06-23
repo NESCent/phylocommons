@@ -34,7 +34,7 @@ def tree_list(request):
 
     taxa = [x.strip() for x in taxa.split(',')] if taxa else []
     
-    params = {'form': form}
+    params = {'form': form, 'taxonomy':settings.DEFAULT_TAXONOMY}
     params.update(csrf(request))
     
     try:
