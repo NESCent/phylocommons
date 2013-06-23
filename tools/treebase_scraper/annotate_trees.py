@@ -15,7 +15,7 @@ tree_files = [x for x in os.listdir('trees') if x.endswith('.nex')]
 base_uri = 'http://www.phylocommons.org/trees/%s'
 tree_list = set(t.list_trees())
 for tree_uri in tree_list:
-    if not 'TB2_' in tree_uri: pass
+    if not 'TB2_' in tree_uri: continue
     tree_id = t.id_from_uri(tree_uri)
     tb_uri = treebase_uri % (tree_id.replace('_', ':'))
     print tree_id, tb_uri
