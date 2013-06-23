@@ -13,7 +13,7 @@ import treeview.views
 import urllib
 
 
-MAX_DISAMBIG_MATCHES = 50
+MAX_DISAMBIG_MATCHES = 10
 
 def query(request):
     treestore = get_treestore()
