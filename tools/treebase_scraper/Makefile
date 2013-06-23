@@ -15,5 +15,8 @@ trees: download_trees.py trees.list
 ingest: ingest_trees.py trees
 	python $<
 
+annotate: annotate_trees.py trees
+	python $<
+
 clean:
 	rm -f trees.list trees.rss
