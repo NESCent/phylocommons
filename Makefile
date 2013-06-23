@@ -40,7 +40,7 @@ phylolabel:
 	cd tools/phylolabel; python setup.py install
 
 biopython:
-	git clone https://github.com/biopython/biopython.git
+	git clone https://github.com/bendmorris/biopython.git
 	cd biopython; python setup.py install
 
 clean:
