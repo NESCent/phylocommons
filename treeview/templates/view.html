@@ -25,9 +25,9 @@
     <tr><td>Labeled taxa</td><td>{{taxa}}</td></tr>
     {% endif %}
 
-    {% if doi %}
-    <tr><td>Citation (DOI)</td><td><a href="{{doi}}">{{doi}}</a></td></tr>
-    {% endif %}
+    {% for cite in citation %}
+    <tr><td>Citation</td><td><a href="{{cite}}">{{cite}}</a></td></tr>
+    {% endfor %}
 
     <tr><td>Tree Viewer</td><td>
         <a href="/trees/{{tree_id}}/view">
@@ -44,7 +44,10 @@
 <table class='table table-compact'>
     <thead><tr><th>Property</th><th>Value</th></tr></thead>
     {% for v, o in obj_info %}
-    <tr><td>{{ v }}</td><td>{{ o }}</td></tr>
+    <tr>
+    <td>{% if 'http://' in v %}<a href="{{v}}">{{v}}</a>{% else %}{{ v }}{% endif %}</td>
+    <td>{% if 'http://' in o %}<a href="{{o}}">{{o}}</a>{% else %}{{ o }}{% endif %}</td>
+    </tr>
     {% endfor %}
 </table>
 {% endif %}

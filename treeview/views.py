@@ -117,7 +117,12 @@ def view(request, tree_id=None):
               }
               
     try:
-        tree_info = treestore.get_tree_info(tree_uri)[0]
+        all_tree_info = treestore.get_tree_info(tree_uri)
+        tree_info = {}
+        tree_info.update(all_tree_info[0])
+        tree_info['citation'] = []
+        for x in all_tree_info:
+            if x['citation']: tree_info['citation'].append(x['citation'])
     except IndexError:
         raise Http404
         return not_found(request, tree_uri)
