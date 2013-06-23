@@ -131,9 +131,16 @@
     
     <dt>SPARQL filter</dt>
     <dd>
-        If "select automatically" is selected, this field can be used to filter
-        which trees will be considered. You can enter a SPARQL filter expression here,
-        using the ?tree variable to stand for potential matching trees.
+        If "see all matching trees" is selected from the "From tree" dropdown menu, 
+        this field can be used to filter which trees will be considered. You can 
+        enter SPARQL triple patterns or filter expressions here, using the ?tree 
+        variable to stand for potential matching trees. This example will return only 
+        trees that cite a DOI:
+        
+        <code>
+            ?tree bibo:cites ?x 
+            FILTER (CONTAINS(STR(?x), "dx.doi.org"))
+        </code>
     </dd>
     
     <dt>Prune result</dt>
