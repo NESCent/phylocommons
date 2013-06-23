@@ -45,8 +45,8 @@
     <thead><tr><th>Property</th><th>Value</th></tr></thead>
     {% for v, o in obj_info %}
     <tr>
-    <td>{% if 'http://' in v %}<a href="{{v}}">{{v}}</a>{% else %}{{ v }}{% endif %}</td>
-    <td>{% if 'http://' in o %}<a href="{{o}}">{{o}}</a>{% else %}{{ o }}{% endif %}</td>
+    <td>{% if 'http://' in v or 'https://' in v %}<a href="{{v}}">{{v}}</a>{% else %}{{ v }}{% endif %}</td>
+    <td>{% if 'http://' in o or 'https://' in o %}<a href="{{o}}">{{o}}</a>{% else %}{{ o }}{% endif %}</td>
     </tr>
     {% endfor %}
 </table>
