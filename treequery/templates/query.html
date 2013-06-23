@@ -2,10 +2,6 @@
 
 {% block title %}Query - PhyloCommons{% endblock %}
 
-{% block head %}
-    <script type="text/javascript" src="/static/select2.js"></script>
-{% endblock %}
-
 {% block leftmenu %}
 {% include "tree_menu.html" %}
 {% endblock %}
@@ -20,7 +16,10 @@
     {{ form.non_field_errors }}
     
     <div class="control-group">
-        <label class="control-label" for='q'>Taxa</label>
+        <label class="control-label" for='q' data-original-title="A comma-delimited list of taxa to search for. Use spaces, not underscores.">
+            Taxa
+            <i class="icon-question-sign"></i>
+        </label>
         <div class="controls">
             {{ form.taxa }}
             {{ form.taxa.errors }}
@@ -28,7 +27,10 @@
     </div>
 
     <div class="control-group">
-        <label class="control-label" for='tree'>From tree</label>
+        <label class="control-label" for='tree_id' data-original-title='Choose a tree, or select "see all matching trees" to choose from matching trees later.'>
+            From tree
+            <i class="icon-question-sign"></i>
+        </label>
         <div class="controls">
             <div class="input-prepend stretch">
             <span class="add-on">{{ tree_uri }}</span>
@@ -39,7 +41,10 @@
     </div>
     
     <div class="control-group">
-        <label class="control-label" for='format'>Result format</label>
+        <label class="control-label" for='format' data-original-title="Format of the resulting tree.">
+            Result format
+            <i class="icon-question-sign"></i>
+        </label>
         <div class="controls">
             {{ form.format }}
             {{ form.format.errors }}
@@ -47,7 +52,10 @@
     </div>
     
     <div class="control-group">
-        <label class="control-label" for='prune'>Prune result?</label>
+        <label class="control-label" for='prune' data-original-title="If not checked, return the entire tree beginning with the MRCA of the listed taxa. If checked, taxa not specified in the query will be pruned away.">
+            Prune result
+            <i class="icon-question-sign"></i>
+        </label>
         <div class="controls">
             {{ form.prune }}
             {{ form.prune.errors }}
@@ -61,7 +69,10 @@
     </div>
     
     <div class="control-group advanced">
-        <label class="control-label" for='tree'>Using taxonomy</label>
+        <label class="control-label" for='taxonomy' data-original-title="Choose a taxonomy to enable synonym and/or common name matching, if available.">
+            Using taxonomy
+            <i class="icon-question-sign"></i>
+        </label>
         <div class="controls">
             <div class="input-prepend stretch">
             <span class="add-on">{{ tree_uri }}</span>
@@ -72,7 +83,10 @@
     </div>
         
     <div class="control-group advanced">
-        <label class="control-label" for='filter'>SPARQL tree filter</label>
+        <label class="control-label" for='filter' data-original-title="SPARQL triple pattern or FILTER expression used to filter resulting trees. Use the ?tree variable to refer to the potential result tree.<br/><br/>For example, to only search trees that cite a DOI: ?tree bibo:cites ?x FILTER (CONTAINS(STR(?x), 'dx.doi.org'))">
+            SPARQL tree filter
+            <i class="icon-question-sign"></i>
+        </label>
         <div class="controls">
             {{ form.filter }}
             {{ form.filter.errors }}
@@ -89,72 +103,12 @@
 <script type='text/javascript'>
     $(document).ready(function() {
         $('.advanced').hide();
-        //$('.combobox').select2();
+        $('label').tooltip({ html: true });
     });
 
     function toggle_extra_options() {
         $('.advanced').slideToggle();
     }
 </script>
-
-<br/><br/>
-
-<dl class="dl-horizontal help">
-    <dt>Taxa</dt>
-    <dd>
-        Enter a comma-separated list of taxa from which to generate a tree.
-        (If you only enter a single taxon and choose not to prune, you can
-        get a tree containing that taxon and all of its descendents.)
-        Don't use underscores; PhyloCommons automatically converts underscores
-        to spaces in submitted trees.
-    </dd>
-    
-    <dt>From tree</dt>
-    <dd>
-        Select a tree to query. By default, the tree (or one of the trees)
-        containing the greatest number of the entered taxa will be chosen
-        automatically.
-    </dd>
-    
-    <dt>Result format</dt>
-    <dd>
-        The output format of the result tree.
-    </dd>
-    
-    <dt>Taxonomy</dt>
-    <dd>
-        Choosing a taxonomy will enable synonym matching: if the exact names you
-        entered aren't present in the tree, PhyloCommons will also attempt to match
-        to their synonyms. When matching synonyms, the resulting tree will contain 
-        the labels you queried for instead of the labels from the phylogeny.
-    </dd>
-    
-    <dt>SPARQL filter</dt>
-    <dd>
-        If "see all matching trees" is selected from the "From tree" dropdown menu, 
-        this field can be used to filter which trees will be considered. You can 
-        enter SPARQL triple patterns or filter expressions here, using the ?tree 
-        variable to stand for potential matching trees. This example will return only 
-        trees that cite a DOI:
-        
-        <code>
-            ?tree bibo:cites ?x 
-            FILTER (CONTAINS(STR(?x), "dx.doi.org"))
-        </code>
-    </dd>
-    
-    <dt>Prune result</dt>
-    <dd>
-        If checked, the resulting tree will contain only the taxa you entered,
-        and any others will be pruned away (preserving branch lengths where
-        necessary.) Otherwise, the entire subtree from the MRCA of the entered 
-        taxa will be returned.
-    </dd>
-</dl>
-
-<p>
-    You can also query PhyloCommons using a URL string:<br/><br/>
-    {{ domain }}{% url query %}?taxa=T1,T2,T3&tree_id=X&format=newick
-</p>
 
 {% endblock %}
