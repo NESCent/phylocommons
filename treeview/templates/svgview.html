@@ -38,7 +38,7 @@
                 $('#newick').val(data);
                 $('#message2').append('<a href="data:text/plaintext,' + 
                                       data + //encodeURIComponent(data) + 
-                                      '">Click to download in Newick format</a>'
+                                      '"><img src="/static/download.svg" class="img-polaroid" width="50px" height="50px"/>Click to download in Newick format</a>'
                                       );
                 $('img#loading').hide();
                 $('div#treelib-widget').show();
