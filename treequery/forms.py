@@ -9,7 +9,7 @@ class QueryForm(forms.Form):
     taxa = forms.CharField(required=True,
                            widget=forms.Textarea)
     taxa.widget.attrs['class'] = 'stretch'
-    taxa.widget.attrs['placeholder'] = 'comma-separated list of taxa, e.g. Homo sapiens,Pan troglodytes,Pan paniscus,Gorilla gorilla,Pongo pygmaeus'
+    taxa.widget.attrs['placeholder'] = 'e.g. Homo sapiens,Pan troglodytes,Pan paniscus,Gorilla gorilla,Pongo pygmaeus'
     
     format_choices = sorted(bp._io.supported_formats.keys()) + ['ascii']
     format_choices = [(x,x) for x in format_choices] + [('view', '(open in tree viewer)')]
