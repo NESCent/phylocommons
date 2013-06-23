@@ -156,13 +156,13 @@ def download_plaintext(request, text, attachment=None):
     return response
     
     
-def svgview(request, tree_id=None, tree_src=None):
+def svgview(request, tree_id, tree_src=None):
     treestore = get_treestore()
     
-    if tree_id: tree_src = '/trees/%s/download?format=newick' % tree_id
+    if not tree_src: tree_src = '/trees/%s/download?format=newick' % tree_id
     
     return render_to_response(
         'svgview.html',
-        {'tree_src': tree_src},
+        {'tree_src': tree_src, 'tree_id': tree_id, 'tree_uri': uri_from_tree_id(tree_id)},
         context_instance=RequestContext(request)
     )

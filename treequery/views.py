@@ -59,7 +59,7 @@ def query(request):
             params['format'] = 'newick'
             tree_src = '/query/?' + urllib.urlencode(params.items())
 
-            return treeview.views.svgview(request, tree_src=tree_src)
+            return treeview.views.svgview(request, params['tree_id'], tree_src=tree_src)
         
         # execute the query and return the result as a plaintext tree
         contains = [t.strip() for t in params['taxa'].split(',')]

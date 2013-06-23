@@ -31,7 +31,7 @@
     <tr{% if '_taxonomy' in tree_id %} class="success"{% elif count == max_match_count %} class="info"{% elif max_match_count %} class="warning"{% endif %}><td>
         <a href='/trees/{{tree_id}}'>{{tree_id}}</a>{% if max_match_count %} (matched {{ count }}/{{max_match_count}}){% endif %}
     {% if form.taxa.value %}
-    <a href='/query/?taxa={{form.taxa.value}}&tree_id={{tree_id}}&taxonomy={{taxonomy}}&format=view' class='btn pull-right btn-{% if '_taxonomy' in tree_id %}success{% elif count == max_match_count %}primary{% else %}warning{% endif %}'>See these species</a>
+    <a href='/query/?taxa={{form.taxa.value}}&tree_id={{tree_id}}&taxonomy={{taxonomy}}&format=view' class='btn pull-right btn-{% if '_taxonomy' in tree_id %}success{% elif count == max_match_count %}primary{% else %}warning{% endif %}'>View these species</a>
     {% endif %}
     <a href='/trees/{{tree_id}}' class='btn pull-right'>Details</a>
     </td></tr>
