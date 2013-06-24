@@ -76,6 +76,7 @@ def query(request):
                                                                   show_counts=True,
                                                                   taxonomy=taxonomy,
                                                                   filter=params['filter']):
+                    if int(match[1]) < 2: break
                     matches.append((match[0], int(match[1])))
                     if len(matches) >= MAX_DISAMBIG_MATCHES: break
 
@@ -83,19 +84,7 @@ def query(request):
                 trees = None
                 exception = e
             
-            if len(matches) == 1:
-                try:
-                    trees = treestore.get_subtree(contains=contains, tree_uri=matches[0][0],
-                                                  format=params['format'], 
-                                                  prune=params['prune'], 
-                                                  filter=params['filter'],
-                                                  taxonomy=taxonomy)
-                except Exception as e:
-                    trees = None
-                    exception = e
-                    
-            elif len(matches) > 1:
-                return query_disambiguate(request, matches, params)
+            return query_disambiguate(request, matches, params)
             
                 
         else:
