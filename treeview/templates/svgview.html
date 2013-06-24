@@ -3,9 +3,9 @@
 {% block title %}{{tree_id}} - SVG Tree Viewer - PhyloCommons{% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" href="/static/treelib.css" type="text/css" />
-    <script type="text/javascript" src="/static/jquery-svgpan.js" ></script> 
-    <script type="text/javascript" src="/static/treelib.js"></script> 
+    <link rel="stylesheet" href="/static/css/treelib.css" type="text/css" />
+    <script type="text/javascript" src="/static/js/jquery-svgpan.js" ></script> 
+    <script type="text/javascript" src="/static/js/treelib.js"></script> 
 {% endblock %}
 
 {% block nav-trees %}class="active"{% endblock %}
@@ -40,7 +40,7 @@
                 $('#newick').val(data);
                 $('#message2').append('<a href="data:text/plaintext,' + 
                                       data + //encodeURIComponent(data) + 
-                                      '"><img src="/static/download.svg" class="img-polaroid" width="50px" height="50px"/>Click to download in Newick format</a>'
+                                      '"><img src="/static/img/download.svg" class="img-polaroid" width="50px" height="50px"/>Click to download in Newick format</a>'
                                       );
                 $('img#loading').hide();
                 $('div#treelib-widget').show();
