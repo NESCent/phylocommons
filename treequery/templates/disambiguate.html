@@ -19,11 +19,11 @@
 <input type="hidden" name="{{k}}" value="{{v}}" />
 {% endfor %}
 
-<table class='table table-condensed table-striped table-hover table-bordered'>
+<table class='table table-condensed table-hover table-bordered'>
     <thead><tr><th>Tree</th><th>Matches</th></th></thead>
     
     {% for tree_id, match_count in tree_list %}
-    <tr><td>
+    <tr class="{% if "_taxonomy" in tree_id  %}success{% elif match_count == max_match_count %}info{% else %}warning{% endif %}"><td>
         <a href='/trees/{{tree_id}}'>{{tree_id}}</a>
     </td><td>
         {{match_count}}/{{max_match_count}}
