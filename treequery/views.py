@@ -76,15 +76,18 @@ def query(request):
                                                                   show_counts=True,
                                                                   taxonomy=taxonomy,
                                                                   filter=params['filter']):
-                    if int(match[1]) < 2: break
+                    if int(match[1]) < 2 and params['prune']: break
                     matches.append((match[0], int(match[1])))
                     if len(matches) >= MAX_DISAMBIG_MATCHES: break
 
             except Exception as e:
                 trees = None
-                exception = e
             
-            return query_disambiguate(request, matches, params)
+            if matches and not e:
+                return query_disambiguate(request, matches, params)
+            elif not e:
+                trees = None
+                e = 'There were no trees that matched your query.'
             
                 
         else:
