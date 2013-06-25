@@ -146,10 +146,16 @@ def download(request, tree_id=None):
         format = request.GET.get('format')
     else: format = 'newick'
 
+    if format == 'spp_list':
+        # download list of species
+        names = treestore.get_names(tree_uri)
+        spp_list = ','.join(names)
+        return download_plaintext(request, spp_list)
+
     trees = treestore.get_trees(tree_uri=tree_uri)
     s = StringIO()
     if format == 'ascii':
-        bp._utils.draw_ascii(trees[0], file=s)
+        bp._utils.draw_ascii(trees[0], file=s)        
     else: 
         bp.write(trees, s, format)
 

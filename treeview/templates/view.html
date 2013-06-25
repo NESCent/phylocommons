@@ -19,6 +19,7 @@
     {% for format in formats %}
     <a href='/trees/{{tree_id}}/download?format={{format}}' class='btn'>{{format}}</a>
     {% endfor %}
+    <a href='/trees/{{tree_id}}/download?format=spp_list' class='btn'>species list</a>
     </td></tr>
     
     {% if taxa %}
