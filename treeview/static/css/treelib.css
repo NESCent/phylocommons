@@ -55,18 +55,18 @@ div #treeContainer #zoomControls li:hover {
     cursor:pointer;
 }
 
-div#treeContainer #zoomControls .zoom-in { background-image:url(/static/zoom-in.svg); }
-div#treeContainer #zoomControls .zoom-in:hover { background-image:url(/static/zoom-in_sel.svg); }
-div#treeContainer #zoomControls .zoom-out { background-image:url(/static/zoom-out.svg); }
-div#treeContainer #zoomControls .zoom-out:hover { background-image:url(/static/zoom-out_sel.svg); }
-div#treeContainer #zoomControls .pan-left { background-image:url(/static/pan-left.svg); }
-div#treeContainer #zoomControls .pan-left:hover { background-image:url(/static/pan-left_sel.svg); }
-div#treeContainer #zoomControls .pan-up { background-image:url(/static/pan-up.svg); }
-div#treeContainer #zoomControls .pan-up:hover { background-image:url(/static/pan-up_sel.svg); }
-div#treeContainer #zoomControls .pan-down { background-image:url(/static/pan-down.svg); }
-div#treeContainer #zoomControls .pan-down:hover { background-image:url(/static/pan-down_sel.svg); }
-div#treeContainer #zoomControls .pan-right { background-image:url(/static/pan-right.svg); }
-div#treeContainer #zoomControls .pan-right:hover { background-image:url(/static/pan-right_sel.svg); }
+div#treeContainer #zoomControls .zoom-in { background-image:url(/static/img/zoom-in.svg); }
+div#treeContainer #zoomControls .zoom-in:hover { background-image:url(/static/img/zoom-in_sel.svg); }
+div#treeContainer #zoomControls .zoom-out { background-image:url(/static/img/zoom-out.svg); }
+div#treeContainer #zoomControls .zoom-out:hover { background-image:url(/static/img/zoom-out_sel.svg); }
+div#treeContainer #zoomControls .pan-left { background-image:url(/static/img/pan-left.svg); }
+div#treeContainer #zoomControls .pan-left:hover { background-image:url(/static/img/pan-left_sel.svg); }
+div#treeContainer #zoomControls .pan-up { background-image:url(/static/img/pan-up.svg); }
+div#treeContainer #zoomControls .pan-up:hover { background-image:url(/static/img/pan-up_sel.svg); }
+div#treeContainer #zoomControls .pan-down { background-image:url(/static/img/pan-down.svg); }
+div#treeContainer #zoomControls .pan-down:hover { background-image:url(/static/img/pan-down_sel.svg); }
+div#treeContainer #zoomControls .pan-right { background-image:url(/static/img/pan-right.svg); }
+div#treeContainer #zoomControls .pan-right:hover { background-image:url(/static/img/pan-right_sel.svg); }
 
 div#treeContainer svg {
     position: absolute;
