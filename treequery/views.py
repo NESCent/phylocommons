@@ -50,9 +50,12 @@ def query(request):
         submitted_query = False
         form = QueryForm(initial=request.GET.dict())
     
+
+    first_match = params['tree_id'] == 'first'
     
     if submitted_query:
-        tree_uri = uri_from_tree_id(params['tree_id']) if params['tree_id'] else None
+        if first_match: tree_uri = None
+        else: tree_uri = uri_from_tree_id(params['tree_id']) if params['tree_id'] else None
         taxonomy = uri_from_tree_id(params['taxonomy']) if params['taxonomy'] else None
         
         if params['format'] == 'view' and tree_uri:
@@ -78,13 +81,20 @@ def query(request):
                                                                   filter=params['filter']):
                     if int(match[1]) < 2 and params['prune']: break
                     matches.append((match[0], int(match[1])))
-                    if len(matches) >= MAX_DISAMBIG_MATCHES: break
+                    if len(matches) >= (1 if first_match else MAX_DISAMBIG_MATCHES): break
 
             except Exception as e:
                 trees = None
             
             if matches and not e:
-                return query_disambiguate(request, matches, params)
+                if first_match:
+                    trees = treestore.get_subtree(contains=contains,
+                                                  tree_uri=matches[0][0],
+                                                  format=params['format'],
+                                                  prune=params['prune'],
+                                                  filter=params['filter'],
+                                                  taxonomy=taxonomy)
+                else: return query_disambiguate(request, matches, params)
             elif not e:
                 trees = None
                 e = 'There were no trees that matched your query.'
