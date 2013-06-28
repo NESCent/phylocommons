@@ -5,7 +5,6 @@ from phylocommons.get_treestore import get_treestore, tree_id_from_uri, uri_from
 
 class SearchForm(forms.Form):
     taxa = forms.CharField(required=False)
-    taxa.widget.attrs['class'] = 'search-query'
     taxa.widget.attrs['placeholder'] = 'Search for taxa'
                              
     filter = forms.CharField(required=False)

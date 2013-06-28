@@ -15,14 +15,15 @@
 <form action="{% url tree_list %}" method="post" enctype="multipart/form-data" class="form-inline form-search">
     {% csrf_token %}
 
-    <div class='input-append'>
+    <div class='input-append input-prepend'>
+        <span class="add-on">
+            <i class="icon-search"></i>
+        </span>
         {{ form.taxa }}
-        <div class='input-prepend'>
-            <span class="add-on">
-                <i class="icon-question-sign" data-original-title="SPARQL triple pattern or FILTER expression used to filter resulting trees. Use the ?tree variable to refer to the potential result tree.<br/><br/>For example, to only search trees that cite a DOI: ?tree bibo:cites ?x FILTER (CONTAINS(STR(?x), 'dx.doi.org'))" data-container="body"></i>
-            </span>
-            {{ form.filter }}
-        </div>
+        <span class="add-on">
+            <i class="icon-question-sign" data-original-title="SPARQL triple pattern or FILTER expression used to filter resulting trees. Use the ?tree variable to refer to the potential result tree.<br/><br/>For example, to only search trees that cite a DOI: ?tree bibo:cites ?x FILTER (CONTAINS(STR(?x), 'dx.doi.org'))" data-container="body"></i>
+        </span>
+        {{ form.filter }}
         <button class="btn" type="submit">Search</button>
     </div>
 
