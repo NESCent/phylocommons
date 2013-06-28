@@ -66,7 +66,7 @@
     <div class="control-group">
         <div class="controls">
             <a style="cursor:pointer" onclick='toggle_extra_options()'>
-                <i class="icon-collapse"></i>
+                <i id="expand_collapse" class="icon-collapse"></i>
                 Advanced options...
             </a>
         </div>
@@ -113,7 +113,16 @@
     });
     
     function toggle_extra_options() {
-        $('.advanced').slideToggle();
+        $('.advanced').slideToggle(function() {
+            var expand_collapse = $('#expand_collapse');
+            if ($('.advanced').is(':visible')) {
+                expand_collapse.addClass('icon-collapse-top');
+                expand_collapse.removeClass('icon-collapse');
+            } else {
+                expand_collapse.addClass('icon-collapse');
+                expand_collapse.removeClass('icon-collapse-top');
+            }
+        });
     }
     
     function validate_input() {

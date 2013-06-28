@@ -51,10 +51,10 @@ def query(request):
         form = QueryForm(initial=request.GET.dict())
     
 
-    first_match = params['tree_id'] == 'first'
+    best_match = params['tree_id'] == 'best'
     
     if submitted_query:
-        if first_match: tree_uri = None
+        if best_match: tree_uri = None
         else: tree_uri = uri_from_tree_id(params['tree_id']) if params['tree_id'] else None
         taxonomy = uri_from_tree_id(params['taxonomy']) if params['taxonomy'] else None
         
@@ -84,13 +84,13 @@ def query(request):
                             raise Exception("The top match only matched one taxon, which isn't enough to make a tree. Try unchecking the 'prune results' checkbox.")
                         break
                     matches.append((match[0], int(match[1])))
-                    if len(matches) >= (1 if first_match else MAX_DISAMBIG_MATCHES): break
+                    if len(matches) >= (1 if best_match else MAX_DISAMBIG_MATCHES): break
 
             except Exception as e:
                 trees = None
             
             if matches and not e:
-                if first_match:
+                if best_match:
                     if params['format'] == 'view':
                         params['format'] = 'newick'
                         params['tree_id'] = matches[0][0]
