@@ -91,6 +91,13 @@ def query(request):
             
             if matches and not e:
                 if first_match:
+                    if params['format'] == 'view':
+                        params['format'] = 'newick'
+                        params['tree_id'] = matches[0][0]
+                        tree_src = '/query/?' + urllib.urlencode(params.items())
+
+                        return treeview.views.svgview(request, matches[0][0], tree_src=tree_src)
+
                     trees = treestore.get_subtree(contains=contains,
                                                   tree_uri=matches[0][0],
                                                   format=params['format'],
