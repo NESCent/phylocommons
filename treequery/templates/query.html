@@ -54,7 +54,7 @@
     
     <div class="control-group">
         <label class="control-label" for='prune' data-original-title="If not checked, return the entire tree beginning with the MRCA of the listed taxa. If checked, taxa not specified in the query will be pruned away.">
-            Prune result
+            Prune results
             <i class="icon-question-sign"></i>
         </label>
         <div class="controls">
@@ -119,7 +119,7 @@
     function validate_input() {
         var prune = $('#id_prune').attr('checked');
         var taxa = $('#id_taxa').val();
-        if (prune && taxa.indexOf(',') == -1) {
+        if (taxa && prune && taxa.indexOf(',') == -1) {
             $('#taxa').addClass('error');
             $('#taxa_err_msg').html('\
             <p class="text-error">\
