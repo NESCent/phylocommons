@@ -15,7 +15,7 @@
     
     {{ form.non_field_errors }}
     
-    <div class="control-group">
+    <div class="control-group" id='taxa'>
         <label class="control-label" for='q' data-original-title="A comma-delimited list of taxa to search for. Use spaces, not underscores.">
             Taxa
             <i class="icon-question-sign"></i>
@@ -23,6 +23,7 @@
         <div class="controls">
             {{ form.taxa }}
             {{ form.taxa.errors }}
+            <div id="taxa_err_msg"></div>
         </div>
     </div>
 
@@ -64,7 +65,10 @@
         
     <div class="control-group">
         <div class="controls">
-            <a style="cursor:pointer" onclick='toggle_extra_options()'>Advanced options...</a>
+            <a style="cursor:pointer" onclick='toggle_extra_options()'>
+                <i class="icon-collapse"></i>
+                Advanced options...
+            </a>
         </div>
     </div>
     
@@ -95,7 +99,7 @@
     
     <div class="control-group">
         <div class="controls">
-            <button class="btn btn-primary btn-block" type="submit">Get tree</button>
+            <button id="submit_btn" class="btn btn-primary btn-block" type="submit">Get tree</button>
         </div>
     </div>
 </form>
@@ -104,10 +108,38 @@
     $(document).ready(function() {
         $('.advanced').hide();
         $('label').tooltip({ html: true });
+        $('#id_taxa').blur(validate_input);
+        $('#id_prune').change(validate_input);
     });
-
+    
     function toggle_extra_options() {
         $('.advanced').slideToggle();
+    }
+    
+    function validate_input() {
+        var prune = $('#id_prune').attr('checked');
+        var taxa = $('#id_taxa').val();
+        if (prune && taxa.indexOf(',') == -1) {
+            $('#taxa').addClass('error');
+            $('#taxa_err_msg').html('\
+            <p class="text-error">\
+                <i class="icon-warning-sign"></i>\
+                You\'ve only entered a single taxon; enter more (separated by commas) or uncheck the\
+                "prune results" box to get a tree.\
+            </p><p class="text-error">\
+                If you want to search for trees containing a single taxon, use the \
+                <a href="/trees/">Trees page</a>.\
+            </p></div>');
+            $('#submit_btn').addClass('btn-danger', true);
+            $('#submit_btn').removeClass('btn-primary', true);
+            $('#submit_btn').prop('disabled', true);
+        } else {
+            $('#taxa').removeClass('error');
+            $('#taxa_err_msg').empty();
+            $('#submit_btn').addClass('btn-primary', true);
+            $('#submit_btn').removeClass('btn-danger', true);
+            $('#submit_btn').prop('disabled', false);
+        }
     }
 </script>
 
