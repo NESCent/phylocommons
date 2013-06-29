@@ -44,10 +44,10 @@
 {% if obj_info %}
 <table class='table table-compact'>
     <thead><tr><th>Property</th><th>Value</th></tr></thead>
-    {% for v, o in obj_info %}
+    {% for v_uri, v_label, o_uri, o_label in obj_info %}
     <tr>
-    <td>{% if 'http://' in v or 'https://' in v %}<a href="{{v}}">{{v}}</a>{% else %}{{ v }}{% endif %}</td>
-    <td>{% if 'http://' in o or 'https://' in o %}<a href="{{o}}">{{o}}</a>{% else %}{{ o }}{% endif %}</td>
+    <td>{% if 'http://' in v_uri or 'https://' in v_uri %}<a href="{{ v_uri }}">{{ v_label }}</a>{% else %}{{ v_label }}{% endif %}</td>
+    <td>{% if 'http://' in o_uri or 'https://' in o_uri %}<a href="{{ o_uri }}">{{ o_label }}</a>{% else %}{{ o_label }}{% endif %}</td>
     </tr>
     {% endfor %}
 </table>

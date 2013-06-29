@@ -12,6 +12,8 @@ import urllib
 from django.forms.forms import NON_FIELD_ERRORS
 from django.forms.util import ErrorList
 from django.http import Http404
+cdao_elements = bp._cdao_owl.cdao_elements
+obo_to_cdao = {v:k for k,v in cdao_elements.items()}
 
 
 TREES_PER_PAGE = 10
@@ -127,6 +129,18 @@ def view(request, tree_id=None):
         raise Http404
         return not_found(request, tree_uri)
     obj_info = treestore.get_object_info(tree_uri)
+    prefixes = treestore.prefixes
+    def add_prefix(x):
+        for prefix, uri in prefixes:
+            if x.startswith(uri):
+                if prefix == 'obo':
+                    try: return 'cdao:%s' % (obo_to_cdao[x[len(uri):]])
+                    except: pass
+                return '%s:%s' % (prefix, x[len(uri):])
+        return x
+    obj_info = [sum([(x, add_prefix(x)) for x in row], ()) for row in obj_info]
+    print obj_info
+    
     params.update(tree_info)
     params['obj_info'] = obj_info
         
