@@ -134,7 +134,7 @@ def view(request, tree_id=None):
         for prefix, uri in prefixes:
             if x.startswith(uri):
                 if prefix == 'obo':
-                    try: return 'cdao:%s' % (obo_to_cdao[x[len(uri):]])
+                    try: return 'cdao:%s (obo:%s)' % (obo_to_cdao[x[len(uri):]], x[len(uri):])
                     except: pass
                 return '%s:%s' % (prefix, x[len(uri):])
         return x
