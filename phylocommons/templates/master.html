@@ -16,33 +16,53 @@
     <div id="header">
         <div class="container">
             <a href='/'><img src='/static/img/phylocommons-logo.png' height="70px" alt='PhyloCommons' class="logo"/></a>
-            <a href='/'><img src='/static/img/nescent_logo.png' alt='NESCent' class="nescent"/></a>
+            <a href='/'><img src='/static/img/nescent_logo.png' alt='NESCent' class="nescent pull-right"/></a>
         
         
             <div class="navbar">
-                <div class="navbar-inner navbar-collapse">
+                <div class="navbar-inner">
+                    <div class="container">
                     <ul class="nav">
-                        <li {% block nav-about %}{% endblock %}><a href="/">About</a></li>
-                        <li {% block nav-trees %}{% endblock %}><a href="/trees/">Trees</a></li>
-                        <li {% block nav-query %}{% endblock %}><a href="/query/">Query</a></li>
-                        <li {% block nav-contact %}{% endblock %}><a href="/contact/">Contact</a></li>
+                        <li {% block nav-about %}{% endblock %}><a href="/">
+                            <i class="icon-info"></i>
+                            About</a></li>
+                        <li {% block nav-trees %}{% endblock %}><a href="/trees/">
+                            <i class="icon-list"></i>
+                            Trees</a></li>
+                        <li {% block nav-query %}{% endblock %}><a href="/query/">
+                            <i class="icon-search"></i>
+                            Query</a></li>
+                        <li {% block nav-contact %}{% endblock %}><a href="/contact/">
+                            <i class="icon-envelope"></i>
+                            Contact</a></li>
                     </ul>
                     <ul class="nav pull-right">
                         <li {% block nav-user %}{% endblock %}>
                         {% if request.user.is_authenticated %}
-                            <a href='/profiles/{{request.user.username}}/'>{{ request.user.username }}</a></li>
+                            <a href='/profiles/{{request.user.username}}/'>
+                            <i class="icon-user"></i>
+                            {{ request.user.username }}
+                            </a></li>
                         </li>
-                            {% if request.user.is_staff %}
-                        <li><a href="/admin/">admin</a>
-                            {% endif %}
-                        <li><a href="{% url auth_logout %}">logout</a></li>
-                        {% else %}
-                            <a href="{% url registration_register %}?next={{ request.get_full_path }}">Register</a></li>
-                        </li>
-                        <li><a href="{% url auth_login %}{% if request.get_full_path != '/accounts/logout/' %}?next={{ request.get_full_path }}{% endif %}">Sign In</a></li>
+                        {% if request.user.is_staff %}
+                        <li><a href="/admin/">
+                            <i class="icon-lock"></i>
+                            admin</a></li>
                         {% endif %}
-                        
+                        <li><a href="{% url auth_logout %}">
+                            <i class="icon-signout"></i>
+                            log out</a></li>
+                        {% else %}
+                            <a href="{% url registration_register %}?next={{ request.get_full_path }}">
+                            <i class="icon-user"></i>
+                            register</a>
+                        </li>
+                        <li {% block nav-signin %}{% endblock %}><a href="{% url auth_login %}{% if request.get_full_path != '/accounts/logout/' %}?next={{ request.get_full_path }}{% endif %}">
+                            <i class="icon-signin"></i>
+                            log in</a></li>
+                        {% endif %}
                     </ul>
+                    </div>
                 </div>
             </div>
         </div>
