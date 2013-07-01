@@ -5,13 +5,14 @@ from django.forms.util import ErrorList
 from django.forms.forms import NON_FIELD_ERRORS
 from django.template import RequestContext
 from phylocommons.get_treestore import get_treestore, tree_id_from_uri, uri_from_tree_id
-from phylocommons.treeview import download_plaintext
+from treeview.views import download_plaintext
 from treequery.forms import QueryForm
 import Bio.Phylo as bp
 from cStringIO import StringIO
 from phylocommons import settings
 import treeview.views
 import urllib
+import sys
 
 
 MAX_DISAMBIG_MATCHES = 10
