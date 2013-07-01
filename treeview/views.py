@@ -164,21 +164,21 @@ def download(request, tree_id=None):
             return download_plaintext(request, spp_list)
 
         trees = treestore.get_trees(tree_uri=tree_uri)
-        s = StringIO()
+        response = HttpResponse(mimetype='text/plain')
         if format == 'ascii':
-            bp._utils.draw_ascii(trees[0], file=s)        
+            bp._utils.draw_ascii(trees[0], file=response)
         else: 
-            bp.write(trees, s, format)
+            bp.write(trees, response, format)
 
-        return download_plaintext(request, s.getvalue())
+        return download_plaintext(request, response=response)
 
 
-def download_plaintext(request, text, attachment=None):
-    response = HttpResponse(mimetype='text/plain')
+def download_plaintext(request, text=None, attachment=None, response=None):
+    if not response: response = HttpResponse(mimetype='text/plain')
     if attachment:
         response['Content-Disposition'] = 'attachment; filename=%s.%s.csv' % (site, taxon)
 
-    response.write(text)
+    if text: response.write(text)
 
     return response
     

@@ -5,6 +5,7 @@ from django.forms.util import ErrorList
 from django.forms.forms import NON_FIELD_ERRORS
 from django.template import RequestContext
 from phylocommons.get_treestore import get_treestore, tree_id_from_uri, uri_from_tree_id
+from phylocommons.treeview import download_plaintext
 from treequery.forms import QueryForm
 import Bio.Phylo as bp
 from cStringIO import StringIO
@@ -67,6 +68,7 @@ def query(request):
             contains = [t.strip() for t in params['taxa'].split(',')]
             
             e = None
+            response = None
             
             if tree_uri is None:
                 # 'select automatically' was chosen; perform the disambiguation step
@@ -98,12 +100,15 @@ def query(request):
                             return treeview.views.svgview(request, tree_id_from_uri(matches[0][0]), 
                                                           tree_src=tree_src)
 
+                        response = HttpResponse(mimetype='text/plain')
+                        sys.stdout = response
                         trees = treestore.get_subtree(contains=contains,
                                                       tree_uri=matches[0][0],
                                                       format=params['format'],
                                                       prune=params['prune'],
                                                       filter=params['filter'],
                                                       taxonomy=taxonomy)
+                        sys.stdout = sys.__stdout__
                     else: return query_disambiguate(request, matches, params)
                 elif not e:
                     trees = None
@@ -112,17 +117,21 @@ def query(request):
                     
             else:
                 try:
+                    response = HttpResponse(mimetype='text/plain')
+                    sys.stdout = response
                     trees = treestore.get_subtree(contains=contains,
                                                   tree_uri=tree_uri,
                                                   format=params['format'],
                                                   prune=params['prune'],
                                                   filter=params['filter'],
                                                   taxonomy=taxonomy)
+                    sys.stdout = sys.__stdout__
                 except Exception as e:
                     trees = None
                     exception = e
                     
             if trees:
+                if response: return download_plaintext(request, response=response)
                 return download_plaintext(request, trees)
                 
             else:
@@ -167,13 +176,3 @@ def query_disambiguate(request, matches, form_fields):
         params,
         context_instance=RequestContext(request)
     )
-
-
-def download_plaintext(request, text, attachment=None):
-    response = HttpResponse(mimetype='text/plain')
-    if attachment:
-        response['Content-Disposition'] = 'attachment; filename=%s.%s.csv' % (site, taxon)
-
-    response.write(text)
-
-    return response
