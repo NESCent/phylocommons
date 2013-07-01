@@ -139,7 +139,6 @@ def view(request, tree_id=None):
                 return '%s:%s' % (prefix, x[len(uri):])
         return x
     obj_info = [sum([(x, add_prefix(x)) for x in row], ()) for row in obj_info]
-    print obj_info
     
     params.update(tree_info)
     params['obj_info'] = obj_info
