@@ -25,8 +25,8 @@ def query(request):
             'format': 'newick',
             'prune': True,
             'tree': None,
-            'filter': None,
-            'taxonomy': None,
+            'filter': '',
+            'taxonomy': '',
             }
         
         if request.method == 'POST':
