@@ -110,15 +110,14 @@ def upload_approve(request, tree_id):
     
     try:
         tree = bp.read(file_path, submission.format)
-        treestore = get_treestore()
-
-        treestore.add_trees(file_path, submission.format,
-                            tree_uri=uri_from_tree_id(tree_id))
-                            
-        
-        text = 'Successfully uploaded <b>%s</b>.' % (uri_from_tree_id(tree_id))
-
-        submission.delete()
+        with get_treestore() as treestore:
+            treestore.add_trees(file_path, submission.format,
+                                tree_uri=uri_from_tree_id(tree_id))
+                                
+            
+            text = 'Successfully uploaded <b>%s</b>.' % (uri_from_tree_id(tree_id))
+            
+            submission.delete()
 
     except Exception as e:
         text = '<b>ERROR:</b> <p>%s</p>' % e
