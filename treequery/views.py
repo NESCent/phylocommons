@@ -24,7 +24,7 @@ def query(request):
             'taxa': '',
             'format': 'newick',
             'prune': True,
-            'tree_id': None,
+            'tree': None,
             'filter': None,
             'taxonomy': None,
             }
@@ -52,18 +52,18 @@ def query(request):
             form = QueryForm(initial=request.GET.dict())
         
 
-        best_match = params['tree_id'] == 'best'
+        best_match = params['tree'] == 'best'
         
         if submitted_query:
             if best_match: tree_uri = None
-            else: tree_uri = uri_from_tree_id(params['tree_id']) if params['tree_id'] else None
+            else: tree_uri = uri_from_tree_id(params['tree']) if params['tree'] else None
             taxonomy = uri_from_tree_id(params['taxonomy']) if params['taxonomy'] else None
             
             if params['format'] == 'view' and tree_uri:
                 params['format'] = 'newick'
                 tree_src = '/query/?' + urllib.urlencode(params.items())
 
-                return treeview.views.svgview(request, params['tree_id'], tree_src=tree_src)
+                return treeview.views.svgview(request, params['tree'], tree_src=tree_src)
             
             # execute the query and return the result as a plaintext tree
             contains = [t.strip() for t in params['taxa'].split(',')]
@@ -95,21 +95,20 @@ def query(request):
                     if best_match:
                         if params['format'] == 'view':
                             params['format'] = 'newick'
-                            params['tree_id'] = matches[0][0]
+                            params['tree'] = matches[0][0]
                             tree_src = '/query/?' + urllib.urlencode(params.items())
 
                             return treeview.views.svgview(request, tree_id_from_uri(matches[0][0]), 
                                                           tree_src=tree_src)
 
                         response = HttpResponse(mimetype='text/plain')
-                        sys.stdout = response
-                        trees = treestore.get_subtree(contains=contains,
-                                                      tree_uri=matches[0][0],
-                                                      format=params['format'],
-                                                      prune=params['prune'],
-                                                      filter=params['filter'],
-                                                      taxonomy=taxonomy)
-                        sys.stdout = sys.__stdout__
+                        treestore.get_subtree(contains=contains,
+                                              tree_uri=matches[0][0],
+                                              format=params['format'],
+                                              prune=params['prune'],
+                                              filter=params['filter'],
+                                              taxonomy=taxonomy,
+                                              handle=response)
                     else: return query_disambiguate(request, matches, params)
                 elif not e:
                     trees = None
@@ -119,20 +118,20 @@ def query(request):
             else:
                 try:
                     response = HttpResponse(mimetype='text/plain')
-                    sys.stdout = response
-                    trees = treestore.get_subtree(contains=contains,
-                                                  tree_uri=tree_uri,
-                                                  format=params['format'],
-                                                  prune=params['prune'],
-                                                  filter=params['filter'],
-                                                  taxonomy=taxonomy)
-                    sys.stdout = sys.__stdout__
+                    treestore.get_subtree(contains=contains,
+                                          tree_uri=tree_uri,
+                                          format=params['format'],
+                                          prune=params['prune'],
+                                          filter=params['filter'],
+                                          taxonomy=taxonomy,
+                                          handle=response)
                 except Exception as e:
                     trees = None
                     exception = e
                     
-            if trees:
-                if response: return download_plaintext(request, response=response)
+            if response:
+                return download_plaintext(request, response=response)
+            elif trees:
                 return download_plaintext(request, trees)
                 
             else:
@@ -164,7 +163,7 @@ def query(request):
             
 
 def query_disambiguate(request, matches, form_fields):
-    if 'tree_id' in form_fields: del form_fields['tree_id']
+    if 'tree' in form_fields: del form_fields['tree']
     matches = [(tree_id_from_uri(m[0]), m[1]) for m in matches]
     params = {'tree_list': matches, 
               'max_match_count': len(form_fields['taxa'].split(',')), 

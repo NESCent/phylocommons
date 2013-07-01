@@ -28,16 +28,16 @@
     </div>
 
     <div class="control-group">
-        <label class="control-label" for='tree_id' data-original-title='Choose a tree, or select "see all matching trees" to choose from matching trees later.'>
+        <label class="control-label" for='tree' data-original-title='Choose a tree, or select "see all matching trees" to choose from matching trees later.'>
             From tree
             <i class="icon-question-sign"></i>
         </label>
         <div class="controls">
             <div class="input-prepend stretch">
             <span class="add-on">{{ tree_uri }}</span>
-            {{ form.tree_id }}
+            {{ form.tree }}
             </div>
-            {{ form.tree_id.errors }}
+            {{ form.tree.errors }}
         </div>
     </div>
     
