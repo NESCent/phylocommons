@@ -16,13 +16,13 @@
 
 {% if request.user.username == profile.user.username %}
     <p>
-        <a href='/user/edit/'>
-            <button class="btn btn-block">Edit your profile</button>
+        <a href='/user/edit/' class='btn btn-block'>
+            Edit your profile
         </a>
     </p>
     <p>
-        <a href='/accounts/password/change/'>
-            <button class="btn btn-block">Change your password</button>
+        <a href='/accounts/password/change/' class='btn btn-block'>
+            Change your password
         </a>
     </p>
 {% endif %}
