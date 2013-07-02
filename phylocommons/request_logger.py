@@ -1,4 +1,4 @@
-from time import time
+import time
 from logging import getLogger
 
 class LoggingMiddleware(object):
@@ -6,14 +6,15 @@ class LoggingMiddleware(object):
         self.logger = getLogger('phylocommons.request')
 
     def process_request(self, request):
-        request.timer = time()
+        request.timer = time.time()
         return None
 
     def process_response(self, request, response):
         self.logger.info(
-            '[%s] %s (%.1fs)',
+            '[%s] [%s] %s (%.1fs)',
+            time.strftime("%a %m/%d/%y %I:%M:%S %p", time.localtime()),
             response.status_code,
             request.get_full_path(),
-            time() - request.timer
+            time.time() - request.timer
         )
         return response
