@@ -8,11 +8,5 @@
 {% block nav-user %}class="active"{% endblock %}
 
 {% block content %}
-<form method="post" action=".">
-  {% csrf_token %}
-
-  {{ form.as_p }}
-
-  <input type="submit" value="{% trans 'Submit' %}" />
-</form>
+<p>Your account is now active. Click <a href='{% url auth_login %}'>here</a> to login.</p>
 {% endblock %}
