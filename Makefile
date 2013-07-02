@@ -12,7 +12,8 @@ treestore_kwargs = {}
 biopython = $(shell (echo "try:"; echo "    import Bio.Phylo"; echo "    print"; echo "except:"; echo "    print 'biopython'") | python)
 phylolabel = $(shell (echo "try:"; echo "    import phylolabel"; echo "    print"; echo "except:"; echo "    print 'phylolabel'") | python)
 rdf-treestore = $(shell (echo "try:"; echo "    import treestore"; echo "    print"; echo "except:"; echo "    print 'rdf-treestore'") | python)
-python-deps = $(biopython) $(phylolabel) $(rdf-treestore)
+markdown = $(shell (echo "try:"; echo "    import markdown"; echo "    print"; echo "except:"; echo "    print 'markdown'") | python)
+python-deps = $(biopython) $(phylolabel) $(rdf-treestore) $(markdown)
 
 .PHONY: all clean
 
@@ -42,6 +43,9 @@ phylolabel:
 biopython:
 	git clone https://github.com/bendmorris/biopython.git
 	cd biopython; python setup.py install
+
+markdown:
+	pip install markdown
 
 clean:
 	rm -f phylocommons/phylocommons.db phylocommons/secret_key.py phylocommons/settings.py
