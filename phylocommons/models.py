@@ -10,7 +10,7 @@ class UserProfile(models.Model):
     profile_text = models.TextField(max_length=5000)
     
     def profile_text_html(self):
-        return markdown(self.profile_text)
+        return markdown(self.profile_text, safe_mode=True)
     
     
 models.signals.post_save.connect(create_profile, sender=User)

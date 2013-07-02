@@ -15,6 +15,6 @@ class LoggingMiddleware(object):
             time.strftime("%a %m/%d/%y %I:%M:%S %p", time.localtime()),
             response.status_code,
             request.get_full_path(),
-            time.time() - request.timer
+            (time.time() - request.timer) if hasattr(request, 'timer') else 'err'
         )
         return response

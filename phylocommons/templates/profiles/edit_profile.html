@@ -8,11 +8,54 @@
 {% block nav-user %}class="active"{% endblock %}
  
 {% block content %}
-<p><label>Username:</label> {{ user }}</p>
-<form action="" method="POST">
-{% csrf_token %}
-{{ form.as_p }}
-<input id="submit" type="submit" name="submit" value="Update" />
+
+<form action="" method="POST" class="form-horizontal">
+    {% csrf_token %}
+    
+    <div class="control-group" id='username'>
+        <label class="control-label" for='username'>
+            Username
+        </label>
+        <div class="controls">
+            {{ user }}
+        </div>
+    </div>
+    
+    <div class="control-group" id='profile_text'>
+        <label class="control-label" for='profile_text' data-original-title="This will be displayed publicly as your profile. You can format with Markdown, but not HTML.">
+            Profile
+            <i class="icon-question-sign"></i>
+        </label>
+        <div class="controls">
+            {{ form.profile_text }}
+            {{ form.taxa.errors }}
+        </div>
+    </div>
+    
+    <div class="control-group" id='email'>
+        <label class="control-label" for='email' data-original-title="Change your e-mail address. Your e-mail address is not publicly shown.">
+            E-mail
+            <i class="icon-question-sign"></i>
+        </label>
+        <div class="controls">
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <div class="controls">
+            <button id="submit_btn" class="btn btn-primary btn-block" type="submit">Update</button>
+        </div>
+    </div>
 </form>
+    
+<script type='text/javascript'>
+    $(document).ready(function() {
+        $('label').tooltip({ html: true });
+        $('textarea').addClass('stretch');
+        $('input').addClass('stretch');
+    });
+</script>
  
 {% endblock content %}

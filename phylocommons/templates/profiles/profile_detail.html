@@ -10,30 +10,21 @@
 
 {% if user %}
 
-<table>
-    <tr><td width=20%>
-        <strong>Username</strong>
-    </td><td>
-        {{ user.username }}
-    </td></tr>
-    
-    
-    <tr><td>
-        <strong>Profile</strong>
-    </td><td>
-        {{ user.get_profile.profile_text_html|safe }}
-    </td></tr>
-</table>
+<h3>{{ profile.user.username }}</h3>
 
-<br/><br/>
+{{ profile.profile_text_html|safe }}
 
-{% if request.user.username == user.username %}
-<p>
-    <a href='/profiles/edit/'>Edit your profile</a>
-</p>
-<p>
-    <a href='/accounts/password/change/'>Change your password</a>
-</p>
+{% if request.user.username == profile.user.username %}
+    <p>
+        <a href='/user/edit/'>
+            <button class="btn btn-block">Edit your profile</button>
+        </a>
+    </p>
+    <p>
+        <a href='/accounts/password/change/'>
+            <button class="btn btn-block">Change your password</button>
+        </a>
+    </p>
 {% endif %}
 
 {% else %}

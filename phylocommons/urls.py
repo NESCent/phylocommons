@@ -15,11 +15,11 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('registration.urls')),
     
     # profiles
-    url(r'^profiles/edit', 'profiles.views.edit_profile', 
+    url(r'^user/edit', 'profiles.views.edit_profile', 
         {
          'form_class': ProfileForm,
          }),
-    url(r'^profiles/', include('profiles.urls')),
+    url(r'^user/', include('profiles.urls')),
     
     # treeupload application
     url(r'^trees/', include('treeupload.urls')),
