@@ -135,8 +135,9 @@ INSTALLED_APPS = (
 
 
 # logging
-if not os.path.exists('logs'):
-    os.mkdir('logs')
+log_dir = os.path.join(BASE_DIR, '../logs')
+if not os.path.exists(log_dir):
+    os.mkdir(log_dir)
 
 LOGGING = {
     'version': 1,
@@ -154,7 +155,7 @@ LOGGING = {
         'request_log':{
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'logs/requests'
+            'filename': os.path.join(log_dir, 'requests')
         },
         'mail_admins': {
             'level': 'ERROR',
