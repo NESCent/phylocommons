@@ -3,8 +3,7 @@ from logging import getLogger
 
 class LoggingMiddleware(object):
     def __init__(self):
-        # arguably poor taste to use django's logger
-        self.logger = getLogger('django.request')
+        self.logger = getLogger('phylocommons.request')
 
     def process_request(self, request):
         request.timer = time()

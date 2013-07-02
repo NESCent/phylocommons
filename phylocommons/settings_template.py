@@ -133,11 +133,11 @@ INSTALLED_APPS = (
     'phylocommons',
 )
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
+
+# logging
+if not os.path.exists('logs'):
+    os.mkdir('logs')
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -148,9 +148,13 @@ LOGGING = {
     },
     'handlers': {
         'console':{
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
-            #'formatter': 'simple'
+        },
+        'request_log':{
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/requests'
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -161,6 +165,11 @@ LOGGING = {
     'loggers': {
         'django.request': {
             'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'phylocommons.request': {
+            'handlers': ['request_log'],
             'level': 'INFO',
             'propagate': True,
         },
