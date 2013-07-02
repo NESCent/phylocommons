@@ -1,6 +1,7 @@
 from django import forms
 import Bio.Phylo as bp
 from phylocommons.get_treestore import get_treestore, tree_id_from_uri, uri_from_tree_id
+from phylocommons import settings
 
 
 class QueryForm(forms.Form):
@@ -11,9 +12,9 @@ class QueryForm(forms.Form):
         taxa.widget.attrs['placeholder'] = 'Enter a comma-separated list of taxa (e.g. Homo sapiens,Pan troglodytes,Pan paniscus,Gorilla gorilla,Pongo pygmaeus) to build a tree containing those taxa'
         
         format_choices = sorted(bp._io.supported_formats.keys()) + ['ascii']
-        format_choices = [(x,x) for x in format_choices] + [('view', '(open in tree viewer)')]
+        format_choices = [('view', '(open in tree viewer)')] + [(x,x) for x in format_choices]
         format = forms.ChoiceField(choices=format_choices,
-                                   initial='newick'
+                                   initial=format_choices[0],
                                    )
         format.widget.attrs['class'] = 'stretch'
                                    
@@ -30,7 +31,7 @@ class QueryForm(forms.Form):
 
         tax_choices = [('', '(None)')] + [(x,x) for x in tree_list if x.endswith('_taxonomy')]
         taxonomy = forms.ChoiceField(choices=tax_choices,
-                                     initial=tax_choices[0],
+                                     initial=settings.DEFAULT_TAXONOMY,
                                      required=False)
         taxonomy.widget.attrs['class'] = 'combobox'
                                  

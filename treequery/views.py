@@ -22,11 +22,11 @@ def query(request):
         tree_uri = None
         params = {
             'taxa': '',
-            'format': 'newick',
+            'format': 'view',
             'prune': True,
             'tree': None,
             'filter': '',
-            'taxonomy': '',
+            'taxonomy': settings.DEFAULT_TAXONOMY,
             }
         
         if request.method == 'POST':
