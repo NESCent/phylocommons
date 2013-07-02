@@ -102,8 +102,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'phylocommons.request_logger.LoggingMiddleware',
 )
 
 ROOT_URLCONF = 'phylocommons.urls'
@@ -148,6 +147,11 @@ LOGGING = {
         }
     },
     'handlers': {
+        'console':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            #'formatter': 'simple'
+        },
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
@@ -156,8 +160,8 @@ LOGGING = {
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+            'handlers': ['console'],
+            'level': 'INFO',
             'propagate': True,
         },
     }
