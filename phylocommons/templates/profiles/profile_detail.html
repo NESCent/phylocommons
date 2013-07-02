@@ -21,7 +21,7 @@
     <tr><td>
         <strong>Profile</strong>
     </td><td>
-        <pre>{{ user.get_profile.profile_text }}</pre>
+        {{ user.get_profile.profile_text_html|safe }}
     </td></tr>
 </table>
 
