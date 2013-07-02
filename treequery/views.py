@@ -83,7 +83,7 @@ def query(request):
                                                                       filter=params['filter']):
                         if int(match[1]) < 2 and params['prune']:
                             if not matches:
-                                raise Exception("The top match only matched one taxon, which isn't enough to make a tree. Try unchecking the 'prune results' checkbox.")
+                                raise Exception("The top match only matched one taxon, which isn't enough to make a tree. Try unchecking the 'prune results' checkbox or changing your search.")
                             break
                         matches.append((match[0], int(match[1])))
                         if len(matches) >= (1 if best_match else MAX_DISAMBIG_MATCHES): break
