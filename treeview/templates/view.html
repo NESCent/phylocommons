@@ -31,13 +31,17 @@
     {% endfor %}
 
     <tr><td>Tree Viewer</td><td>
-        <a href="/trees/{{tree_id}}/view">
-            <img class="img-polaroid" src='/static/img/rectangle.svg' width="100px" height="100px" />
+        <a href="/trees/{{tree_id}}/view" class="btn">
+            <img class="img-polaroid" src='/static/img/rectangle.svg' width="15px" height="15px" />
+            Open in tree viewer
         </a>
     </td></tr>
 
     <tr><td>Query</td><td>
-        <a href="/query/?tree={{tree_id}}">Click to create a subtree from members of this tree</a>
+        <a href="/query/?tree={{tree_id}}" class="btn">
+            <i class="icon-search icon-x2"></i>
+            Create a subtree from members of this tree
+        </a>
     </td></tr>
 </table>
 
