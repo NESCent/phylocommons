@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     
     url(r'^contributors/$', 'phylocommons.views.contributors', name='contributors'),
     url(r'^contact/$', 'phylocommons.views.contact', name='contact'),
+    url(r'^help/$', 'phylocommons.views.help', name='help'),
     
     # accounts
     url(r'^accounts/', include('registration.urls')),

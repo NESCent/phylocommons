@@ -1,0 +1,76 @@
+{% extends "master.html" %}
+
+{% block title %}Help - PhyloCommons{% endblock %}
+
+{% block leftmenu %}
+{% include "home_menu.html" %}
+{% endblock %}
+
+{% block nav-help %}class="active"{% endblock %}
+
+{% block content %}
+
+<table class="table table-condensed">
+    <thead><tr><th>I have...</th><th>I want...</th><th>How to</th></tr></thead>
+    <tr><td>
+        A list of species names
+    </td><td>
+        A tree containing only those species
+    </td><td>
+        On the <a href="/query/">query page</a>, paste the species list (comma 
+        separated) into the box and press the "get tree" button.
+    </td></tr>
+
+    <tr><td>
+    </td><td>
+        A tree containing those species, plus all others in the same clade
+    </td><td>
+        On the <a href="/query/">query page</a>, paste the species list (comma 
+        separated) into the box. Uncheck the "prune results" box, and press the 
+        "get tree" button.
+    </td></tr>
+
+    <tr><td>
+        Two species names
+    </td><td>
+        Distance from those species to their most recent common ancestor
+    </td><td>
+        On the <a href="/query/">query page</a>, paste the species list (comma 
+        separated) into the box and press the "get tree" button. With the "prune 
+        results" box checked, you'll get back a tree containing only the two 
+        species and their common ancestor.
+    </td></tr>
+
+    <tr><td>
+        The name of a higher taxon (genus, family, etc.)
+    </td><td>
+        A tree containing all descendants of that taxon
+    </td><td>
+        On the <a href="/query/">query page</a>, enter the taxon name into the 
+        box. Uncheck the "prune results" box, and press the "get tree" button.
+    </td></tr>
+
+    <tr><td>
+        A list of higher taxa (genus, family, etc.)
+    </td><td>
+        A tree
+    </td><td>
+        PhyloCommons supports higher taxon matching. Follow the instructions 
+        above for the type of tree you want, substituting the names of the 
+        higher taxa for species names.
+    </td></tr>
+
+    <tr><td>
+        A list of taxa containing common names or synonyms
+    </td><td>
+        A tree
+    </td><td>
+        PhyloCommons can match synonyms, common names, common mispellings, etc. 
+        using a taxonomy. By default the NCBI taxonomy is used; this can be changed under "advanced options"
+        on the <a href="/query/">query page</a>. Follow the instructions above 
+        for the type of tree you want.
+    </td></tr>
+
+</table>
+
+{% endblock %}

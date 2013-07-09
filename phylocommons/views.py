@@ -20,3 +20,9 @@ def contact(request):
         'contact.html',
         context_instance=RequestContext(request)
     )
+
+def help(request):
+    return render_to_response(
+        'help.html',
+        context_instance=RequestContext(request)
+    )
